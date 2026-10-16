@@ -76,7 +76,7 @@ with sync_playwright() as p:
     assert page.get_by_test_id('stSidebar').count() == 1
     page.get_by_test_id('stMain').evaluate('(el)=>el.scrollTop=650')
     page.wait_for_timeout(250)
-    assert 45 <= page.locator('.st-key-pagina').bounding_box()['y'] <= 65
+    assert -2 <= page.locator('.st-key-pagina').bounding_box()['y'] <= 4
     results.append('Navegação superior aderente à rolagem, com filtros na sidebar nativa')
     nav('Visão Geral')
     page.locator('.st-key-pagina input[type=radio]').first.focus()

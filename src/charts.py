@@ -170,8 +170,8 @@ def state_map(summary, geojson, year, indicator_label):
     if len(unknown):
         fig.add_trace(go.Choropleth(geojson=geojson, locations=unknown.UF, featureidkey='properties.UF',
             z=[0]*len(unknown), colorscale=[[0,COLORS[STATUS[2]]],[1,COLORS[STATUS[2]]]], showscale=False,
-            marker_line_color='white', customdata=[[r.NOME_UF, number(r.SEM_INFORMACAO)] for r in unknown.itertuples()],
-            hovertemplate='<b>%{customdata[0]}</b><br>Sem avaliação disponível<br>Sem informação: %{customdata[1]}<extra></extra>'))
+            marker_line_color='white', customdata=[[r.NOME_UF, str(year), indicator_label, number(r.AVALIADOS), number(r.ATINGIRAM), number(r.NAO_ATINGIRAM), number(r.SEM_INFORMACAO)] for r in unknown.itertuples()],
+            hovertemplate='<b>%{customdata[0]}</b><br>Ano: %{customdata[1]}<br>Indicador: %{customdata[2]}<br>Municípios avaliados: %{customdata[3]}<br>Atingiram: %{customdata[4]}<br>Não atingiram: %{customdata[5]}<br>Sem informação: %{customdata[6]}<br>Cumprimento: — (sem avaliação disponível)<extra></extra>'))
     return _map_layout(fig, geojson, f'UF-{year}-{indicator_label}')
 
 

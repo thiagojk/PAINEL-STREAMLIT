@@ -1,0 +1,62 @@
+{
+  "series": [
+    {
+      "pagina": "Histórico",
+      "busca_ciclos_opcoes": 1,
+      "ciclos_uma_opcao": true,
+      "renumeracao_13_14": true
+    },
+    {
+      "pagina": "Comparações",
+      "busca_ciclos_opcoes": 1,
+      "ciclos_uma_opcao": true,
+      "renumeracao_13_14": true
+    }
+  ],
+  "mapas": [
+    "Brasil: cinco mapas, escala 0–100 comum, legenda compartilhada e tooltip verificados",
+    "Pará: cinco mapas municipais, cores categóricas constantes e tooltip de Belém verificados"
+  ],
+  "larguras": [
+    {
+      "largura": 1920,
+      "altura": 1080,
+      "colunas": 3,
+      "sem_overflow": true
+    },
+    {
+      "largura": 1440,
+      "altura": 900,
+      "colunas": 2,
+      "sem_overflow": true
+    },
+    {
+      "largura": 1366,
+      "altura": 768,
+      "colunas": 2,
+      "sem_overflow": true
+    },
+    {
+      "largura": 1024,
+      "altura": 768,
+      "colunas": 2,
+      "sem_overflow": true
+    },
+    {
+      "largura": 768,
+      "altura": 1024,
+      "colunas": 2,
+      "sem_overflow": true
+    },
+    {
+      "largura": 390,
+      "altura": 844,
+      "colunas": 1,
+      "sem_overflow": true
+    }
+  ],
+  "primeira_renderizacao_historico_segundos": 0.936,
+  "sidebar_movel_abre_recolhe": true,
+  "browser_errors": [],
+  "requisicoes_externas": []
+}

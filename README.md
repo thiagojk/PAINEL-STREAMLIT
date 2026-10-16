@@ -18,11 +18,31 @@ A navegação principal fica no topo: **Visão Geral · Estados · Municípios �
 
 A sidebar nativa recolhível reúne somente filtros e controles contextuais: ano, UF, município, indicador, período histórico, comparações e consulta de dados conforme a página. O botão Limpar filtros restaura o recorte sem trocar de página. As dependências ano → UF → município e disponibilidade do indicador foram preservadas. Cabeçalho, navbar, títulos, espaçamentos e cards usam estilos compactos compartilhados. A Visão Geral apresenta seis cards e dois gráficos lado a lado no desktop; grades respondem à largura útil, inclusive ao recolher a sidebar. Detalhes extensos ficam em expanders. Os gráficos têm rótulos no padrão brasileiro; séries densas restringem rótulos e comparações distinguem linhas por cor, marcador e traçado. CSV, XLSX, paginação, alcance de metas e cálculos anteriores foram preservados.
 
+### Séries históricas no seletor
+
+Histórico e Comparações oferecem **34 opções conceituais**, sem repetir cada ano como se fosse outro indicador. O agrupador reutiliza `series_key`: descrição normalizada sem número, acentos ou pontuação, mais unidade. Redações diferentes continuam separadas; o número sozinho nunca estabelece equivalência. O rótulo traz todos os números usados e o período (por exemplo, `13/14 · 2013–2021`). A descrição completa aparece abaixo do controle.
+
+A investigação encontrou **63 séries analíticas**: a preparação separa por ano as escalas `Original` não comprovadas, causando a aparência de indicadores repetidos. Essas séries continuam intactas. Depois de escolher um desses conceitos, o controle **Ano da série · escala não comparável** escolhe uma série anual; não unimos resultados de escalas desconhecidas. O conceito dos ciclos da dengue aparece uma vez, mas seus anos continuam separados na análise. O mapa temporal também respeita essa restrição. Catálogo auditável em `docs/series_historicas.json`.
+
+### Controles superiores
+
+O CSS oculta `stToolbarActions`, `stAppDeployButton` e `MainMenu`, preservando o contêiner nativo da toolbar e o botão de abrir a sidebar. Cabeçalho e navbar receberam destaque moderado; a navegação ativa usa fundo institucional e mantém foco/teclado. A sidebar tem título com ícone CSS, fundo integrado e bordas/foco nos controles.
+
+Os seletores de teste do Streamlit são mais legíveis que classes geradas, mas não são uma API pública garantida. A versão está fixada em `requirements.txt`; revalidar ao atualizar. A aplicação não controla barras externas à sua página/iframe, nem a interface de gerenciamento do Community Cloud. O app local foi validado; a URL publicada não foi acessada nesta rodada.
+
 ## Mapas locais
 
 Em **Mapas**, selecione um **ano**, **indicador** e **UF**. A opção Brasil abre o coroplético estadual com cumprimento de 0–100% e ranking das UFs. Uma UF abre seu mapa municipal com situação da meta, tooltip com resultado/meta e ranking do recorte. Na página Estados há um atalho que transfere o recorte para Mapas. Mapas e rankings empilham-se em telas menores.
 
 A camada estadual aplica exatamente `atingiram / (atingiram + não atingiram) × 100` a **um único indicador/ano**, reutilizando as métricas existentes. Municípios sem situação são cinza. Territórios da malha sem observação naquele ano também são cinza, mas o tooltip e a contagem identificam essa ausência; eles não são adicionados à base nem ao denominador. Em 2021, por exemplo, sete territórios do Piauí não têm observação na fonte.
+
+### Evolução territorial
+
+Em **Mapas**, ative **Comparar mapas no tempo** na sidebar. O mapa principal e seu ranking permanecem; abaixo aparece o expander **Evolução territorial**. O seletor próprio aceita **até seis anos**, sem mudar o ano do mapa atual. O padrão escolhe até cinco anos distribuídos igualmente entre o primeiro e o último ano compatível; com nove anos, por exemplo, 2013/2015/2017/2019/2021. Somente anos da `SERIE` exata do indicador atual são elegíveis, incluindo renumeração válida. Escalas originais sem comprovação histórica oferecem somente seu ano; não é inferida equivalência.
+
+Brasil usa mapas por UF com a mesma escala fixa **0–100%** e uma legenda compartilhada. Uma UF usa mapas municipais com as mesmas cores de Atingida/Não atingida/Sem informação em todos os anos. Os tooltips mantêm ano, indicador, dados da meta e identificação territorial; ausências não são imputadas. Combinações vazias mostram uma mensagem. A malha continua estática e simplificada, sem presumir limites históricos.
+
+A grade responde à largura útil: três mapas em desktop amplo, dois em larguras intermediárias e um no celular. A funcionalidade fica desligada inicialmente; fechar o expander apenas recolhe sua apresentação, e desligar a opção na sidebar interrompe o preparo/renderização dos mapas históricos. `st.cache_data` guarda o recorte completo da série/território e suas camadas anuais, com assinatura dos dados e da geometria para invalidação. A malha é lida do cache local uma vez por preparo; não há download nem arquivos geográficos duplicados.
 
 ### Origem, códigos e tamanho
 
@@ -136,6 +156,8 @@ src/
   charts.py                  # Plotly, mapas, rótulos e tooltips
   navigation.py              # Barra superior com widget nativo
   geography.py               # GeoJSON local e associação territorial
+  historical.py              # Conceitos do seletor e anos compatíveis
+  territorial_history.py     # Recortes e camadas temporais em cache
   styles.py                  # Identidade visual e cards
   views.py                   # Nove páginas e exportações
   utils.py                   # Formatação brasileira
@@ -199,3 +221,5 @@ python scripts/medir_desempenho.py
 ```
 
 A comparação com a versão anterior está em `docs/desempenho_antes.json` e `docs/desempenho_depois.json`; os limites da medição estão em `docs/VALIDACAO.md`.
+
+A validação adicional de conceitos e evolução territorial pode ser repetida com `python scripts/validar_evolucao.py --url http://127.0.0.1:8501/ --chromium /caminho/do/chromium`. O relatório fica em `docs/validacao_evolucao.json`.

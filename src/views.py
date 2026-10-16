@@ -351,7 +351,7 @@ def maps(frame, whole, catalog, filters):
     if entry.empty:
         empty_state('Este indicador não está disponível no ano selecionado.'); return
     row = entry.iloc[0]
-    label = str(row.DESCRICAO)
+    label = description_label(row)
     # Tooltips podem quebrar linhas, sem repetir descrições extensas no eixo.
     hover_label = '<br>'.join(escape(line) for line in textwrap.wrap(label, 55))
     if frame.CONFLITO_META.any():
@@ -389,6 +389,7 @@ def maps(frame, whole, catalog, filters):
             ranks = summarize(frame, ['NOME_MUN'])
             plot(charts.ranking(ranks, 'NOME_MUN', 'Municípios com maior cumprimento', 15))
         st.caption('Ranking por cumprimento; empates não indicam diferença de desempenho. Resultados municipais não são promediados.')
+    territorial_history(catalog, filters)
     note('Cumprimento = atingiram ÷ (atingiram + não atingiram). Sem informação fica fora do denominador. O mapa usa um único indicador e ano, preservando a prioridade de ALCANCE_META e os conflitos documentados.')
     metadata = map_metadata()
     report = metadata['correspondencia']
@@ -403,3 +404,51 @@ def maps(frame, whole, catalog, filters):
             table(state_summary(frame)[['UF','MUNICIPIOS','AVALIADOS','ATINGIRAM','NAO_ATINGIRAM','SEM_INFORMACAO','CUMPRIMENTO']])
         else:
             table(detail_table(frame, catalog)[['COD_MUN','NOME_MUN','RES_EXIBICAO','UNIDADE','LABEL_META','SITUACAO']])
+
+
+def territorial_history(catalog, filters):
+    from src.data import file_signature
+    from src.territorial_history import prepare_history
+    from src.geography import map_signature, load_geojson
+    entry = catalog.loc[catalog.ANO.eq(filters['year']) & catalog.INDICADOR.eq(filters['indicator'])].iloc[0]
+    enabled = st.session_state.get('mapa_historico', False)
+    with st.expander('Evolução territorial — comparar mapas ao longo dos anos', expanded=enabled):
+        if not enabled:
+            st.caption('Ative Comparar mapas no tempo na sidebar para escolher até 6 anos compatíveis.')
+            return
+        years = st.session_state.get(f'mapa_anos_{entry.SERIE}', [])
+        if not years:
+            st.info('Selecione até 6 anos para comparação territorial na sidebar.'); return
+        st.caption('Mesma definição e unidade validada. Mudanças de numeração são respeitadas; escalas originais não comprovadas permanecem anuais. Malha estática: não representa mudanças históricas de limites.')
+        nationwide = filters['uf'] == 'Todos'
+        geometry_signature = map_signature(None if nationwide else filters['uf'])
+        geometry = load_geojson(geometry_signature)
+        prepared = prepare_history(file_signature(), entry.SERIE, filters['uf'], tuple(years), geometry_signature)
+        if nationwide:
+            st.html('<div class="shared-scale"><b>Cumprimento das metas</b><div></div><span>0%</span><span>50%</span><span>100%</span></div>')
+        else:
+            st.html('<div class="map-legend">' + ''.join(f'<span><i style="background:{charts.COLORS[status]}"></i>{escape(status)}</span>' for status in STATUS) + '</div>')
+        with st.container(key='map_history_grid'):
+            columns = st.columns(len(prepared), gap='small')
+            for column, item in zip(columns, prepared):
+                with column, st.container(border=True):
+                    st.subheader(str(item['year']))
+                    row = item['entry']
+                    st.caption(f'{"Brasil" if nationwide else filters["uf"]} · {row.INDICADOR.replace("IND_", "Indicador ")}')
+                    if item['empty']:
+                        st.info('Sem dados disponíveis para esta combinação.'); continue
+                    label = '<br>'.join(escape(line) for line in textwrap.wrap(description_label(row),55))
+                    if nationwide:
+                        fig = charts.state_map(item['data'], geometry, item['year'], label)
+                    else:
+                        fig = charts.municipality_map(item['data'], geometry, item['year'], label, str(row.LABEL_META))
+                    fig.update_traces(showscale=False)
+                    fig.update_layout(height=300, margin=dict(l=0,r=0,t=4,b=0))
+                    plot(fig)
+                    if not nationwide:
+                        absent = int((~item['data'].TEM_OBSERVACAO).sum())
+                        if absent: st.caption(f'{number(absent)} territórios sem observação (cinza); fora do denominador.')
+                    if item['conflicts']:
+                        st.caption(f'{number(item["conflicts"])} conflitos META/ALCANCE_META; prioridade de ALCANCE_META preservada.')
+                    if row.ALERTA: st.warning(row.ALERTA)
+        st.caption('Cinza: sem informação/avaliação; tooltip diferencia territórios sem observação. Não há imputação nem média simples municipal.')

@@ -1,0 +1,572 @@
+{
+  "registros_catalogo": 128,
+  "series_analiticas_preservadas": 63,
+  "conceitos_seletor": 34,
+  "opcoes": [
+    {
+      "CONCEITO": "f31f19aea69631ae",
+      "LABEL": "01 · 2014–2021 — Proporção de registros de óbitos alimentados no SIM em relação ao estimado, recebidos n…",
+      "DESCRICAO": "Proporção de registros de óbitos alimentados no SIM em relação ao estimado, recebidos na base federal em até 60 dias após o final do mês de ocorrência.",
+      "ANOS": [
+        2014,
+        2015,
+        2016,
+        2017,
+        2018,
+        2019,
+        2020,
+        2021
+      ],
+      "SERIES": [
+        "f31f19aea69631ae"
+      ],
+      "INDICADOR": "IND_01",
+      "ULTIMO_ANO": 2021
+    },
+    {
+      "CONCEITO": "2b80b9e6f5c18d97",
+      "LABEL": "01 · 2013 — Proporção de registros de óbitos alimentados no SIM em até 60 dias do final do mês de o…",
+      "DESCRICAO": "Proporção de registros de óbitos alimentados no SIM em até 60 dias do final do mês de ocorrência.",
+      "ANOS": [
+        2013
+      ],
+      "SERIES": [
+        "2b80b9e6f5c18d97"
+      ],
+      "INDICADOR": "IND_01",
+      "ULTIMO_ANO": 2013
+    },
+    {
+      "CONCEITO": "07d0770343c91ed3",
+      "LABEL": "02 · 2014–2021 — Proporção de registros de nascidos vivos alimentados no Sinasc em relação ao estimado,…",
+      "DESCRICAO": "Proporção de registros de nascidos vivos alimentados no Sinasc em relação ao estimado, recebidos na base federal até 60 dias após o final do mês de ocorrência.",
+      "ANOS": [
+        2014,
+        2015,
+        2016,
+        2017,
+        2018,
+        2019,
+        2020,
+        2021
+      ],
+      "SERIES": [
+        "07d0770343c91ed3"
+      ],
+      "INDICADOR": "IND_02",
+      "ULTIMO_ANO": 2021
+    },
+    {
+      "CONCEITO": "e6276d1a502a6b34",
+      "LABEL": "02 · 2013 — Proporção de registros de nascidos vivos alimentados no Sinasc até 60 dias do final do…",
+      "DESCRICAO": "Proporção de registros de nascidos vivos alimentados no Sinasc até 60 dias do final do mês de ocorrência.",
+      "ANOS": [
+        2013
+      ],
+      "SERIES": [
+        "e6276d1a502a6b34"
+      ],
+      "INDICADOR": "IND_02",
+      "ULTIMO_ANO": 2013
+    },
+    {
+      "CONCEITO": "3e0526214e2d75e7",
+      "LABEL": "03 · 2018–2021 — Proporção de salas de vacina com alimentação mensal das doses de vacinas aplicadas e da…",
+      "DESCRICAO": "Proporção de salas de vacina com alimentação mensal das doses de vacinas aplicadas e da movimentação mensal de imunobiológicos, no sistema oficial de informação do Programa Nacional de Imunizações de dados individualizados, por residência.",
+      "ANOS": [
+        2018,
+        2019,
+        2020,
+        2021
+      ],
+      "SERIES": [
+        "3e0526214e2d75e7"
+      ],
+      "INDICADOR": "IND_03",
+      "ULTIMO_ANO": 2021
+    },
+    {
+      "CONCEITO": "96bf33e6894dbea1",
+      "LABEL": "03 · 2014–2017 — Proporção de Salas de Vacina com alimentação mensal no Sistema de Informação do Program…",
+      "DESCRICAO": "Proporção de Salas de Vacina com alimentação mensal no Sistema de Informação do Programa Nacional de Imunizações (SI-PNI), por município.",
+      "ANOS": [
+        2014,
+        2015,
+        2016,
+        2017
+      ],
+      "SERIES": [
+        "96bf33e6894dbea1"
+      ],
+      "INDICADOR": "IND_03",
+      "ULTIMO_ANO": 2017
+    },
+    {
+      "CONCEITO": "3f28b1300a69a5cc",
+      "LABEL": "03 · 2013 — Proporção de salas de vacina do município alimentando mensalmente o Sistema de Informaç…",
+      "DESCRICAO": "Proporção de salas de vacina do município alimentando mensalmente o Sistema de Informação do Programa Nacional de Imunizações (SI-PNI).",
+      "ANOS": [
+        2013
+      ],
+      "SERIES": [
+        "3f28b1300a69a5cc"
+      ],
+      "INDICADOR": "IND_03",
+      "ULTIMO_ANO": 2013
+    },
+    {
+      "CONCEITO": "e64e6aee5b27a1dd",
+      "LABEL": "04 · 2018–2021 — Proporção de vacinas selecionadas que compõem o Calendário Nacional de Vacinação para c…",
+      "DESCRICAO": "Proporção de vacinas selecionadas que compõem o Calendário Nacional de Vacinação para crianças menores de 1 ano de idade (Pentavalente - 3ª dose, Poliomielite - 3ª dose, Pneumocócica 10 valente - 2ª dose) e para crianças de 1 ano de idade (tríplice viral - 1ª dose) – com coberturas vacinais preconizadas.",
+      "ANOS": [
+        2018,
+        2019,
+        2020,
+        2021
+      ],
+      "SERIES": [
+        "e64e6aee5b27a1dd"
+      ],
+      "INDICADOR": "IND_04",
+      "ULTIMO_ANO": 2021
+    },
+    {
+      "CONCEITO": "c8977134edcda7a2",
+      "LABEL": "04 · 2017 — Proporção de vacinas selecionadas do Calendário Nacional de Vacinação para crianças men…",
+      "DESCRICAO": "Proporção de vacinas selecionadas do Calendário Nacional de Vacinação para crianças menores de 2 anos - Pentavalente (3ª dose), Pneumocócica 10-valente (2ª dose), Poliomielite (3ª dose) e Tríplice viral (1ª dose) - com cobertura vacinal preconizada.",
+      "ANOS": [
+        2017
+      ],
+      "SERIES": [
+        "c8977134edcda7a2"
+      ],
+      "INDICADOR": "IND_04",
+      "ULTIMO_ANO": 2017
+    },
+    {
+      "CONCEITO": "d4a20a8b5bd70cdf",
+      "LABEL": "04 · 2016 — Proporção de vacinas selecionadas do Calendário Básico da Criança - Pentavalente (3ª do…",
+      "DESCRICAO": "Proporção de vacinas selecionadas do Calendário Básico da Criança - Pentavalente (3ª dose), Pneumocócica 10-valente (2ª dose), Poliomielite (3ª dose), em crianças menores de um ano de idade, e Tríplice viral (1ª dose), em crianças com até um ano de idade - com cobertura vacinal preconizada.",
+      "ANOS": [
+        2016
+      ],
+      "SERIES": [
+        "d4a20a8b5bd70cdf"
+      ],
+      "INDICADOR": "IND_04",
+      "ULTIMO_ANO": 2016
+    },
+    {
+      "CONCEITO": "47f6493481f19371",
+      "LABEL": "04 · 2013–2015 — Proporção de vacinas do Calendário Básico de Vacinação da Criança com coberturas vacina…",
+      "DESCRICAO": "Proporção de vacinas do Calendário Básico de Vacinação da Criança com coberturas vacinais alcançadas.",
+      "ANOS": [
+        2013,
+        2014,
+        2015
+      ],
+      "SERIES": [
+        "47f6493481f19371"
+      ],
+      "INDICADOR": "IND_04",
+      "ULTIMO_ANO": 2015
+    },
+    {
+      "CONCEITO": "50913bb9930b546d",
+      "LABEL": "05 · 2018–2021 — Percentual de amostras analisadas para o residual de agente desinfetante em água para c…",
+      "DESCRICAO": "Percentual de amostras analisadas para o residual de agente desinfetante em água para consumo humano (parâmetro: cloro residual livre, cloro residual combinado ou dióxido de cloro).",
+      "ANOS": [
+        2018,
+        2019,
+        2020,
+        2021
+      ],
+      "SERIES": [
+        "50913bb9930b546d"
+      ],
+      "INDICADOR": "IND_05",
+      "ULTIMO_ANO": 2021
+    },
+    {
+      "CONCEITO": "dd929aaf7e0fead5",
+      "LABEL": "05 · 2016–2017 — Percentual de amostras analisadas para o Residual de Agente Desinfetante em água para c…",
+      "DESCRICAO": "Percentual de amostras analisadas para o Residual de Agente Desinfetante em água para consumo humano (cloro residual livre, cloro residual combinado ou dióxido de cloro).",
+      "ANOS": [
+        2016,
+        2017
+      ],
+      "SERIES": [
+        "dd929aaf7e0fead5"
+      ],
+      "INDICADOR": "IND_05",
+      "ULTIMO_ANO": 2017
+    },
+    {
+      "CONCEITO": "3507aa25e38d09b8",
+      "LABEL": "05 · 2013–2015 — Proporção de análises realizadas para o parâmetro Coliformes Totais em água para consum…",
+      "DESCRICAO": "Proporção de análises realizadas para o parâmetro Coliformes Totais em água para consumo humano.",
+      "ANOS": [
+        2013,
+        2014,
+        2015
+      ],
+      "SERIES": [
+        "3507aa25e38d09b8"
+      ],
+      "INDICADOR": "IND_05",
+      "ULTIMO_ANO": 2015
+    },
+    {
+      "CONCEITO": "d6064b56c5a264cd",
+      "LABEL": "06 · 2018–2021 — Proporção de casos de doenças de notificação compulsória imediata nacional (DNCI) encer…",
+      "DESCRICAO": "Proporção de casos de doenças de notificação compulsória imediata nacional (DNCI) encerrados em até 60 dias após notificação.",
+      "ANOS": [
+        2018,
+        2019,
+        2020,
+        2021
+      ],
+      "SERIES": [
+        "d6064b56c5a264cd-2018",
+        "d6064b56c5a264cd-2019",
+        "d6064b56c5a264cd-2020",
+        "d6064b56c5a264cd-2021"
+      ],
+      "INDICADOR": "IND_06",
+      "ULTIMO_ANO": 2021
+    },
+    {
+      "CONCEITO": "6ca973731259d628",
+      "LABEL": "06 · 2014–2017 — Número de semanas epidemiológicas com informações no Sinan.",
+      "DESCRICAO": "Número de semanas epidemiológicas com informações no Sinan.",
+      "ANOS": [
+        2014,
+        2015,
+        2016,
+        2017
+      ],
+      "SERIES": [
+        "6ca973731259d628-2014",
+        "6ca973731259d628-2015",
+        "6ca973731259d628-2016",
+        "6ca973731259d628-2017"
+      ],
+      "INDICADOR": "IND_06",
+      "ULTIMO_ANO": 2017
+    },
+    {
+      "CONCEITO": "99f506260bc390eb",
+      "LABEL": "06 · 2013 — Proporção de semanas com lotes do Sinan enviados.",
+      "DESCRICAO": "Proporção de semanas com lotes do Sinan enviados.",
+      "ANOS": [
+        2013
+      ],
+      "SERIES": [
+        "99f506260bc390eb-2013"
+      ],
+      "INDICADOR": "IND_06",
+      "ULTIMO_ANO": 2013
+    },
+    {
+      "CONCEITO": "dbc94a8756c3c3b0",
+      "LABEL": "07/08 · 2016–2021 — Proporção de casos de malária que iniciaram tratamento em tempo oportuno.",
+      "DESCRICAO": "Proporção de casos de malária que iniciaram tratamento em tempo oportuno.",
+      "ANOS": [
+        2016,
+        2017,
+        2018,
+        2019,
+        2020,
+        2021
+      ],
+      "SERIES": [
+        "dbc94a8756c3c3b0"
+      ],
+      "INDICADOR": "IND_07",
+      "ULTIMO_ANO": 2021
+    },
+    {
+      "CONCEITO": "07a29f8293965188",
+      "LABEL": "07 · 2014–2017 — Proporção de casos de doenças de notificação compulsória imediata (DNCI) encerrados em…",
+      "DESCRICAO": "Proporção de casos de doenças de notificação compulsória imediata (DNCI) encerrados em até 60 dias após notificação.",
+      "ANOS": [
+        2014,
+        2015,
+        2016,
+        2017
+      ],
+      "SERIES": [
+        "07a29f8293965188"
+      ],
+      "INDICADOR": "IND_07",
+      "ULTIMO_ANO": 2017
+    },
+    {
+      "CONCEITO": "f4c86da103925c25",
+      "LABEL": "07 · 2013 — Proporção de casos de doenças de notificação compulsória imediata (DNCI) encerradas em…",
+      "DESCRICAO": "Proporção de casos de doenças de notificação compulsória imediata (DNCI) encerradas em até 60 dias após notificação.",
+      "ANOS": [
+        2013
+      ],
+      "SERIES": [
+        "f4c86da103925c25"
+      ],
+      "INDICADOR": "IND_07",
+      "ULTIMO_ANO": 2013
+    },
+    {
+      "CONCEITO": "73be4e01ed67e957",
+      "LABEL": "08/09 · 2014–2021 — Número de ciclos que atingiram mínimo de 80% de cobertura de imóveis visitados para con…",
+      "DESCRICAO": "Número de ciclos que atingiram mínimo de 80% de cobertura de imóveis visitados para controle vetorial da dengue.",
+      "ANOS": [
+        2014,
+        2015,
+        2016,
+        2017,
+        2018,
+        2019,
+        2020,
+        2021
+      ],
+      "SERIES": [
+        "73be4e01ed67e957-2014",
+        "73be4e01ed67e957-2015",
+        "73be4e01ed67e957-2016",
+        "73be4e01ed67e957-2017",
+        "73be4e01ed67e957-2018",
+        "73be4e01ed67e957-2019",
+        "73be4e01ed67e957-2020",
+        "73be4e01ed67e957-2021"
+      ],
+      "INDICADOR": "IND_08",
+      "ULTIMO_ANO": 2021
+    },
+    {
+      "CONCEITO": "6d147ba8cf02aaa0",
+      "LABEL": "08 · 2014–2015 — Proporção de casos de malária que iniciaram tratamento em até 48h a partir do início do…",
+      "DESCRICAO": "Proporção de casos de malária que iniciaram tratamento em até 48h a partir do início dos sintomas",
+      "ANOS": [
+        2014,
+        2015
+      ],
+      "SERIES": [
+        "6d147ba8cf02aaa0"
+      ],
+      "INDICADOR": "IND_08",
+      "ULTIMO_ANO": 2015
+    },
+    {
+      "CONCEITO": "78d625237f326c82",
+      "LABEL": "08 · 2013 — Proporção de casos de malária que iniciaram tratamento até 48h a partir do início dos s…",
+      "DESCRICAO": "Proporção de casos de malária que iniciaram tratamento até 48h a partir do início dos sintomas.",
+      "ANOS": [
+        2013
+      ],
+      "SERIES": [
+        "78d625237f326c82"
+      ],
+      "INDICADOR": "IND_08",
+      "ULTIMO_ANO": 2013
+    },
+    {
+      "CONCEITO": "4dd0026c72b5ca3f",
+      "LABEL": "09 · 2018–2021 — Proporção de contatos examinados de casos novos de hanseníase diagnosticados nos anos d…",
+      "DESCRICAO": "Proporção de contatos examinados de casos novos de hanseníase diagnosticados nos anos das coortes.",
+      "ANOS": [
+        2018,
+        2019,
+        2020,
+        2021
+      ],
+      "SERIES": [
+        "4dd0026c72b5ca3f"
+      ],
+      "INDICADOR": "IND_09",
+      "ULTIMO_ANO": 2021
+    },
+    {
+      "CONCEITO": "c5b52d99a51268da",
+      "LABEL": "09 · 2013 — Proporção de imóveis visitados em, pelo menos, 4 ciclos de visitas domiciliares para co…",
+      "DESCRICAO": "Proporção de imóveis visitados em, pelo menos, 4 ciclos de visitas domiciliares para controle da dengue.",
+      "ANOS": [
+        2013
+      ],
+      "SERIES": [
+        "c5b52d99a51268da-2013"
+      ],
+      "INDICADOR": "IND_09",
+      "ULTIMO_ANO": 2013
+    },
+    {
+      "CONCEITO": "8c4959a965be48d8",
+      "LABEL": "10/11 · 2016–2021 — Proporção de contatos examinados de casos novos de tuberculose pulmonar com confirmação…",
+      "DESCRICAO": "Proporção de contatos examinados de casos novos de tuberculose pulmonar com confirmação laboratorial.",
+      "ANOS": [
+        2016,
+        2017,
+        2018,
+        2019,
+        2020,
+        2021
+      ],
+      "SERIES": [
+        "8c4959a965be48d8"
+      ],
+      "INDICADOR": "IND_10",
+      "ULTIMO_ANO": 2021
+    },
+    {
+      "CONCEITO": "64294759ef184500",
+      "LABEL": "10 · 2016–2017 — Proporção de contatos examinados de casos novos de hanseníase.",
+      "DESCRICAO": "Proporção de contatos examinados de casos novos de hanseníase.",
+      "ANOS": [
+        2016,
+        2017
+      ],
+      "SERIES": [
+        "64294759ef184500"
+      ],
+      "INDICADOR": "IND_10",
+      "ULTIMO_ANO": 2017
+    },
+    {
+      "CONCEITO": "c2614efb8a57ccc2",
+      "LABEL": "10 · 2013–2015 — Proporção de contatos intradomiciliares de casos novos de hanseníase examinados.",
+      "DESCRICAO": "Proporção de contatos intradomiciliares de casos novos de hanseníase examinados.",
+      "ANOS": [
+        2013,
+        2014,
+        2015
+      ],
+      "SERIES": [
+        "c2614efb8a57ccc2"
+      ],
+      "INDICADOR": "IND_10",
+      "ULTIMO_ANO": 2015
+    },
+    {
+      "CONCEITO": "77d6beccafab3399",
+      "LABEL": "11/12 · 2013–2021 — Número de testes de sífilis por gestante.",
+      "DESCRICAO": "Número de testes de sífilis por gestante.",
+      "ANOS": [
+        2013,
+        2014,
+        2015,
+        2016,
+        2017,
+        2018,
+        2019,
+        2020,
+        2021
+      ],
+      "SERIES": [
+        "77d6beccafab3399-2013",
+        "77d6beccafab3399-2014",
+        "77d6beccafab3399-2015",
+        "77d6beccafab3399-2016",
+        "77d6beccafab3399-2017",
+        "77d6beccafab3399-2018",
+        "77d6beccafab3399-2019",
+        "77d6beccafab3399-2020",
+        "77d6beccafab3399-2021"
+      ],
+      "INDICADOR": "IND_11",
+      "ULTIMO_ANO": 2021
+    },
+    {
+      "CONCEITO": "f23a67b5a713b639",
+      "LABEL": "11 · 2014–2015 — Proporção de contatos de casos novos de tuberculose pulmonar bacilífera examinados.",
+      "DESCRICAO": "Proporção de contatos de casos novos de tuberculose pulmonar bacilífera examinados.",
+      "ANOS": [
+        2014,
+        2015
+      ],
+      "SERIES": [
+        "f23a67b5a713b639"
+      ],
+      "INDICADOR": "IND_11",
+      "ULTIMO_ANO": 2015
+    },
+    {
+      "CONCEITO": "fb7c2b04b1ea29c7",
+      "LABEL": "11 · 2013 — Proporção de contatos de casos novos de tuberculose pulmonar bacilíferos positivos exam…",
+      "DESCRICAO": "Proporção de contatos de casos novos de tuberculose pulmonar bacilíferos positivos examinados.",
+      "ANOS": [
+        2013
+      ],
+      "SERIES": [
+        "fb7c2b04b1ea29c7"
+      ],
+      "INDICADOR": "IND_11",
+      "ULTIMO_ANO": 2013
+    },
+    {
+      "CONCEITO": "3d2e1e4351f2859b",
+      "LABEL": "12/13 · 2013–2021 — Número de testes de HIV realizados.",
+      "DESCRICAO": "Número de testes de HIV realizados.",
+      "ANOS": [
+        2013,
+        2014,
+        2015,
+        2016,
+        2017,
+        2018,
+        2019,
+        2020,
+        2021
+      ],
+      "SERIES": [
+        "3d2e1e4351f2859b-2013",
+        "3d2e1e4351f2859b-2014",
+        "3d2e1e4351f2859b-2015",
+        "3d2e1e4351f2859b-2016",
+        "3d2e1e4351f2859b-2017",
+        "3d2e1e4351f2859b-2018",
+        "3d2e1e4351f2859b-2019",
+        "3d2e1e4351f2859b-2020",
+        "3d2e1e4351f2859b-2021"
+      ],
+      "INDICADOR": "IND_12",
+      "ULTIMO_ANO": 2021
+    },
+    {
+      "CONCEITO": "e303bf3a28b48360",
+      "LABEL": "13/14 · 2013–2021 — Proporção de preenchimento do campo “ocupação” nas notificações de agravos e doenças re…",
+      "DESCRICAO": "Proporção de preenchimento do campo “ocupação” nas notificações de agravos e doenças relacionados ao trabalho.",
+      "ANOS": [
+        2013,
+        2014,
+        2015,
+        2016,
+        2017,
+        2018,
+        2019,
+        2020,
+        2021
+      ],
+      "SERIES": [
+        "e303bf3a28b48360"
+      ],
+      "INDICADOR": "IND_13",
+      "ULTIMO_ANO": 2021
+    },
+    {
+      "CONCEITO": "dad28c955c720d7a",
+      "LABEL": "14/15 · 2016–2021 — Proporção de notificações de violência interpessoal e autoprovocada com o campo raça/co…",
+      "DESCRICAO": "Proporção de notificações de violência interpessoal e autoprovocada com o campo raça/cor preenchido com informação válida.",
+      "ANOS": [
+        2016,
+        2017,
+        2018,
+        2019,
+        2020,
+        2021
+      ],
+      "SERIES": [
+        "dad28c955c720d7a"
+      ],
+      "INDICADOR": "IND_14",
+      "ULTIMO_ANO": 2021
+    }
+  ]
+}

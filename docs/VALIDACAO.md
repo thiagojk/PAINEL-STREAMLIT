@@ -1,3 +1,47 @@
+# Validação da quarta etapa: identidade, séries e evolução territorial
+
+Inspeção da `main` em `b64841c`, incluindo a configuração de Dev Container já existente: árvore limpa, **34 testes aprovados antes de alterar**. A preparação dos dados, métricas, malhas, dependências e `app.py` foram preservados.
+
+## Resultado atual
+
+- **46 testes aprovados**, incluindo os 34 anteriores. Cobertura nova: conceitos únicos no Histórico/Comparações, definições diferentes separadas, renumeração, preservação de séries anuais inseguras, seleção correta, anos representativos/limite/incompatibilidade, mapa Brasil, PA e AC, cores/escala, ausência sem imputação, carregamento sob demanda e limpeza dos controles.
+- `python -m compileall .`: sem erros; `python -m pip check`: nenhuma dependência quebrada.
+- SHA-256 de Parquets, metadados, 28 GeoJSONs, `src/data.py` e `src/metrics.py`: idênticos ao início desta rodada.
+- Chromium: nove páginas, filtros dependentes, navegação por teclado/sticky, exportações CSV/XLSX relidas e mapas atuais continuam funcionando. Relatório em `validacao_navegador.json`.
+- Validação adicional dos seletores conceituais em Histórico e Comparações, e cinco mapas históricos do Brasil e cinco mapas municipais do Pará. Tooltips reais de Pará/Belém, limites de escala 0–100, cores categóricas iguais e abertura/recolhimento nativos da sidebar móvel conferidos. Relatório em `validacao_evolucao.json`.
+- Resoluções 1920×1080, 1440×900, 1366×768, 1024×768, 768×1024 e 390×844: sem overflow horizontal. A evolução apresentou três colunas em 1920, duas nas intermediárias e uma em 390; malhas enquadradas.
+- Console sem erros JavaScript e zero requisições externas durante os cenários.
+
+## Correção investigada
+
+O catálogo tem 128 definições anuais, 63 `SERIE` e 34 conceitos estritos (descrição sem numeração, normalização textual existente e unidade). A repetição aparente vinha principalmente do sufixo anual deliberado em escalas `Original`: o seletor antigo expunha cada série anual com descrições semelhantes. Não há duplicação de observações nem foi aplicada deduplicação por número.
+
+O novo seletor agrupa somente a apresentação e oferece uma opção por conceito. As 63 séries analíticas permanecem; quando há séries anuais isoladas, uma segunda seleção explicita o ano e a restrição de escala. Conceitos de vacina com redações diferentes não foram unidos. Malária 08→07, ocupação 14→13 e outros casos válidos continuam seguindo as séries existentes. Ciclos da dengue aparece uma única vez como conceito, mas seus resultados de escala original não são ligados entre anos. O mapeamento integral está em `series_historicas.json`.
+
+## Interface e primeira dobra
+
+CSS restrito às ações `stToolbarActions`, `stAppDeployButton` e `MainMenu`. A inspeção do DOM mostrou que ocultar `stToolbar` inteiro também ocultaria o botão de reabrir a sidebar; o contêiner e esse botão foram preservados. `stHeader` fica transparente, sem capturar cliques fora dos botões. Não há JavaScript da aplicação, fork ou alteração do Streamlit.
+
+Cabeçalho e navbar ganharam tamanho moderado; metadata permanece, inclusive no celular. Sidebar com ícone de filtro em CSS, fundo integrado, labels, bordas, hover/foco e botão outline. Estilos usam chaves próprias e atributos sem depender de classes geradas. Esses atributos internos ainda podem mudar: conferir novamente ao atualizar Streamlit. CSS interno não controla elementos externos à página/iframe da hospedagem.
+
+Em **1366×768**, o primeiro gráfico começa em aproximadamente **358 px**, ante 384 px na terceira etapa. Navbar, resumo, seis cards e os dois gráficos principais completos continuam visíveis sem rolar. Compare `screenshots/visao-geral-1366-etapa3.png` com `screenshots/visao-geral-1366x768.png`; medidas em `densidade_etapa3.json` e `densidade_layout.json`.
+
+## Mapas históricos e desempenho
+
+O controle lateral próprio seleciona no máximo seis anos da `SERIE` do indicador atual. Padrão: até cinco posições igualmente distribuídas entre primeiro/último ano compatível. A grade aparece em expander depois do mapa atual/ranking e só é preparada quando o toggle está ligado. Fechar apenas o expander não suspende o cálculo; desligar o toggle suspende.
+
+Brasil usa escala 0–100 fixa e legenda comum; municípios mantêm cores categóricas constantes. Cada painel traz ano e número anual correto. Tooltips preservam definição, resultado/meta/situação ou contagens de avaliação. Dados ausentes, conflitos e malha estática continuam explicitados, sem alterar denominadores.
+
+`historical_slice` filtra a base uma vez por série/UF; `prepare_history` prepara as camadas para os anos escolhidos, ambos em `st.cache_data` com limites e invalidação por assinatura. As geometrias locais reutilizam `load_geojson`; nenhum arquivo geográfico novo. A medição isolada de cinco mapas em Python/Linux, com a base já carregada, registrou aproximadamente 0,09 s no Brasil e 0,06 s no Pará na primeira preparação; medianas de cache de 0,001 s. Isso exclui frontend, concorrência e hospedagem. Dados brutos em `desempenho_evolucao.json`; tempo observado no navegador em `validacao_evolucao.json` não é garantia de latência no Cloud.
+
+## Deploy
+
+Mesmo `app.py`, mesmas dependências e arquitetura, sem serviços adicionais. Compatível com o aplicativo existente do Streamlit Community Cloud. O deploy público e seus controles externos não foram acessados; a atualização efetiva do aplicativo deve ser acompanhada no mesmo app após o push à `main`.
+
+As seções seguintes registram etapas anteriores; os screenshots compartilhados foram atualizados pela validação atual.
+
+---
+
 # Validação da terceira etapa: densidade e UX
 
 ## Primeira dobra em 1366×768

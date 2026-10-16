@@ -1,4 +1,5 @@
 import pandas as pd
+import re
 
 
 def number(value, decimals=0):
@@ -18,7 +19,7 @@ def result(value, unit='Original'):
 
 
 def description_label(row):
-    desc = str(row.DESCRICAO)
-    if desc.startswith('Indicador '):
-        return desc
+    # O código do registro é a referência de apresentação na renumeração.
+    # A descrição bruta continua nas exportações.
+    desc = re.sub(r'^indicador\s*\d+\s*[-–—:]?\s*', '', str(row.DESCRICAO), flags=re.I).strip()
     return f'Indicador {str(row.INDICADOR).removeprefix("IND_")} — {desc}'

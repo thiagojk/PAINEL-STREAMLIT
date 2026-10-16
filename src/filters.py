@@ -2,15 +2,17 @@
 import streamlit as st
 from src.data import available_municipalities, filter_data
 from src.utils import description_label
+from src.styles import sidebar_header
+from src.historical import concept_options, compatible_years, representative_years, validate_map_years
 
-FILTER_KEYS = {'ano','uf','municipio','indicador','indicador_obrigatorio','serie',
-               'mapa_ano','mapa_uf','mapa_indicador','situacao','linhas_por_pagina','pagina_tabela','comparar_modo'}
+FILTER_KEYS = {'ano','uf','municipio','indicador','indicador_obrigatorio','serie','conceito',
+               'mapa_ano','mapa_uf','mapa_indicador','situacao','linhas_por_pagina','pagina_tabela','comparar_modo','mapa_historico','mapa_historico_anos','serie_ano'}
 
 
 def clear_filters():
     """Callback anterior ao rerun; nunca altera a página de navegação."""
     for key in list(st.session_state):
-        if key in FILTER_KEYS or key.startswith(('periodo_', 'comparar_')):
+        if key in FILTER_KEYS or key.startswith(('periodo_', 'comparar_', 'mapa_anos_')):
             del st.session_state[key]
 
 
@@ -30,7 +32,7 @@ def global_filters(base, catalog, historical=False, required_indicator=False):
     show_uf = page != 'Estados'
     show_municipality = page in {'Municípios','Indicadores','Análise Histórica','Tabela de Dados'}
     with st.sidebar:
-        st.subheader('Filtros')
+        sidebar_header()
         year = None if historical else select('Ano', sorted(base.ANO.unique().tolist(), reverse=True), 'ano')
         reference = base if historical else filter_data(base, year=year)
         uf = select('UF', ['Todos'] + sorted(reference.UF.unique().tolist()), 'uf',
@@ -42,10 +44,20 @@ def global_filters(base, catalog, historical=False, required_indicator=False):
             municipality = select('Município', ['Todos'] + list(labels), 'municipio',
                                   lambda x, labels=labels: 'Todos os municípios' if x == 'Todos' else labels[x])
         if historical:
-            d = catalog.sort_values('ANO').drop_duplicates('SERIE', keep='last').sort_values(['INDICADOR', 'ANO'], ascending=[True, False])
-            labels = {r.SERIE: f'{description_label(r)} [{", ".join(map(str, sorted(catalog.loc[catalog.SERIE.eq(r.SERIE), "ANO"].unique())))}]' for r in d.itertuples()}
-            series = select('Definição do indicador', list(labels), 'serie', lambda x, labels=labels: labels[x])
-            years = sorted(catalog.loc[catalog.SERIE.eq(series), 'ANO'].unique().tolist())
+            concepts = concept_options(catalog)
+            labels = dict(zip(concepts.CONCEITO, concepts.LABEL))
+            concept = select('Indicador · série conceitual', list(labels), 'conceito', lambda x: labels[x])
+            info = concepts.loc[concepts.CONCEITO.eq(concept)].iloc[0]
+            candidates = info.SERIES
+            if len(candidates) > 1:
+                entries = catalog[catalog.SERIE.isin(candidates)]
+                annual = dict(zip(entries.SERIE, entries.ANO.astype(str)))
+                series = select('Ano da série · escala não comparável', candidates, 'serie', lambda x: annual[x], index=len(candidates)-1)
+                st.caption('A escala original não foi comprovada entre anos. Cada ano permanece separado.')
+            else:
+                series = select('Série histórica', candidates, 'serie', lambda x: 'Definição e unidade compatíveis')
+            st.caption(info.DESCRICAO)
+            years = compatible_years(catalog, series)
             if len(years) > 1:
                 period = st.select_slider('Período', options=years, value=(years[0], years[-1]), key=f'periodo_{series}')
             else:
@@ -70,12 +82,25 @@ def global_filters(base, catalog, historical=False, required_indicator=False):
 
 def map_filters(base, catalog):
     with st.sidebar:
-        st.subheader('Filtros do mapa')
+        sidebar_header('Filtros do mapa')
         year = select('Ano', sorted(base.ANO.unique().tolist(), reverse=True), 'mapa_ano')
         uf = select('UF', ['Todos'] + sorted(filter_data(base, year=year).UF.unique().tolist()), 'mapa_uf',
                     lambda x: 'Brasil · mapa de UFs' if x == 'Todos' else f'{x} · mapa municipal')
         d = catalog[catalog.ANO.eq(year)].sort_values('INDICADOR')
         labels = {r.INDICADOR: description_label(r) for r in d.itertuples()}
         indicator = select('Indicador', list(labels), 'mapa_indicador', lambda x: labels[x])
+        st.divider()
+        enabled = st.toggle('Comparar mapas no tempo', key='mapa_historico')
+        entry = d.loc[d.INDICADOR.eq(indicator)].iloc[0]
+        years = compatible_years(catalog, entry.SERIE)
+        if enabled:
+            if len(years) == 1:
+                st.caption('Somente este ano tem definição e escala compatíveis. Outros anos não são unidos por número.')
+            key = f'mapa_anos_{entry.SERIE}'
+            if key in st.session_state:
+                st.session_state[key] = [y for y in st.session_state[key] if y in years][:6]
+            chosen = st.multiselect('Anos da evolução territorial', years, default=representative_years(years),
+                                    max_selections=6, key=key, help='Selecione até 6 anos para comparação territorial.')
+            validate_map_years(chosen, years)
         reset_button()
     return dict(year=year, uf=uf, municipality='Todos', indicator=indicator, series=None), None

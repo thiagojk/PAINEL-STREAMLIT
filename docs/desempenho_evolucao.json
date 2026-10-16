@@ -1,0 +1,15 @@
+{
+  "contexto": "Python 3.12/Linux; preparação de cinco mapas. Exclui renderização do navegador e hospedagem. Base/Parquet já carregados antes da medição.",
+  "cenarios": {
+    "Todos": {
+      "primeira_chamada_segundos": 0.09006761999989976,
+      "mediana_cache_segundos": 0.0008023209993552882,
+      "mapas": 5
+    },
+    "PA": {
+      "primeira_chamada_segundos": 0.0628894820001733,
+      "mediana_cache_segundos": 0.001359937999950489,
+      "mapas": 5
+    }
+  }
+}

@@ -1,7 +1,7 @@
 from html import escape
 import streamlit as st
 from src.data import ROOT
-from src.utils import number, percent
+from src.utils import number, percent, description_label
 
 
 def apply_styles():
@@ -56,4 +56,8 @@ def fact_sheet(title, facts, eyebrow='FICHA DE ANÁLISE'):
 
 def indicator_summary(row, show_rule=True):
     rule = f'<small>{escape(str(row.LABEL_META))}</small>' if show_rule else ''
-    st.html(f'<div class="indicator-brief"><span title="{escape(str(row.DESCRICAO), quote=True)}">{escape(str(row.DESCRICAO))}</span>{rule}</div>')
+    st.html(f'<div class="indicator-brief"><span title="{escape(description_label(row), quote=True)}">{escape(description_label(row))}</span>{rule}</div>')
+
+
+def sidebar_header(title='Filtros'):
+    st.html('<div class="sidebar-heading"><span class="filter-symbol" aria-hidden="true"></span><div><strong>' + escape(title) + '</strong><small>Refine os dados exibidos</small></div></div>')
