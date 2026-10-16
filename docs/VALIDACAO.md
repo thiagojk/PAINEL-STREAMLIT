@@ -1,3 +1,72 @@
+# Validação da quinta etapa: Estados e apresentação metodológica
+
+A `main` em `341d427` foi examinada, incluindo navegação, views, filtros, métricas, pipeline, catálogos, mapas, configurações e testes. **46 testes passaram antes das mudanças**. O arquivo original tem 14 indicadores por ano, exceto 2016–2017, com 15. Todas as 712.708 observações possuem situação conhecida; 30.261 resultados numéricos ausentes não foram convertidos em ausência de avaliação. As 4.784 divergências de 2013 continuam seguindo `ALCANCE_META`.
+
+## Resultado atual
+
+- **64 testes aprovados**. Casos exclusivos das páginas retiradas foram removidos/adaptados; testes de granularidade municipal, pipeline, geografia e séries foram preservados. Novos testes verificam três situações, somas, denominadores, ausência de registro, patamares e seus limites exatos, UF/ano, heatmap, configuração temporal, classificação futura com todos os bloqueios e não aplicação de regras de 2025 ao histórico.
+- `python -m compileall .`: sem erros. `python -m pip check`: nenhuma dependência quebrada.
+- Parquets, metadados, 28 GeoJSONs, `src/data.py` e `src/metrics.py` preservados por SHA-256. Nenhuma dependência de execução nova; mesmo entrypoint `app.py`.
+- Chromium: **seis páginas**, teclado, navegação superior aderente, sidebar recolhível, filtros PA/Belém → AC, série municipal, exportações CSV/XLSX baixadas e relidas, mapas/hover/anos e ausência territorial. Resultado em `validacao_navegador.json`.
+- Estados: Brasil, Pará e Acre × 2013, 2017 e 2021; contagens de 14/15 indicadores e barras somando 100% verificadas. Tooltip real, tabela abaixo dos gráficos e rolagem interna móvel exercitados. Resultado em `validacao_estados.json`.
+- Histórico de mapas preservado: cinco mapas do Brasil, cinco do Pará, tooltips de Pará/Belém, cores constantes, escala fixa, grade 3/2/1 e controles nativos. Resultado em `validacao_evolucao.json`.
+- Resoluções **1920×1080, 1440×900, 1366×768, 1024×768, 768×1024 e 390×844**. Sem overflow horizontal da página. Barras e heatmap densos rolam dentro do próprio painel em telas estreitas; rótulos e matriz mantêm largura legível.
+- **Zero erros JavaScript e zero requisições externas** nos cenários.
+
+## Conferência numérica direta
+
+Barras do Pará/2021, extraídas do objeto Plotly no navegador e comparadas a contagens diretas de `SITUACAO` nos registros do Parquet:
+
+| Indicador | Meta atingida | Meta não atingida | Sem informação |
+|---|---:|---:|---:|
+| 01 | 138 | 6 | 0 |
+| 06 | 56 | 88 | 0 |
+| 08 | 144 | 0 | 0 |
+
+O indicador 08 confirma que ausência de resultado numérico não invalida o alcance informado. As células AC/01, PA/05 e DF/14 do heatmap de 2021 foram conferidas como `atingiram / (atingiram + não atingiram) × 100`, sem média de resultados. Os números completos estão no relatório. A conferência foi reproduzida por inspeção do gráfico e agregação independente da fonte, não só por presença de elementos na tela.
+
+## Denominadores e nomenclatura
+
+- Barras: três situações sobre todos os registros observados daquele indicador; sem informação permanece segmento próprio. O tooltip informa tanto os avaliados quanto o denominador da barra e a ausência de registro.
+- Cumprimento/heatmap: atingida ÷ (atingida + não atingida). Não é resultado estadual do indicador.
+- Perfil: proporção de situações atingidas entre situações conhecidas de cada município. O número de indicadores segue o catálogo do ano. Município sem avaliação tem faixa própria e fica fora dos percentuais dos patamares; isso é explicitado.
+- Ausência de registro é contabilizada separadamente entre municípios presentes no ano e indicadores do catálogo; não é imputada como falha ou aplicabilidade. A malha não expande a coorte analítica. A base não fornece aplicabilidade oficial universal/específica; o perfil permanece **descritivo**.
+- Não se mostra incentivo oficial, adesão ou categorias atuais para 2013–2021.
+
+## Reestruturação e dependências
+
+Navegação final: Visão Geral, Estados, Mapas, Histórico, Dados, Sobre. Rotas/views de Municípios, Indicadores e Comparações foram removidas de `app.py`, `navigation.py` e `views.py`. Sessões que guardavam página antiga voltam à Visão Geral. Views eram funções no mesmo arquivo, não módulos exclusivos: nenhum módulo Python inteiro precisou ser apagado.
+
+Foram removidos os gráficos órfãos `distribution`/`municipal_comparison`, o helper `fact_sheet` e seu CSS. Cinco capturas exclusivas aposentadas foram retiradas: `comparacoes.png`, `indicador.png`, `municipio.png`, `municipios.png`, `series-comparações.png`. Scripts de validação/desempenho e testes foram atualizados para a navegação vigente.
+
+Preservados por dependência: `detail_table` (mapas), `municipal_ranking` (perfil municipal e testes de métricas), `single_municipality_trajectory`/`trajectory` (Histórico), exportação, resumo, séries e todos os módulos de dados/geografia/cache. Visão Geral já concentra cards, evolução, situação e resumo territorial, sem incorporar outra página longa.
+
+Estados agora prioriza cards, barras empilhadas, patamares/perfil e comparação. Brasil mostra ranking por cumprimento descritivo e heatmap UF×indicador; uma UF mostra comparação com Brasil por indicador. O gráfico empilhado já identifica os indicadores críticos, evitando duplicar um ranking de indicadores. A tabela UF/ano/indicador vem depois dessas análises.
+
+## Versionamento e proteção temporal
+
+`indicator_rules/historical.json` é `source_only` (2013–2021); `2025.json` é `reference_only` a partir de 2025. O segundo contém somente a transcrição estrutural fornecida no pedido, com 14 indicadores, 7 universais/7 específicos, patamares de incentivo e referência de adesão. Não foram inventados nomes, metas ou classificações individuais de 2025. A cartilha completa não foi anexada/verificada nesta rodada.
+
+`src/rules.py` resolve períodos sem sobreposição e exige conceito, número e série compatíveis. Os tipos de avaliação previstos incluem maior/menor, redução a partir do ano-base, manutenção de zero e regra composta; o histórico não é recalculado por esses metadados. Categorias só são oferecidas para configurações validadas, catálogo completo e correspondência de todas as observações.
+
+A API de faixa estadual exige configuração validada, fonte, quantidade completa de indicadores, política explícita de ausência, universo municipal e aplicabilidade booleana completa, incluindo não aplicáveis. Dados/séries incompletos, situações desconhecidas ou categorias/períodos incompatíveis não habilitam classificação. As configurações distribuídas não atendem a esses requisitos. Os testes operacionais usam apenas fixtures sintéticas; não geram resultados oficiais para a base.
+
+O teste crítico percorre 2013–2021 com uma configuração sintética de 2025 que contém os mesmos números: nenhum nome/meta/categoria/incentivo futuro é aplicado; catálogo e observações históricas permanecem íntegros.
+
+Sobre apresenta a tabela de incentivo atual e o aviso de vigência a partir de 2025. A regra de adesão de 60% dos municípios é documentada separadamente, sem produzir indicador inexistente.
+
+Referência informada: **Ministério da Saúde — Programa de Qualificação das Ações de Vigilância em Saúde — PQA-VS; cartilha atualizada com indicadores/metas aplicáveis a partir de 2025; Portaria GM/MS nº 6.878/2025**. Não comprova retrospectivamente as regras de 2013–2021.
+
+## Desempenho e deploy
+
+Agregações UF×indicador por ano e perfis ano/UF ficam em `st.cache_data`, com invalidação por assinatura dos Parquets e limites de entradas. Mapas e seus caches foram preservados. Dados do perfil são usados para métricas, sem serializar uma tabela municipal grande em todo rerun. Medições de nove recortes, com três reruns por recorte, estão em `desempenho_estados.json`: incluem execução/serialização em Python e excluem frontend, concorrência e latência do Cloud; não são promessa de tempo da hospedagem.
+
+Mesmo repositório, `app.py`, versões de dependências e arquitetura. Sem banco, servidor adicional, Node, Docker ou serviço externo. Compatível com o aplicativo existente do Streamlit Community Cloud. O deploy público não foi acessado; acompanhar a atualização no mesmo aplicativo após o push.
+
+Capturas principais: `screenshots/estados-1366.png`, `estados-para.png`, `estados-perfil.png` e `estados-heatmap.png`. As seções abaixo registram rodadas anteriores e sua navegação histórica; não descrevem rotas atuais. Screenshots compartilhados e relatórios reproduzíveis refletem a rodada vigente.
+
+---
+
 # Validação da quarta etapa: identidade, séries e evolução territorial
 
 Inspeção da `main` em `b64841c`, incluindo a configuração de Dev Container já existente: árvore limpa, **34 testes aprovados antes de alterar**. A preparação dos dados, métricas, malhas, dependências e `app.py` foram preservados.

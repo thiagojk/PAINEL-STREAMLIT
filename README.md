@@ -6,7 +6,7 @@ Painel de Indicadores e Metas do Programa de Qualificação das Ações de Vigil
 
 ## O que está disponível
 
-Nove áreas: **Visão Geral**, **Estados**, **Municípios**, **Indicadores**, **Mapas**, **Análise Histórica**, **Comparações**, **Tabela de Dados** e **Sobre / Metodologia**. Filtros de ano, UF, município e indicador são dependentes. Comparações permitem até cinco localidades. CSV e XLSX exportam somente o recorte filtrado; a tabela tem paginação.
+Seis áreas: **Visão Geral**, **Estados**, **Mapas**, **Histórico**, **Dados** e **Sobre**. As páginas próprias de Municípios, Indicadores e Comparações foram removidas; a granularidade municipal, as definições anuais e as análises temporais permanecem em Mapas, Histórico e Dados. Filtros de ano, UF, município e indicador continuam dependentes. CSV e XLSX exportam somente o recorte filtrado; a tabela tem paginação.
 
 Base fornecida: `Base_Painel.xlsx`, com **50.112 registros município–ano**, **712.708 observações de indicadores**, **5.570 códigos municipais**, **27 UFs**, **2013–2021** e **15 números de indicador distintos**. O conjunto tem 14 indicadores por ano, exceto 2016–2017, com 15. A numeração muda no tempo; números iguais não garantem conceitos iguais.
 
@@ -14,13 +14,13 @@ O Parquet principal ocupa cerca de **7,54 MiB** (7.903.564 bytes na preparação
 
 ## Navegação e interface
 
-A navegação principal fica no topo: **Visão Geral · Estados · Municípios · Indicadores · Mapas · Histórico · Comparações · Dados · Sobre**. É um `st.radio` horizontal nativo, estilizado pela chave pública `pagina`, sem plugins ou JavaScript da aplicação. O widget mantém navegação por teclado e leitor de tela. CSS `position: sticky` o mantém visível sob a barra do Streamlit durante a rolagem; em celular, os itens rolam horizontalmente dentro da faixa, sem alargar a página.
+A navegação principal fica no topo: **Visão Geral · Estados · Mapas · Histórico · Dados · Sobre**. É um `st.radio` horizontal nativo, estilizado pela chave pública `pagina`, sem plugins ou JavaScript da aplicação. O widget mantém navegação por teclado e leitor de tela. CSS `position: sticky` o mantém visível sob a barra do Streamlit durante a rolagem; em celular, os itens rolam horizontalmente dentro da faixa, sem alargar a página.
 
-A sidebar nativa recolhível reúne somente filtros e controles contextuais: ano, UF, município, indicador, período histórico, comparações e consulta de dados conforme a página. O botão Limpar filtros restaura o recorte sem trocar de página. As dependências ano → UF → município e disponibilidade do indicador foram preservadas. Cabeçalho, navbar, títulos, espaçamentos e cards usam estilos compactos compartilhados. A Visão Geral apresenta seis cards e dois gráficos lado a lado no desktop; grades respondem à largura útil, inclusive ao recolher a sidebar. Detalhes extensos ficam em expanders. Os gráficos têm rótulos no padrão brasileiro; séries densas restringem rótulos e comparações distinguem linhas por cor, marcador e traçado. CSV, XLSX, paginação, alcance de metas e cálculos anteriores foram preservados.
+A sidebar nativa recolhível reúne somente filtros e controles contextuais: ano, UF, município, indicador, período histórico e consulta de dados conforme a página. O botão Limpar filtros restaura o recorte sem trocar de página. As dependências ano → UF → município e disponibilidade do indicador foram preservadas. Cabeçalho, navbar, títulos, espaçamentos e cards usam estilos compactos compartilhados. A Visão Geral apresenta seis cards e dois gráficos lado a lado no desktop; grades respondem à largura útil, inclusive ao recolher a sidebar. Detalhes extensos ficam em expanders. Os gráficos têm rótulos no padrão brasileiro; séries densas restringem rótulos e as análises mantêm tooltips completos. CSV, XLSX, paginação, alcance de metas e cálculos anteriores foram preservados.
 
 ### Séries históricas no seletor
 
-Histórico e Comparações oferecem **34 opções conceituais**, sem repetir cada ano como se fosse outro indicador. O agrupador reutiliza `series_key`: descrição normalizada sem número, acentos ou pontuação, mais unidade. Redações diferentes continuam separadas; o número sozinho nunca estabelece equivalência. O rótulo traz todos os números usados e o período (por exemplo, `13/14 · 2013–2021`). A descrição completa aparece abaixo do controle.
+Histórico oferece **34 opções conceituais**, sem repetir cada ano como se fosse outro indicador. O agrupador reutiliza `series_key`: descrição normalizada sem número, acentos ou pontuação, mais unidade. Redações diferentes continuam separadas; o número sozinho nunca estabelece equivalência. O rótulo traz todos os números usados e o período (por exemplo, `13/14 · 2013–2021`). A descrição completa aparece abaixo do controle.
 
 A investigação encontrou **63 séries analíticas**: a preparação separa por ano as escalas `Original` não comprovadas, causando a aparência de indicadores repetidos. Essas séries continuam intactas. Depois de escolher um desses conceitos, o controle **Ano da série · escala não comparável** escolhe uma série anual; não unimos resultados de escalas desconhecidas. O conceito dos ciclos da dengue aparece uma vez, mas seus anos continuam separados na análise. O mapa temporal também respeita essa restrição. Catálogo auditável em `docs/series_historicas.json`.
 
@@ -29,6 +29,43 @@ A investigação encontrou **63 séries analíticas**: a preparação separa por
 O CSS oculta `stToolbarActions`, `stAppDeployButton` e `MainMenu`, preservando o contêiner nativo da toolbar e o botão de abrir a sidebar. Cabeçalho e navbar receberam destaque moderado; a navegação ativa usa fundo institucional e mantém foco/teclado. A sidebar tem título com ícone CSS, fundo integrado e bordas/foco nos controles.
 
 Os seletores de teste do Streamlit são mais legíveis que classes geradas, mas não são uma API pública garantida. A versão está fixada em `requirements.txt`; revalidar ao atualizar. A aplicação não controla barras externas à sua página/iframe, nem a interface de gerenciamento do Community Cloud. O app local foi validado; a URL publicada não foi acessada nesta rodada.
+
+## Estados: desempenho municipal descritivo
+
+A sidebar usa **Ano**, **UF** e **Ordenar indicadores**. O principal gráfico sempre inclui todos os indicadores daquele ano: 14 em 2013–2015 e 2018–2021; 15 em 2016–2017. Não há filtro de indicador capaz de ocultá-los.
+
+A página começa com cards e barras horizontais **100% empilhadas**. Cada barra distribui os registros municipais do indicador em Meta atingida, Meta não atingida e Sem informação. O denominador das três partes é o total de registros do indicador; os percentuais somam 100%. A ordenação padrão é maior percentual de não atingimento; nomes abreviados mantêm o código, e tooltips mostram definição completa, contagens e denominadores.
+
+O perfil municipal calcula `atingidas / (atingidas + não atingidas)` em cada município. Faixas: <30%, 30–<50%, 50–<70%, 70–<90%, ≥90%, além de Sem avaliação. Os quatro patamares mostram a proporção de municípios **com ao menos uma situação conhecida** que alcança ≥30/50/70/90% das situações conhecidas. Municípios sem avaliação ficam explícitos e separados. Esses são perfis **descritivos**, sem pressupor aplicabilidade oficial.
+
+Brasil mostra comparação entre UFs e **heatmap UF × indicador**, com escala fixa 0–100: cada célula usa municípios que atingiram ÷ municípios com situação conhecida, nunca média de resultados numéricos. Uma UF substitui o heatmap por uma comparação com Brasil por indicador. A tabela UF/ano/indicador fica no final, com avaliados, atingiram, não atingiram, sem informação e cumprimento municipal. Em telas estreitas, barras e heatmap mantêm largura legível e rolam dentro de seus painéis.
+
+`src/state_analysis.py` armazena agregações anuais UF×indicador e perfis por ano/UF em `st.cache_data`, com limites e assinatura dos Parquets. Nenhum registro bruto é modificado.
+
+### Ausência, aplicabilidade e incentivo oficial
+
+Na base atual, todas as 712.708 observações têm situação registrada; resultado numérico ausente não implica avaliação ausente. Cada município presente no ano tem 14 ou 15 registros, conforme o catálogo. Os nove municípios ausentes de 2019/2021 não são acrescentados a partir da malha. Em bases incompletas, pares sem registro são contados separadamente, sem criar falhas nem inferir aplicabilidade.
+
+Não há cadastro de aplicabilidade universal/específica, adesão ou regra histórica de incentivo. Portanto, **nenhum incentivo oficial é exibido para 2013–2021**. Sem informação permanece uma terceira situação e não vira meta não atingida. A exclusão de situações desconhecidas nos percentuais descritivos é explícita e não define o denominador oficial do programa.
+
+## Regras metodológicas versionadas
+
+`indicator_rules/historical.json` aponta para as definições anuais da fonte em 2013–2021, sem substituir nomes, metas ou situações. `indicator_rules/2025.json` registra somente a referência estrutural fornecida: 14 indicadores (7 universais/7 específicos), tabela de incentivo e regra de adesão. Seu estado é **reference_only**, não validado para operação, e não contém nomes/classificações individuais inventados.
+
+Referência informada: **Ministério da Saúde — Programa de Qualificação das Ações de Vigilância em Saúde — PQA-VS; cartilha atualizada com indicadores/metas aplicáveis a partir de 2025; Portaria GM/MS nº 6.878/2025**. Não é uma regra retroativa para 2013–2021. A cartilha completa não foi anexada/verificada nesta rodada; a transcrição do pedido sustenta a seção de referência, não um cadastro operacional completo.
+
+| Municípios que alcançam o patamar | Patamar de indicadores | Faixa na referência de 2025 |
+|---|---:|---:|
+| ≥90% | ≥30% | 25% |
+| ≥90% | ≥50% | 50% |
+| ≥90% | ≥70% | 75% |
+| ≥80% | ≥90% | 100% |
+
+`src/rules.py` resolve configurações pelo período; regras de indicador exigem **ID conceitual e número**, nunca número sozinho. O esquema aceita categoria, meta, fonte e tipos de avaliação `GREATER_EQUAL`, `LESS_EQUAL`, `REDUCTION_FROM_BASELINE`, `MAINTAIN_ZERO` e `COMPOSITE`. Isso prepara metadados futuros, sem substituir as situações oficiais por um cálculo universal `resultado >= meta`.
+
+O cálculo futuro de faixa estadual exige configuração `validated`, fonte, política explícita de ausência, cadastro completo de aplicabilidade (inclusive `false`), universo municipal oficial, um único estado/ano, séries compatíveis e todas as situações necessárias conhecidas. Sem qualquer requisito, retorna ausência de classificação. Os testes exercitam essa API com dados sintéticos; a aplicação histórica não recebe cadastro fictício. Categorias universais/específicas só são mostradas com configuração validada e séries compatíveis. Um cadastro futuro real ainda precisa fornecer aplicabilidade, coorte municipal e metadados completos; a referência distribuída não ativa a classificação.
+
+A regra de adesão de pelo menos 60% dos municípios é documentada em Sobre e permanece distinta de desempenho; não existe indicador de adesão na base.
 
 ## Mapas locais
 
@@ -148,7 +185,7 @@ A data de atualização da fonte e a procedência institucional do arquivo não 
 ## Estrutura
 
 ```text
-app.py                       # Entrada e navegação entre nove páginas
+app.py                       # Entrada e navegação entre seis páginas
 src/
   data.py                    # Leitura, limpeza, escalas, dicionário e cache
   filters.py                 # Filtros dependentes e séries históricas
@@ -156,10 +193,12 @@ src/
   charts.py                  # Plotly, mapas, rótulos e tooltips
   navigation.py              # Barra superior com widget nativo
   geography.py               # GeoJSON local e associação territorial
+  state_analysis.py          # Distribuições e perfis descritivos em cache
+  rules.py                   # Registro temporal e bloqueios de incentivo oficial
   historical.py              # Conceitos do seletor e anos compatíveis
   territorial_history.py     # Recortes e camadas temporais em cache
   styles.py                  # Identidade visual e cards
-  views.py                   # Nove páginas e exportações
+  views.py                   # Seis páginas e exportações
   utils.py                   # Formatação brasileira
 scripts/
   preparar_dados.py           # Excel → Parquet e auditoria
@@ -172,12 +211,13 @@ static/maps/                 # TopoJSON auxiliar, licença e origem
 requirements.txt             # Dependências de execução com versões fixadas
 requirements-dev.txt         # pytest e Playwright
 INICIAR_PAINEL.bat            # Inicialização Windows
+indicator_rules/             # Referências históricas e de 2025, separadas por período
 data/                       # Parquets e metadados versionados
 docs/                       # Auditoria, validação e screenshots
 tests/                      # Testes de dados e páginas
 ```
 
-As nove páginas são funções organizadas em `src/views.py`, com navegação única em `app.py`. Isso permite filtros e estilo compartilhados sem repetir código em nove scripts. Não há um backend separado.
+As seis páginas são funções organizadas em `src/views.py`, com navegação única em `app.py`. Isso permite filtros e estilo compartilhados sem repetir código em seis scripts. Não há um backend separado.
 
 ## Streamlit Community Cloud: manter o mesmo aplicativo
 
@@ -201,7 +241,7 @@ python -m compileall .
 python -m pip check
 ```
 
-Os testes cobrem limpeza, detecção de novos indicadores, códigos com zeros iniciais, status e conflitos, filtros, conversão Excel/Parquet, repetibilidade, agregações, rankings, séries/renumeração e as nove páginas via `streamlit.testing.v1.AppTest`. Os testes da base real verificam contagens específicas do arquivo inicial; atualizações legítimas exigem revisar essas expectativas.
+Os testes cobrem limpeza, detecção de novos indicadores, códigos com zeros iniciais, status e conflitos, filtros, conversão Excel/Parquet, repetibilidade, agregações, rankings, séries/renumeração e as seis páginas via `streamlit.testing.v1.AppTest`. Os testes da base real verificam contagens específicas do arquivo inicial; atualizações legítimas exigem revisar essas expectativas.
 
 A validação em navegador Chromium cobre navegação, filtros, trajetória, comparação, downloads CSV/XLSX e tamanhos de tela. Veja [validação](docs/VALIDACAO.md) e [screenshots](docs/screenshots/).
 
@@ -223,3 +263,5 @@ python scripts/medir_desempenho.py
 A comparação com a versão anterior está em `docs/desempenho_antes.json` e `docs/desempenho_depois.json`; os limites da medição estão em `docs/VALIDACAO.md`.
 
 A validação adicional de conceitos e evolução territorial pode ser repetida com `python scripts/validar_evolucao.py --url http://127.0.0.1:8501/ --chromium /caminho/do/chromium`. O relatório fica em `docs/validacao_evolucao.json`.
+
+A validação numérica de Estados pode ser repetida com `python scripts/validar_estados.py --url http://127.0.0.1:8501/ --chromium /caminho/do/chromium`. O relatório `docs/validacao_estados.json` registra nove recortes, três barras conferidas contra o Parquet e três células do heatmap.

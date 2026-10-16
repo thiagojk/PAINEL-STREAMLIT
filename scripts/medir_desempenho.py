@@ -10,7 +10,7 @@ a=time.perf_counter()
 app=AppTest.from_file(str(ROOT/'app.py')).run(timeout=60)
 cold=time.perf_counter()-a
 report={'cold_seconds':cold,'pages':{},'mediana_segundos':{},'contexto':'Linux/Python 3.12; 3 reruns por página; AppTest. Não inclui rasterização do browser.'}
-for name in ['Visão Geral','Estados','Municípios','Indicadores','Análise Histórica','Comparações','Tabela de Dados','Sobre / Metodologia','Mapas']:
+for name in ['Visão Geral','Estados','Análise Histórica','Tabela de Dados','Sobre / Metodologia','Mapas']:
     values=[]
     for _ in range(3):
         a=time.perf_counter();app.radio(key='pagina').set_value(name).run(timeout=60)
@@ -27,6 +27,6 @@ report['pages']['Mapas · PA']=values
 report['mediana_segundos']['Mapas · PA']=median(values)
 before=json.loads((ROOT/'docs/desempenho_antes.json').read_text())
 report['comparacao_mediana_segundos']={name:{'antes':median(values),'depois':report['mediana_segundos'][name]}
-    for name,values in before['pages'].items()}
+    for name,values in before['pages'].items() if name in report['mediana_segundos']}
 (ROOT/'docs/desempenho_depois.json').write_text(json.dumps(report,ensure_ascii=False,indent=2),encoding='utf-8')
 print(json.dumps(report,ensure_ascii=False,indent=2))

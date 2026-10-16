@@ -1,0 +1,12 @@
+{
+  "id": "historical-source-2013-2021",
+  "start_year": 2013,
+  "end_year": 2021,
+  "status": "source_only",
+  "source": "Base_Painel.xlsx — Indicadores e Metas por Ano; ALCANCE_META e META nas observações",
+  "indicator_resolution": "annual_catalog",
+  "indicators": [],
+  "applicability_policy_validated": false,
+  "missing_policy": null,
+  "state_incentive": null
+}

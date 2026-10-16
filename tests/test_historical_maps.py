@@ -33,7 +33,7 @@ def test_concept_identity_and_annual_scale_guards(catalog):
     assert series_key('Conceito diferente','IND_08','%') != series_key('Mesmo conceito','IND_08','%')
 
 
-@pytest.mark.parametrize('page', ['Análise Histórica','Comparações'])
+@pytest.mark.parametrize('page', ['Análise Histórica'])
 def test_clean_concept_selector_and_correct_selection(page, catalog):
     app = AppTest.from_file(str(APP)).run(timeout=60)
     app.radio(key='pagina').set_value(page).run(timeout=60)

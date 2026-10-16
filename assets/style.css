@@ -45,12 +45,6 @@ h1 { font-size:1.4rem !important; } h2 { font-size:1.16rem !important; } h3 { fo
 [data-testid="stPlotlyChart"] { border-radius:10px; }
 .stButton>button, .stDownloadButton>button { border-radius:7px; font-size:12px; }
 [data-testid="stDataFrame"] { border-radius:8px; overflow:hidden; border:1px solid var(--line); }
-.fact-sheet { background:white; border:1px solid var(--line); border-left:3px solid #137b80; border-radius:10px; padding:10px 13px; margin:0; }
-.eyebrow { font-size:10px; letter-spacing:1px; font-weight:700; color:#137b80; }
-.fact-sheet h2 { font-size:16px !important; margin:3px 0 6px; line-height:1.4; }
-.fact-grid { display:flex; flex-wrap:wrap; gap:8px 22px; }
-.fact-grid div { flex:1 1 140px; } .fact-grid span { display:block; color:#677f8f; font-size:11px; margin-bottom:2px; }
-.fact-grid strong { display:block; font-size:13px; font-weight:600; color:#264c61; line-height:1.4; }
 .empty-state { padding:24px; text-align:center; border:1px dashed #bdcfd9; border-radius:12px; background:#fff; }
 .empty-symbol { display:inline-grid; place-items:center; width:34px; height:34px; background:#edf4f6; border-radius:50%; color:#688d9a; font-size:22px; }
 .empty-state p { color:#617b8b; font-size:13px; }
@@ -85,6 +79,7 @@ h1 { font-size:1.4rem !important; } h2 { font-size:1.16rem !important; } h3 { fo
 /* Oculta somente ações do Streamlit. O header nativo mantém o botão da sidebar. */
 [data-testid="stToolbarActions"], [data-testid="stAppDeployButton"], #MainMenu {display:none !important;}
 [data-testid="stHeader"] {background:transparent;pointer-events:none;}
+[data-testid="stToolbar"] {pointer-events:none;}
 [data-testid="stHeader"] button {pointer-events:auto;}
 [data-testid="stSidebarHeader"] {padding-top:.5rem;padding-bottom:0;}
 .sidebar-heading {display:flex;align-items:center;gap:10px;color:#155c67;padding:0 0 12px;border-bottom:1px solid #cfdee5;margin-bottom:2px;}
@@ -109,3 +104,11 @@ h1 { font-size:1.4rem !important; } h2 { font-size:1.16rem !important; } h3 { fo
 /* Espaço para o botão nativo quando a lateral está recolhida. */
 .stApp:has([data-testid="stExpandSidebarButton"]) .system-header {padding-left:54px;}
 .stApp:has([data-testid="stExpandSidebarButton"]) .st-key-pagina {padding-left:40px;}
+/* Análises densas preservam a largura legível com rolagem dentro do painel. */
+@container (max-width:650px) {
+  .st-key-chartpanel_state_stack,.st-key-chartpanel_state_heatmap {overflow-x:auto;}
+  .st-key-chartpanel_state_stack [data-testid="stPlotlyChart"],
+  .st-key-chartpanel_state_heatmap [data-testid="stPlotlyChart"],
+  .st-key-chartpanel_state_stack [data-testid="stElementContainer"]:has([data-testid="stPlotlyChart"]),
+  .st-key-chartpanel_state_heatmap [data-testid="stElementContainer"]:has([data-testid="stPlotlyChart"]) {min-width:720px;}
+}

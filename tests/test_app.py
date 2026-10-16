@@ -16,18 +16,18 @@ def assert_clean(app):
     assert not app.error, app.error
 
 
-@pytest.mark.parametrize('page', ['Visão Geral','Estados','Municípios','Indicadores','Análise Histórica','Comparações','Tabela de Dados','Sobre / Metodologia'])
+@pytest.mark.parametrize('page', ['Visão Geral','Estados','Mapas','Análise Histórica','Tabela de Dados','Sobre / Metodologia'])
 def test_all_pages(app,page):
     app.radio(key='pagina').set_value(page).run(timeout=60)
     assert_clean(app)
 
 
 def test_dependent_filters_and_historical_municipality(app):
-    app.radio(key='pagina').set_value('Municípios').run(timeout=60)
+    app.radio(key='pagina').set_value('Tabela de Dados').run(timeout=60)
     app.selectbox(key='uf').set_value('PA').run(timeout=60)
     app.selectbox(key='municipio').set_value('150140').run(timeout=60)
     assert_clean(app)
-    assert any('Belém' in x.value for x in app.subheader)
+    assert app.selectbox(key='municipio').value == '150140'
     app.selectbox(key='uf').set_value('AC').run(timeout=60)
     assert app.selectbox(key='municipio').value == 'Todos'
     app.selectbox(key='ano').set_value(2016).run(timeout=60)
@@ -44,11 +44,8 @@ def test_contextual_filters_and_clear_keep_navigation():
     app = AppTest.from_file(str(Path(__file__).resolve().parents[1] / 'app.py')).run(timeout=60)
     app.selectbox(key='uf').select('PA').run()
     app.radio(key='pagina').set_value('Estados').run()
-    assert 'uf' not in {w.key for w in app.sidebar.selectbox}
+    assert {w.key for w in app.sidebar.selectbox} == {'ano','uf','ordem_estados'}
     assert not app.exception
-    app.radio(key='pagina').set_value('Comparações').run()
-    assert 'comparar_modo' in {w.key for w in app.sidebar.radio}
-    assert app.sidebar.multiselect
     app.radio(key='pagina').set_value('Tabela de Dados').run()
     assert 'situacao' in {w.key for w in app.sidebar.multiselect}
     assert 'linhas_por_pagina' in {w.key for w in app.sidebar.selectbox}

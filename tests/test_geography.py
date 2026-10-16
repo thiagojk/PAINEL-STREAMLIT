@@ -18,10 +18,10 @@ def base():
     return pd.read_parquet(DATA / 'base_pqavs.parquet')
 
 
-def test_navigation_nine_areas_and_sidebar_filters():
-    assert len(NAV_LABELS) == 9 and 'Mapas' in NAV_LABELS
+def test_navigation_six_areas_and_sidebar_filters():
+    assert len(NAV_LABELS) == 6 and 'Mapas' in NAV_LABELS
     app = AppTest.from_file(str(Path(__file__).resolve().parents[1] / 'app.py')).run(timeout=60)
-    assert len(app.radio(key='pagina').options) == 9
+    assert app.radio(key='pagina').options == ['Visão Geral','Estados','Mapas','Histórico','Dados','Sobre']
     assert app.radio(key='pagina').proto.horizontal
     assert not app.sidebar.radio
     assert {w.key for w in app.sidebar.selectbox} == {'ano', 'uf', 'indicador'}

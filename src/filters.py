@@ -5,14 +5,15 @@ from src.utils import description_label
 from src.styles import sidebar_header
 from src.historical import concept_options, compatible_years, representative_years, validate_map_years
 
-FILTER_KEYS = {'ano','uf','municipio','indicador','indicador_obrigatorio','serie','conceito',
-               'mapa_ano','mapa_uf','mapa_indicador','situacao','linhas_por_pagina','pagina_tabela','comparar_modo','mapa_historico','mapa_historico_anos','serie_ano'}
+FILTER_KEYS = {'ano','uf','municipio','indicador','serie','conceito',
+               'mapa_ano','mapa_uf','mapa_indicador','situacao','linhas_por_pagina','pagina_tabela',
+               'mapa_historico','ordem_estados'}
 
 
 def clear_filters():
     """Callback anterior ao rerun; nunca altera a página de navegação."""
     for key in list(st.session_state):
-        if key in FILTER_KEYS or key.startswith(('periodo_', 'comparar_', 'mapa_anos_')):
+        if key in FILTER_KEYS or key.startswith(('periodo_', 'mapa_anos_')):
             del st.session_state[key]
 
 
@@ -27,22 +28,25 @@ def select(label, options, key, format_func=str, index=0):
     return st.selectbox(label, options, index=index, key=key, format_func=format_func)
 
 
-def global_filters(base, catalog, historical=False, required_indicator=False):
+def global_filters(base, catalog, historical=False):
     page = st.session_state.get('pagina', 'Visão Geral')
-    show_uf = page != 'Estados'
-    show_municipality = page in {'Municípios','Indicadores','Análise Histórica','Tabela de Dados'}
+    show_municipality = page in {'Análise Histórica','Tabela de Dados'}
     with st.sidebar:
         sidebar_header()
         year = None if historical else select('Ano', sorted(base.ANO.unique().tolist(), reverse=True), 'ano')
         reference = base if historical else filter_data(base, year=year)
         uf = select('UF', ['Todos'] + sorted(reference.UF.unique().tolist()), 'uf',
-                    lambda value: 'Brasil · todas as UFs' if value == 'Todos' else value) if show_uf else 'Todos'
+                    lambda value: 'Brasil · todas as UFs' if value == 'Todos' else value)
         municipality = 'Todos'
         if show_municipality:
             mun = available_municipalities(reference, uf=uf)
             labels = {str(r.COD_MUN): f'{r.NOME_MUN} · {r.UF} ({r.COD_MUN})' for r in mun.itertuples()}
             municipality = select('Município', ['Todos'] + list(labels), 'municipio',
                                   lambda x, labels=labels: 'Todos os municípios' if x == 'Todos' else labels[x])
+        if page == 'Estados':
+            select('Ordenar indicadores', ['Maior não atingimento','Número do indicador','Maior cumprimento','Menor cumprimento'], 'ordem_estados')
+            reset_button()
+            return dict(year=year, uf=uf, municipality='Todos', indicator='Todos', series=None), None
         if historical:
             concepts = concept_options(catalog)
             labels = dict(zip(concepts.CONCEITO, concepts.LABEL))
@@ -70,11 +74,11 @@ def global_filters(base, catalog, historical=False, required_indicator=False):
         local = filter_data(reference, uf=uf, municipality=municipality)
         d = d[d.INDICADOR.isin(local.INDICADOR.unique())]
         labels = {r.INDICADOR: description_label(r) for r in d.itertuples()}
-        options = list(labels) if required_indicator else ['Todos'] + list(labels)
+        options = ['Todos'] + list(labels)
         if not options:
             st.info('Não há indicadores disponíveis neste recorte.')
             return dict(year=year, uf=uf, municipality=municipality, indicator=None, series=None), None
-        indicator = select('Indicador', options, 'indicador_obrigatorio' if required_indicator else 'indicador',
+        indicator = select('Indicador', options, 'indicador',
                            lambda x, labels=labels: 'Todos os indicadores' if x == 'Todos' else labels[x])
         reset_button()
         return dict(year=year, uf=uf, municipality=municipality, indicator=indicator, series=None), None

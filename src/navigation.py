@@ -2,13 +2,14 @@
 import streamlit as st
 
 NAV_LABELS = {
-    'Visão Geral':'Visão Geral', 'Estados':'Estados', 'Municípios':'Municípios',
-    'Indicadores':'Indicadores', 'Mapas':'Mapas', 'Análise Histórica':'Histórico',
-    'Comparações':'Comparações', 'Tabela de Dados':'Dados', 'Sobre / Metodologia':'Sobre',
+    'Visão Geral':'Visão Geral', 'Estados':'Estados', 'Mapas':'Mapas',
+    'Análise Histórica':'Histórico', 'Tabela de Dados':'Dados', 'Sobre / Metodologia':'Sobre',
 }
 
 
 def navigation():
+    if st.session_state.get('pagina') not in [None, *NAV_LABELS]:
+        del st.session_state['pagina']
     return st.radio('Navegação principal', list(NAV_LABELS), horizontal=True,
                     format_func=NAV_LABELS.get, key='pagina', label_visibility='collapsed', width='stretch')
 

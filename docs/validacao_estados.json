@@ -1,0 +1,153 @@
+{
+  "cenarios": [
+    {
+      "uf": "Brasil · todas as UFs",
+      "ano": 2013,
+      "indicadores": 14,
+      "soma_barras_100": true
+    },
+    {
+      "uf": "Brasil · todas as UFs",
+      "ano": 2017,
+      "indicadores": 15,
+      "soma_barras_100": true
+    },
+    {
+      "uf": "Brasil · todas as UFs",
+      "ano": 2021,
+      "indicadores": 14,
+      "soma_barras_100": true
+    },
+    {
+      "uf": "PA",
+      "ano": 2013,
+      "indicadores": 14,
+      "soma_barras_100": true
+    },
+    {
+      "uf": "PA",
+      "ano": 2017,
+      "indicadores": 15,
+      "soma_barras_100": true
+    },
+    {
+      "uf": "PA",
+      "ano": 2021,
+      "indicadores": 14,
+      "soma_barras_100": true
+    },
+    {
+      "uf": "AC",
+      "ano": 2013,
+      "indicadores": 14,
+      "soma_barras_100": true
+    },
+    {
+      "uf": "AC",
+      "ano": 2017,
+      "indicadores": 15,
+      "soma_barras_100": true
+    },
+    {
+      "uf": "AC",
+      "ano": 2021,
+      "indicadores": 14,
+      "soma_barras_100": true
+    }
+  ],
+  "barras_conferidas": [
+    {
+      "uf": "PA",
+      "ano": 2021,
+      "indicador": "IND_01",
+      "atingida": 138,
+      "nao_atingida": 6,
+      "sem_informacao": 0,
+      "conferencia_direta_parquet": true
+    },
+    {
+      "uf": "PA",
+      "ano": 2021,
+      "indicador": "IND_06",
+      "atingida": 56,
+      "nao_atingida": 88,
+      "sem_informacao": 0,
+      "conferencia_direta_parquet": true
+    },
+    {
+      "uf": "PA",
+      "ano": 2021,
+      "indicador": "IND_08",
+      "atingida": 144,
+      "nao_atingida": 0,
+      "sem_informacao": 0,
+      "conferencia_direta_parquet": true
+    }
+  ],
+  "celulas_conferidas": [
+    {
+      "uf": "AC",
+      "indicador": "IND_01",
+      "ano": 2021,
+      "atingiram": 21,
+      "nao_atingiram": 1,
+      "cumprimento": 95.45454545454545,
+      "conferencia_direta_parquet": true
+    },
+    {
+      "uf": "PA",
+      "indicador": "IND_05",
+      "ano": 2021,
+      "atingiram": 13,
+      "nao_atingiram": 131,
+      "cumprimento": 9.027777777777779,
+      "conferencia_direta_parquet": true
+    },
+    {
+      "uf": "DF",
+      "indicador": "IND_14",
+      "ano": 2021,
+      "atingiram": 0,
+      "nao_atingiram": 1,
+      "cumprimento": 0,
+      "conferencia_direta_parquet": true
+    }
+  ],
+  "larguras": [
+    {
+      "largura": 1920,
+      "altura": 1080,
+      "sem_overflow": true
+    },
+    {
+      "largura": 1440,
+      "altura": 900,
+      "sem_overflow": true
+    },
+    {
+      "largura": 1366,
+      "altura": 768,
+      "sem_overflow": true
+    },
+    {
+      "largura": 1024,
+      "altura": 768,
+      "sem_overflow": true
+    },
+    {
+      "largura": 768,
+      "altura": 1024,
+      "sem_overflow": true
+    },
+    {
+      "largura": 390,
+      "altura": 844,
+      "sem_overflow": true
+    }
+  ],
+  "tooltip_barra_real": true,
+  "rolagem_interna_mobile_verificada": true,
+  "browser_errors": [],
+  "requisicoes_externas": [],
+  "tabela_apos_graficos": true
+}

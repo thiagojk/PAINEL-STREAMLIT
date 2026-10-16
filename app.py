@@ -14,12 +14,9 @@ st.set_page_config(page_title='PQAVS | Painel de Indicadores', page_icon='assets
 apply_styles()
 PAGES = {
     'Visão Geral': (views.overview, 'Visão Geral', 'Indicadores e cumprimento das metas no recorte selecionado.'),
-    'Estados': (views.states, 'Estados', 'Cumprimento das metas por Unidade da Federação.'),
-    'Municípios': (views.municipalities, 'Municípios', 'Ficha municipal, indicadores e evolução das metas.'),
-    'Indicadores': (views.indicators, 'Indicadores', 'Resultados e metas conforme a definição de cada ano.'),
+    'Estados': (views.states, 'Estados', 'Desempenho municipal no cumprimento das metas do PQA-VS.'),
     'Mapas': (views.maps, 'Mapas', 'Cumprimento por UF e situação das metas nos municípios.'),
     'Análise Histórica': (views.historical, 'Histórico', 'Evolução do cumprimento e da cobertura da avaliação.'),
-    'Comparações': (views.comparisons, 'Comparações', 'Até cinco localidades, na mesma definição e período.'),
     'Tabela de Dados': (views.data_table, 'Dados', 'Consulte e exporte o resultado dos filtros aplicados.'),
     'Sobre / Metodologia': (views.about, 'Sobre o painel', 'Fonte, critérios de cálculo e limites para interpretar os resultados.'),
 }
@@ -34,13 +31,13 @@ header(metadata)
 page = navigation()
 fn, title, subtitle = PAGES[page]
 page_heading(title, subtitle)
-is_history = page in ['Análise Histórica', 'Comparações']
+is_history = page == 'Análise Histórica'
 if page == 'Sobre / Metodologia':
     filters, period = dict(year=None, uf=None, municipality=None, indicator=None, series=None), None
 elif page == 'Mapas':
     filters, period = map_filters(base, catalog)
 else:
-    filters, period = global_filters(base, catalog, historical=is_history, required_indicator=page == 'Indicadores')
+    filters, period = global_filters(base, catalog, historical=is_history)
 frame = filter_data(base, **filters)
 if period:
     frame = frame[frame.ANO.between(*period)]

@@ -1,0 +1,50 @@
+{
+  "contexto": "Python 3.12/Linux; AppTest; base já carregada. Execução/serialização sem frontend ou latência da hospedagem. Três reruns por recorte.",
+  "cenarios": [
+    {
+      "ano": 2013,
+      "uf": "Todos",
+      "mediana_rerun_cache_segundos": 0.1567
+    },
+    {
+      "ano": 2013,
+      "uf": "PA",
+      "mediana_rerun_cache_segundos": 0.0903
+    },
+    {
+      "ano": 2013,
+      "uf": "AC",
+      "mediana_rerun_cache_segundos": 0.0876
+    },
+    {
+      "ano": 2017,
+      "uf": "Todos",
+      "mediana_rerun_cache_segundos": 0.1614
+    },
+    {
+      "ano": 2017,
+      "uf": "PA",
+      "mediana_rerun_cache_segundos": 0.1003
+    },
+    {
+      "ano": 2017,
+      "uf": "AC",
+      "mediana_rerun_cache_segundos": 0.0919
+    },
+    {
+      "ano": 2021,
+      "uf": "Todos",
+      "mediana_rerun_cache_segundos": 0.1577
+    },
+    {
+      "ano": 2021,
+      "uf": "PA",
+      "mediana_rerun_cache_segundos": 0.0877
+    },
+    {
+      "ano": 2021,
+      "uf": "AC",
+      "mediana_rerun_cache_segundos": 0.1009
+    }
+  ]
+}

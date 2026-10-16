@@ -2,9 +2,8 @@
   "checks": [
     "Navegação superior aderente à rolagem, com filtros na sidebar nativa",
     "Navegação superior acessível por teclado",
-    "Ficha municipal e filtros dependentes PA/Belém → AC",
+    "Consulta municipal e filtros dependentes PA/Belém → AC",
     "Histórico municipal com rótulos, valores inicial/final e linha da meta",
-    "Comparações de UFs e municípios, sem regressão",
     "CSV e XLSX baixados e relidos, somente município filtrado",
     "Metodologia anterior e seção geográfica presentes",
     "Mapa nacional renderizado sem tiles externos; tooltip de UF verificado",

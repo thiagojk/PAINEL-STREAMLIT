@@ -51,7 +51,7 @@ with sync_playwright() as p:
 
     assert not page.get_by_test_id('stAppDeployButton').is_visible()
     assert not page.get_by_test_id('stMainMenu').is_visible()
-    for name in ['Histórico','Comparações']:
+    for name in ['Histórico']:
         nav(name)
         control=box('Indicador · série conceitual')
         control.fill('Número de ciclos')

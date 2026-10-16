@@ -77,16 +77,6 @@ def counts_history(summary):
     return style(fig, 'Situação das metas ao longo do tempo')
 
 
-def distribution(frame):
-    units = frame.UNIDADE.unique()
-    fig = px.histogram(frame, x='RES_EXIBICAO', color='SITUACAO', nbins=35,
-                       color_discrete_map=COLORS, category_orders={'SITUACAO': STATUS},
-                       labels={'RES_EXIBICAO': 'Resultado (%)' if len(units) == 1 and units[0] == '%' else 'Resultado na escala original', 'SITUACAO': 'Situação'})
-    fig.update_traces(hovertemplate='Resultado: %{x}<br>Municípios: %{y}<extra>%{fullData.name}</extra>')
-    fig.update_yaxes(title='Municípios')
-    return style(fig, 'Distribuição dos resultados municipais')
-
-
 def trajectory(frame):
     fig = go.Figure()
     fig.add_trace(go.Scatter(x=frame.ANO, y=frame.RES_EXIBICAO, mode='lines+markers', name='Resultado',
@@ -129,18 +119,6 @@ def coverage(summary):
     fig.update_xaxes(title=None, dtick=1)
     fig.update_yaxes(title='Municípios avaliados', rangemode='tozero')
     return style(fig, 'Cobertura da avaliação por ano')
-
-
-def municipal_comparison(detail, unit):
-    fig = px.line(detail.sort_values('ANO'), x='ANO', y='RES_EXIBICAO', color='Localidade',
-                  line_dash='Localidade', symbol='Localidade', markers=True,
-                  color_discrete_sequence=PALETTE, custom_data=['SITUACAO'])
-    fig.update_traces(line_width=3, marker_size=7,
-                      hovertemplate='Ano: %{x}<br>Resultado: %{y:.2f}<br>Situação: %{customdata[0]}<extra>%{fullData.name}</extra>')
-    add_line_labels(fig, unit)
-    fig.update_xaxes(title=None, dtick=1)
-    fig.update_yaxes(title='Resultado (%)' if unit == '%' else 'Resultado na escala original')
-    return style(fig, 'Resultado municipal · mesma definição')
 
 
 def _map_layout(fig, geojson, title):
@@ -191,3 +169,96 @@ def municipality_map(layer, geojson, year, indicator_label, rule):
             customdata=custom,
             hovertemplate='<b>%{customdata[0]} · %{customdata[1]}</b><br>Código da base: %{customdata[2]}<br>Ano: %{customdata[3]}<br>Indicador: %{customdata[4]}<br>Resultado: %{customdata[5]}<br>Meta: %{customdata[6]}<br>Situação: %{customdata[7]}<br>%{customdata[8]}<extra></extra>'))
     return _map_layout(fig, geojson, f'MUN-{layer.UF.iloc[0]}-{year}-{indicator_label}')
+
+
+def _indicator_labels(data):
+    labels = {}
+    for row in data.itertuples():
+        name = str(row.DESCRICAO)
+        import re
+        name = re.sub(r'^indicador\s*\d+\s*[-–—:]?\s*','',name,flags=re.I).strip()
+        name = re.sub(r'^(?:Proporção|Percentual|Número) de\s+', '', name, flags=re.I)
+        name = name[:1].upper()+name[1:]
+        short = name if len(name) <= 32 else name[:29].rstrip()+'…'
+        labels[row.INDICADOR] = str(row.INDICADOR).removeprefix('IND_')+' · '+short
+    return labels
+
+
+def indicator_stack(summary, order='Maior não atingimento'):
+    column, ascending = {'Número do indicador':('INDICADOR',True), 'Maior cumprimento':('CUMPRIMENTO',False),
+                         'Menor cumprimento':('CUMPRIMENTO',True)}.get(order,('PCT_NAO_ATINGIRAM',False))
+    data = summary.sort_values([column] + ([] if column=='INDICADOR' else ['INDICADOR']),
+                               ascending=[ascending] + ([] if column=='INDICADOR' else [True]),na_position='last')
+    labels = _indicator_labels(data)
+    custom = [[ '<br>'.join(textwrap.wrap(escape(str(r.DESCRICAO)),55)), number(r.AVALIADOS), number(r.ATINGIRAM),
+                number(r.NAO_ATINGIRAM), number(r.SEM_INFORMACAO), percent(r.PCT_ATINGIRAM),
+                percent(r.PCT_NAO_ATINGIRAM), percent(r.PCT_SEM_INFORMACAO), number(r.OBSERVACOES),
+                number(r.SEM_REGISTRO)] for r in data.itertuples()]
+    hover = ('<b>%{customdata[0]}</b><br>Municípios com situação conhecida: %{customdata[1]}'
+             '<br>Meta atingida: %{customdata[2]} (%{customdata[5]})'
+             '<br>Meta não atingida: %{customdata[3]} (%{customdata[6]})'
+             '<br>Sem informação: %{customdata[4]} (%{customdata[7]})'
+             '<br>Registros no denominador da barra: %{customdata[8]}'
+             '<br>Sem registro neste indicador: %{customdata[9]}<extra></extra>')
+    fig = go.Figure()
+    for name,column,key in [('Meta atingida','PCT_ATINGIRAM',STATUS[0]),('Meta não atingida','PCT_NAO_ATINGIRAM',STATUS[1]),('Sem informação','PCT_SEM_INFORMACAO',STATUS[2])]:
+        fig.add_trace(go.Bar(x=data[column],y=data.INDICADOR.astype(str).map(labels),orientation='h',name=name,
+                             marker_color=COLORS[key],customdata=custom,hovertemplate=hover,
+                             text=[percent(v) if v>=6 else '' for v in data[column]],textposition='inside',
+                             textfont=dict(size=11,color='#fff' if key!=STATUS[2] else '#18344A')))
+    style(fig,'Cumprimento das metas por indicador',height=max(410,min(850,125+len(data)*30)))
+    fig.update_layout(barmode='stack',bargap=.2,legend=dict(y=-.1))
+    fig.update_xaxes(title='Distribuição municipal por situação da meta',range=[0,100],ticksuffix='%')
+    fig.update_yaxes(title=None,autorange='reversed',categoryorder='array',categoryarray=[labels[x] for x in data.INDICADOR])
+    return fig
+
+
+def profile_bands(distribution):
+    custom = [[number(r.MUNICIPIOS),percent(r.PERCENTUAL)] for r in distribution.itertuples()]
+    fig=go.Figure(go.Bar(x=distribution.MUNICIPIOS,y=distribution.FAIXA,orientation='h',
+                        marker_color=[BLUE]*5+[COLORS[STATUS[2]]],customdata=custom,
+                        text=[f'{number(r.MUNICIPIOS)} · {percent(r.PERCENTUAL)}' for r in distribution.itertuples()],
+                        textposition='outside',cliponaxis=False,
+                        hovertemplate='Faixa de metas atingidas: %{y}<br>Municípios: %{customdata[0]}<br>Participação nos municípios observados: %{customdata[1]}<extra></extra>'))
+    style(fig,'Distribuição do perfil municipal',height=420)
+    fig.update_yaxes(autorange='reversed',title=None)
+    fig.update_xaxes(title='Municípios observados',range=[0,max(1,distribution.MUNICIPIOS.max())*1.4])
+    return fig
+
+
+def indicator_comparison(local, national, uf):
+    fig=go.Figure()
+    for data,name,color in [(national,'Brasil','#8299ad'),(local,uf,BLUE)]:
+        data=data.sort_values('INDICADOR')
+        custom=[[escape(str(r.DESCRICAO)),number(r.AVALIADOS),percent(r.CUMPRIMENTO)] for r in data.itertuples()]
+        fig.add_trace(go.Scatter(x=data.CUMPRIMENTO,y=data.INDICADOR.astype(str).str.removeprefix('IND_'),
+                                 mode='markers',name=name,marker=dict(size=9,color=color),customdata=custom,
+                                 hovertemplate='%{customdata[0]}<br>Municípios avaliados: %{customdata[1]}<br>Cumprimento: %{customdata[2]}<extra>%{fullData.name}</extra>'))
+    style(fig,f'{uf} · comparação com Brasil',height=420)
+    fig.update_xaxes(title='Metas atingidas entre situações conhecidas',range=[0,105],ticksuffix='%')
+    fig.update_yaxes(title='Indicador',autorange='reversed',type='category')
+    return fig
+
+
+def state_heatmap(territorial, definitions):
+    data=territorial.merge(definitions[['INDICADOR','DESCRICAO']],on='INDICADOR',how='left',validate='many_to_one')
+    pivot=data.pivot(index='UF',columns='INDICADOR',values='CUMPRIMENTO').sort_index().sort_index(axis=1)
+    lookup={(str(r.UF),str(r.INDICADOR)):r for r in data.itertuples()}
+    custom=[]
+    for uf in pivot.index:
+        line=[]
+        for indicator in pivot.columns:
+            r=lookup.get((str(uf),str(indicator)))
+            line.append([escape(str(r.DESCRICAO)),number(r.AVALIADOS),number(r.ATINGIRAM),number(r.NAO_ATINGIRAM),number(r.SEM_INFORMACAO),percent(r.CUMPRIMENTO)] if r else ['Sem registro','—','—','—','—','—'])
+        custom.append(line)
+    fig=go.Figure(go.Heatmap(x=[str(x).removeprefix('IND_') for x in pivot.columns],y=pivot.index,z=pivot.values,
+                            zmin=0,zmax=100,colorscale=[[0,'#B96750'],[.5,'#EEE9DC'],[1,'#15796F']],
+                            customdata=custom,hoverongaps=True,xgap=1,ygap=1,
+                            colorbar=dict(title='Cumprimento municipal',orientation='h',thickness=10,len=.7,x=.5,y=-.13,
+                                          tickvals=[0,25,50,75,100],ticktext=['0%','25%','50%','75%','100%']),
+                            hovertemplate='UF: %{y}<br>%{customdata[0]}<br>Municípios avaliados: %{customdata[1]}<br>Atingiram: %{customdata[2]}<br>Não atingiram: %{customdata[3]}<br>Sem informação: %{customdata[4]}<br>Cumprimento: %{customdata[5]}<extra></extra>'))
+    style(fig,height=max(380,90+len(pivot)*24))
+    fig.update_layout(plot_bgcolor=COLORS[STATUS[2]])
+    fig.update_xaxes(title='Indicador · definição do ano selecionado',type='category',side='top',tickfont_size=11)
+    fig.update_yaxes(title=None,type='category',autorange='reversed')
+    return fig

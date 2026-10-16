@@ -8,8 +8,8 @@ import pandas as pd
 import streamlit as st
 from src import charts
 from src.data import DATA, STATUS, filter_data
-from src.metrics import history, summarize, variation, municipal_ranking, single_municipality_trajectory
-from src.styles import cards, note, empty_state, kpi_grid, fact_sheet, indicator_summary
+from src.metrics import history, summarize, variation, single_municipality_trajectory
+from src.styles import cards, note, empty_state, kpi_grid, indicator_summary
 from src.utils import number, percent, result, description_label
 
 RENAME = {
@@ -20,6 +20,7 @@ RENAME = {
     'UNIDADE': 'Unidade', 'MUNICIPIOS': 'Municípios', 'OBSERVACOES': 'Observações',
     'ATINGIRAM': 'Atingiram', 'NAO_ATINGIRAM': 'Não atingiram', 'SEM_INFORMACAO': 'Sem informação',
     'AVALIADOS': 'Metas avaliadas', 'CUMPRIMENTO': 'Cumprimento (%)', 'COBERTURA': 'Cobertura (%)', 'POSICAO': 'Posição',
+    'SEM_REGISTRO': 'Sem registro', 'FAIXA': 'Faixa de metas atingidas',
     'CONFLITO_META': 'Conflito entre metas', 'META_NUMERICA': 'Meta numérica (%)', 'LABEL_NUM': 'Definição do numerador', 'LABEL_DEN': 'Definição do denominador',
 }
 
@@ -93,21 +94,65 @@ def overview(frame, whole, catalog, filters):
 
 
 def states(frame, whole, catalog, filters):
-    if empty(frame): return
-    cards(frame, summarize(frame))
+    from src.data import file_signature
+    from src.state_analysis import state_dashboard, annual_aggregations
     from src.navigation import open_maps
-    summary = summarize(frame, ['UF']).sort_values('CUMPRIMENTO', ascending=False)
-    a, b = st.columns([1, 1.3])
-    with a, st.container(border=True, key='chartpanel_05'):
-        plot(charts.ranking(summary, 'UF', 'Ranking das Unidades da Federação'))
-    with b:
-        st.subheader('Desempenho por estado')
-        table(summary[['UF', 'MUNICIPIOS', 'AVALIADOS', 'ATINGIRAM', 'NAO_ATINGIRAM', 'SEM_INFORMACAO', 'CUMPRIMENTO']], 680)
-        st.caption('Clique no cabeçalho de qualquer coluna para ordenar. Ausência de dados permanece visível.')
-
+    if empty(frame): return
+    year, uf = filters['year'], filters['uf']
+    summary, profiles, distribution, thresholds = state_dashboard(file_signature(), year, uf)
+    total = summarize(frame).iloc[0]
+    kpi_grid([('Municípios', number(len(profiles)), 'Presentes na base do ano', ''),
+              ('Indicadores', number(len(summary)), f'Definições de {year}', ''),
+              ('Metas atingidas', percent(total.CUMPRIMENTO), 'Entre situações conhecidas', 'positive'),
+              ('Não atingidas', percent(total.NAO_CUMPRIMENTO), 'Entre situações conhecidas', 'negative')], small=True)
+    st.caption('Análise descritiva de situações municipais. Não representa resultado estadual do indicador nem incentivo oficial.')
+    with st.container(border=True, key='chartpanel_state_stack'):
+        locality = 'Brasil' if uf == 'Todos' else uf
+        st.caption('Em telas estreitas, deslize o gráfico lateralmente para ver as barras completas.')
+        plot(charts.indicator_stack(summary, st.session_state.get('ordem_estados','Maior não atingimento')))
+        st.caption(f'{locality} · municípios observados · {year}. Barras: 100% dos registros de cada indicador, incluindo Sem informação. Ordenação padrão prioriza não atingimento.')
+    st.subheader('Perfil de alcance dos municípios')
+    st.caption('Metas atingidas ÷ situações conhecidas em cada município. Aplicabilidade oficial não consta na base; perfil descritivo, sem classificação de incentivo.')
+    kpi_grid([(f'Municípios com ≥{t}%', percent(m['percent']),
+               f'{number(m["municipalities"])} de {number(m["denominator"])} municípios com avaliação', '')
+              for t,m in thresholds.items()], small=True)
+    no_assessment = int(profiles.AVALIADOS.eq(0).sum())
+    st.caption(f'{number(no_assessment)} municípios sem qualquer situação conhecida: apresentados à parte, fora dos percentuais dos patamares. Sem informação não equivale a não atingimento.')
+    left, right = st.columns(2, gap='small')
+    with left, st.container(border=True, key='chartpanel_state_profile'):
+        plot(charts.profile_bands(distribution))
+    with right, st.container(border=True, key='chartpanel_state_comparison'):
+        if uf == 'Todos':
+            plot(charts.ranking(summarize(frame,['UF']), 'UF', 'Cumprimento municipal por UF',27))
+            st.caption('Pares município–indicador com situação conhecida; não é média dos resultados municipais.')
+        else:
+            national = state_dashboard(file_signature(),year,'Todos')[0]
+            plot(charts.indicator_comparison(summary,national,uf))
+            st.caption('Comparação descritiva com Brasil por indicador; denominadores de situações conhecidas.')
+    if uf == 'Todos':
+        st.subheader('Mapa de calor — cumprimento das metas')
+        territorial, definitions = annual_aggregations(file_signature(),year)
+        with st.container(border=True,key='chartpanel_state_heatmap'):
+            st.caption('Em telas estreitas, deslize o mapa de calor lateralmente para ver todos os indicadores.')
+            plot(charts.state_heatmap(territorial,definitions))
+        st.caption('Cada célula: percentual de municípios com situação conhecida que atingiu a meta do indicador. Cinza: sem avaliação. Escala fixa 0–100%; não é resultado estadual do indicador.')
+    from src.rules import category_summary
+    categories = category_summary(frame, year)
+    if not categories.empty:
+        st.subheader('Universais e específicos · classificação validada do período')
+        plot(charts.ranking(categories, 'CATEGORIA', 'Metas atingidas por categoria', len(categories)))
+    with st.expander('Denominadores, ausência e aplicabilidade'):
+        st.write(f'O catálogo de {year} tem {len(summary)} indicadores. Não usamos 14 como constante histórica. O denominador municipal varia conforme as situações conhecidas disponíveis.')
+        st.write('Nas barras 100%, o denominador inclui as três situações registradas. Nos percentuais de cumprimento e no heatmap, apenas atingida + não atingida. No perfil, o denominador é calculado em cada município, sem inferir aplicabilidade oficial.')
+        st.write(f'Situações Sem informação: {number(total.SEM_INFORMACAO)}. Pares município–indicador sem registro, entre municípios presentes no ano e indicadores do catálogo: {number(profiles.SEM_REGISTRO.sum())}. A ausência é informada, sem transformá-la em falha ou inventar aplicabilidade.')
+        st.write('Municípios ausentes da base daquele ano não são acrescentados a partir da malha geográfica. Denominadores oficiais, regras de missing e abrangência histórica não estão cadastrados; não se calcula incentivo oficial.')
     st.button('Abrir este recorte em Mapas', on_click=open_maps, args=(filters,), icon=':material/map:', key='atalho_mapas')
-    with st.expander('Critérios do ranking estadual'):
-        note('Com um indicador, avaliados corresponde a municípios com situação conhecida. Com todos, corresponde a pares município–indicador. O ranking usa cumprimento das metas, sem média de resultados municipais.')
+    st.subheader('Detalhamento por UF e indicador')
+    detailed, definitions = annual_aggregations(file_signature(),year)
+    if uf != 'Todos': detailed = detailed.loc[detailed.UF.eq(uf)]
+    detailed = detailed.merge(definitions[['INDICADOR','DESCRICAO']],on='INDICADOR',how='left')
+    detailed['ANO'] = year
+    table(detailed[['UF','ANO','INDICADOR','DESCRICAO','AVALIADOS','ATINGIRAM','NAO_ATINGIRAM','SEM_INFORMACAO','CUMPRIMENTO']].rename(columns={'AVALIADOS':'Municípios avaliados','CUMPRIMENTO':'Cumprimento municipal (%)'}),510)
 
 
 def detail_table(frame, catalog):
@@ -115,71 +160,6 @@ def detail_table(frame, catalog):
     d = frame.merge(catalog[keys + ['DESCRICAO', 'LABEL_META']], on=keys, how='left')
     d['SITUACAO'] = d.SITUACAO.astype('string').map({STATUS[0]: '✓ Meta atingida', STATUS[1]: '✕ Meta não atingida', STATUS[2]: '— Sem informação'})
     return d
-
-
-def municipalities(frame, whole, catalog, filters):
-    if empty(frame): return
-    if frame.COD_MUN.nunique() == 1:
-        row = frame.iloc[0]
-        st.subheader(f'{row.NOME_MUN} · {row.UF}')
-        st.caption(f'Código {row.COD_MUN} · População: {number(row.POP_ANO)} · Ano: {row.ANO}')
-        r = summarize(frame).iloc[0]
-        kpi_grid([('Indicadores avaliados', number(r.AVALIADOS), f'{number(r.SEM_INFORMACAO)} sem informação', ''),
-                  ('Metas atingidas', number(r.ATINGIRAM), '✓ Meta atingida', 'positive'),
-                  ('Não atingidas', number(r.NAO_ATINGIRAM), '✕ Meta não atingida', 'negative'),
-                  ('Cumprimento', percent(r.CUMPRIMENTO), 'Entre indicadores avaliados', '')], small=True)
-        hist = filter_data(whole, municipality=row.COD_MUN)
-        if filters['indicator'] != 'Todos':
-            sid = catalog.loc[catalog.ANO.eq(filters['year']) & catalog.INDICADOR.eq(filters['indicator']), 'SERIE']
-            hist = filter_data(hist, series=sid.iloc[0]) if len(sid) else hist.iloc[:0]
-        with st.container(border=True, key='chartpanel_municipal_history'):
-            plot(charts.time_line(history(hist), 'Cumprimento das metas no município'))
-            st.caption('Com todos os indicadores, o conjunto avaliado pode mudar entre anos. Consulte Histórico para uma definição específica.')
-        st.subheader('Desempenho por indicador')
-        table(detail_table(frame, catalog)[['INDICADOR', 'DESCRICAO', 'NUM', 'DEN', 'RES_EXIBICAO', 'UNIDADE', 'LABEL_META', 'SITUACAO']])
-    else:
-        st.info('Selecione um município na sidebar de filtros para abrir sua ficha. Abaixo, consulte o ranking do recorte.')
-    st.subheader('Ranking municipal')
-    note('Ordenação por percentual de metas atingidas. Empates têm a mesma posição. Resultados de escalas diferentes não são misturados no ranking.')
-    ranking = municipal_ranking(frame)
-    cols = ['POSICAO', 'NOME_MUN', 'UF', 'CUMPRIMENTO', 'AVALIADOS', 'SEM_INFORMACAO']
-    if 'RES_EXIBICAO' in ranking:
-        ranking = ranking.merge(catalog[['ANO', 'INDICADOR', 'LABEL_META']].loc[lambda x: x.ANO.eq(filters['year']) & x.INDICADOR.eq(filters['indicator'])][['LABEL_META']], how='cross')
-        cols += ['RES_EXIBICAO', 'UNIDADE', 'LABEL_META', 'SITUACAO', 'POP_ANO']
-    table(ranking[cols], 510)
-
-
-def indicators(frame, whole, catalog, filters):
-    if empty(frame): return
-    entry = catalog[catalog.ANO.eq(filters['year']) & catalog.INDICADOR.eq(filters['indicator'])]
-    if entry.empty:
-        st.info('Definição indisponível neste ano.'); return
-    row = entry.iloc[0]
-    indicator_summary(row)
-    if row.ALERTA: st.warning(row.ALERTA)
-    conflicts = int(frame.CONFLITO_META.sum())
-    if conflicts:
-        st.warning(f'{number(conflicts)} registros divergem entre ALCANCE_META e META. A classificação exibida prioriza ALCANCE_META, conforme a metodologia.')
-    cards(frame, summarize(frame))
-    s = summarize(frame).iloc[0]
-
-    hist = filter_data(whole, uf=filters['uf'], municipality=filters['municipality'], series=row.SERIE)
-    a, b = st.columns(2)
-    with a, st.container(border=True, key='chartpanel_06'): plot(charts.time_line(history(hist)))
-    with b, st.container(border=True, key='chartpanel_07'):
-        if frame.RES_EXIBICAO.notna().any(): plot(charts.distribution(frame))
-        else: st.info('A fonte não fornece resultados numéricos para este indicador/ano. A situação da meta foi preservada conforme ALCANCE_META.')
-    with st.expander('Ver detalhes do indicador'):
-        st.write(description_label(row))
-        fact_sheet('Definição e regra de avaliação', [('Regra informada', str(row.LABEL_META)),
-                   ('Numerador', str(row.LABEL_NUM)), ('Denominador', str(row.LABEL_DEN))], eyebrow='FICHA DO INDICADOR')
-        st.caption(row.ESCALA_NOTA)
-    st.caption('Histórico limitado à mesma definição e unidade validada. Escalas originais não comprovadas ficam separadas por ano; veja a metodologia.')
-    a, b = st.columns(2)
-    with a, st.container(border=True, key='chartpanel_08'): plot(charts.ranking(summarize(frame, ['UF']), 'UF', 'Ranking de estados', 27))
-    with b:
-        st.subheader('Ranking municipal')
-        table(municipal_ranking(frame)[['POSICAO', 'NOME_MUN', 'UF', 'RES_EXIBICAO', 'UNIDADE', 'SITUACAO', 'CUMPRIMENTO']], 650)
 
 
 def historical(frame, whole, catalog, filters):
@@ -193,7 +173,7 @@ def historical(frame, whole, catalog, filters):
         first, last = valid.iloc[0], valid.iloc[-1]
         kpi_grid([(f'Primeiro valor · {change["inicio"]}', percent(first.CUMPRIMENTO), 'Cumprimento entre avaliadas', ''),
                   (f'Último valor · {change["fim"]}', percent(last.CUMPRIMENTO), 'Cumprimento entre avaliadas', ''),
-                  ('Variação', f'{number(change["pontos_percentuais"], 1)} p.p.', 'Pontos percentuais',
+                  ('Variação', f'{"+" if change["pontos_percentuais"] > 0 else ""}{number(change["pontos_percentuais"], 1)} p.p.', 'Pontos percentuais',
                    'positive' if change['pontos_percentuais'] >= 0 else 'negative'),
                   ('Variação relativa', percent(change['variacao_relativa']), 'Não confundir com pontos percentuais', '')], small=True)
         st.caption('A cobertura e a composição territorial podem variar entre anos. A linha mostra os dados observados, sem previsão.')
@@ -221,36 +201,6 @@ def historical(frame, whole, catalog, filters):
     table(hist[['ANO', 'MUNICIPIOS', 'ATINGIRAM', 'NAO_ATINGIRAM', 'SEM_INFORMACAO', 'AVALIADOS', 'CUMPRIMENTO']])
     with st.expander('Definições, metas e alertas por ano'):
         table(catalog[catalog.SERIE.eq(filters['series']) & catalog.ANO.isin(hist.ANO)][['ANO', 'INDICADOR', 'DESCRICAO', 'LABEL_META', 'ALERTA']])
-
-
-def comparisons(frame, whole, catalog, filters):
-    if empty(frame): return
-    row = catalog[catalog.SERIE.eq(filters['series'])].sort_values('ANO').iloc[-1]
-    indicator_summary(row, show_rule=False)
-    with st.sidebar:
-        mode = st.radio('Comparar localidades', ['Estados', 'Municípios'], key='comparar_modo')
-    if mode == 'Estados':
-        options = sorted(frame.UF.unique().tolist())
-        labels = {x: x for x in options}
-        column = 'UF'
-    else:
-        local = frame[['COD_MUN', 'NOME_MUN', 'UF']].drop_duplicates().sort_values(['NOME_MUN', 'UF'])
-        labels = {str(r.COD_MUN): f'{r.NOME_MUN} · {r.UF}' for r in local.itertuples()}
-        options, column = list(labels), 'COD_MUN'
-    with st.sidebar:
-        chosen = st.multiselect('Localidades (até 5)', options, default=options[:min(3, len(options))],
-                                format_func=lambda x: labels[x], max_selections=5, key=f'comparar_{mode}_{filters["series"]}_{filters["uf"]}_{filters["municipality"]}')
-    if not chosen:
-        st.info('Selecione pelo menos uma localidade.'); return
-    selected = frame[frame[column].isin(chosen)]
-    summary = summarize(selected, ['ANO', column])
-    summary['Localidade'] = summary[column].astype('string').map(labels)
-    plot(charts.time_line(summary, 'Cumprimento das metas · localidades selecionadas', color='Localidade'))
-    if mode == 'Municípios':
-        detail = selected.assign(Localidade=selected.COD_MUN.astype('string').map(labels))
-        plot(charts.municipal_comparison(detail, row.UNIDADE))
-    note('Comparação restrita a até cinco localidades, na mesma definição e no período selecionado. Para municípios, cumprimento anual é 0% ou 100% quando a situação está informada.')
-    table(summary[['ANO', 'Localidade', 'MUNICIPIOS', 'ATINGIRAM', 'NAO_ATINGIRAM', 'SEM_INFORMACAO', 'AVALIADOS', 'CUMPRIMENTO']])
 
 
 def export_frame(frame, catalog):
@@ -310,6 +260,15 @@ def about(frame, whole, catalog, filters):
         st.write('**Metas atingidas ÷ metas avaliadas × 100**. Avaliadas = atingidas + não atingidas. Ausentes não entram no denominador; são apresentados separadamente.')
         st.write('Um indicador/ano: percentual de municípios que atingiram a meta. Vários indicadores: percentual de pares município–indicador. Não representa a fração de municípios que atingiu todas as metas.')
         st.write('O ranking ordena esse cumprimento, com posições iguais para empates. Não pressupõe que resultados mais altos sejam sempre melhores.')
+    st.subheader('Como o PQA-VS avalia os estados')
+    st.write('A avaliação estadual considera a proporção de municípios que alcança determinada proporção dos indicadores, conforme as regras vigentes no período. Isso difere da distribuição descritiva de cumprimento apresentada neste painel.')
+    from src.rules import version_for_year
+    reference = version_for_year(2025)
+    st.dataframe(pd.DataFrame([{'Municípios do território':f'{t["municipal_share"]}%', 'Metas dos indicadores':f'≥{t["indicator_share"]}%', 'Faixa de incentivo':f'{t["incentive"]}%'} for t in reference['state_incentive']]),hide_index=True,width='stretch')
+    st.info('As metas e indicadores da configuração apresentada na cartilha oficial utilizada como referência são aplicáveis a partir de 2025. A análise histórica respeita as definições vigentes em cada período e os dados disponíveis.')
+    st.write('A referência atual apresenta 14 indicadores, sendo 7 universais e 7 específicos. Não atribuímos essas categorias aos indicadores de 2013–2021 apenas por número. Não há cadastro operacional completo de aplicabilidade ou incentivo para os anos da base.')
+    st.caption('Referência metodológica informada: Ministério da Saúde · Programa de Qualificação das Ações de Vigilância em Saúde — PQA-VS · cartilha atualizada a partir de 2025 · Portaria GM/MS nº 6.878/2025. A transcrição fornecida não substitui a documentação completa das regras de cada período.')
+    st.write('Adesão estadual: a referência informa pelo menos 60% dos municípios com adesão formalizada. Essa é uma regra de adesão, distinta de desempenho e cumprimento; a base não contém dados de adesão e não gera esse indicador.')
     st.subheader('Regras de tratamento')
     st.markdown('''- `ALCANCE_META` com 0 ou 1 tem prioridade. Sem flag válida, usamos somente “Sim”/“Não” de `META`. Valor 0 isolado em `META` não é interpretado como “Não”.
 - Situações: **Atingida**, **Não atingida**, **Sem informação**. Resultado numérico ausente não invalida uma situação explicitamente registrada na fonte.

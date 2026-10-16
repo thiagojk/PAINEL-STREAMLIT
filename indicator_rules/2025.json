@@ -1,0 +1,18 @@
+{
+  "id": "pqa-vs-reference-2025",
+  "start_year": 2025,
+  "end_year": null,
+  "status": "reference_only",
+  "source": "Ministério da Saúde — PQA-VS; cartilha com indicadores/metas aplicáveis a partir de 2025; Portaria GM/MS nº 6.878/2025. Referência transcrita no pedido do usuário; não é um cadastro operacional completo.",
+  "reference_counts": {"indicators": 14, "universal": 7, "specific": 7},
+  "indicators": [],
+  "applicability_policy_validated": false,
+  "missing_policy": null,
+  "state_incentive": [
+    {"municipal_share": 90, "indicator_share": 30, "incentive": 25},
+    {"municipal_share": 90, "indicator_share": 50, "incentive": 50},
+    {"municipal_share": 90, "indicator_share": 70, "incentive": 75},
+    {"municipal_share": 80, "indicator_share": 90, "incentive": 100}
+  ],
+  "state_adhesion_reference_percent": 60
+}
