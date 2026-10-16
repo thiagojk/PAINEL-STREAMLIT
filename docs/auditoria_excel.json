@@ -1,0 +1,5491 @@
+{
+  "PQA_VS_2013": {
+    "rows": 5570,
+    "columns": [
+      "ANO",
+      "UF",
+      "COD_MUN",
+      "NOME_MUN",
+      "POP_ANO",
+      "IND_01_NUM",
+      "IND_01_DEN",
+      "IND_01_RES",
+      "IND_01_META",
+      "IND_01_ALCANCE_META",
+      "IND_02_NUM",
+      "IND_02_DEN",
+      "IND_02_RES",
+      "IND_02_META",
+      "IND_02_ALCANCE_META",
+      "IND_03_NUM",
+      "IND_03_DEN",
+      "IND_03_RES",
+      "IND_03_META",
+      "IND_03_ALCANCE_META",
+      "IND_04_NUM",
+      "IND_04_DEN",
+      "IND_04_RES",
+      "IND_04_META",
+      "IND_04_ALCANCE_META",
+      "IND_05_NUM",
+      "IND_05_DEN",
+      "IND_05_RES",
+      "IND_05_META",
+      "IND_05_ALCANCE_META",
+      "IND_06_NUM",
+      "IND_06_DEN",
+      "IND_06_RES",
+      "IND_06_META",
+      "IND_06_ALCANCE_META",
+      "IND_07_NUM",
+      "IND_07_DEN",
+      "IND_07_RES",
+      "IND_07_META",
+      "IND_07_ALCANCE_META",
+      "IND_08_NUM",
+      "IND_08_DEN",
+      "IND_08_RES",
+      "IND_08_META",
+      "IND_08_ALCANCE_META",
+      "IND_09_NUM",
+      "IND_09_DEN",
+      "IND_09_RES",
+      "IND_09_META",
+      "IND_09_ALCANCE_META",
+      "IND_10_NUM",
+      "IND_10_DEN",
+      "IND_10_RES",
+      "IND_10_META",
+      "IND_10_ALCANCE_META",
+      "IND_11_NUM",
+      "IND_11_DEN",
+      "IND_11_RES",
+      "IND_11_META",
+      "IND_11_ALCANCE_META",
+      "IND_12_NUM",
+      "IND_12_DEN",
+      "IND_12_RES",
+      "IND_12_META",
+      "IND_12_ALCANCE_META",
+      "IND_13_NUM",
+      "IND_13_DEN",
+      "IND_13_RES",
+      "IND_13_META",
+      "IND_13_ALCANCE_META",
+      "IND_14_NUM",
+      "IND_14_DEN",
+      "IND_14_RES",
+      "IND_14_META",
+      "IND_14_ALCANCE_META",
+      "IND_15_NUM",
+      "IND_15_DEN",
+      "IND_15_RES",
+      "IND_15_META",
+      "IND_15_ALCANCE_META",
+      "VL_PQA_VS",
+      "METAS_ALCANCADAS",
+      "METAS_NAO_ALCANCADAS",
+      "QTDE_INDICADORES",
+      "QTDE_AUSENCIA_CASOS",
+      "PERCENTUAL"
+    ],
+    "types": {
+      "ANO": "int64",
+      "UF": "str",
+      "COD_MUN": "int64",
+      "NOME_MUN": "str",
+      "POP_ANO": "object",
+      "IND_01_NUM": "int64",
+      "IND_01_DEN": "int64",
+      "IND_01_RES": "float64",
+      "IND_01_META": "str",
+      "IND_01_ALCANCE_META": "int64",
+      "IND_02_NUM": "int64",
+      "IND_02_DEN": "int64",
+      "IND_02_RES": "int64",
+      "IND_02_META": "str",
+      "IND_02_ALCANCE_META": "int64",
+      "IND_03_NUM": "int64",
+      "IND_03_DEN": "int64",
+      "IND_03_RES": "float64",
+      "IND_03_META": "str",
+      "IND_03_ALCANCE_META": "int64",
+      "IND_04_NUM": "int64",
+      "IND_04_DEN": "int64",
+      "IND_04_RES": "float64",
+      "IND_04_META": "str",
+      "IND_04_ALCANCE_META": "int64",
+      "IND_05_NUM": "int64",
+      "IND_05_DEN": "int64",
+      "IND_05_RES": "float64",
+      "IND_05_META": "str",
+      "IND_05_ALCANCE_META": "int64",
+      "IND_06_NUM": "int64",
+      "IND_06_DEN": "int64",
+      "IND_06_RES": "float64",
+      "IND_06_META": "str",
+      "IND_06_ALCANCE_META": "int64",
+      "IND_07_NUM": "int64",
+      "IND_07_DEN": "int64",
+      "IND_07_RES": "float64",
+      "IND_07_META": "str",
+      "IND_07_ALCANCE_META": "int64",
+      "IND_08_NUM": "int64",
+      "IND_08_DEN": "int64",
+      "IND_08_RES": "float64",
+      "IND_08_META": "str",
+      "IND_08_ALCANCE_META": "int64",
+      "IND_09_NUM": "object",
+      "IND_09_DEN": "str",
+      "IND_09_RES": "str",
+      "IND_09_META": "str",
+      "IND_09_ALCANCE_META": "int64",
+      "IND_10_NUM": "int64",
+      "IND_10_DEN": "int64",
+      "IND_10_RES": "float64",
+      "IND_10_META": "str",
+      "IND_10_ALCANCE_META": "int64",
+      "IND_11_NUM": "int64",
+      "IND_11_DEN": "int64",
+      "IND_11_RES": "float64",
+      "IND_11_META": "str",
+      "IND_11_ALCANCE_META": "int64",
+      "IND_12_NUM": "int64",
+      "IND_12_DEN": "int64",
+      "IND_12_RES": "float64",
+      "IND_12_META": "str",
+      "IND_12_ALCANCE_META": "int64",
+      "IND_13_NUM": "int64",
+      "IND_13_DEN": "int64",
+      "IND_13_RES": "float64",
+      "IND_13_META": "str",
+      "IND_13_ALCANCE_META": "int64",
+      "IND_14_NUM": "int64",
+      "IND_14_DEN": "int64",
+      "IND_14_RES": "float64",
+      "IND_14_META": "str",
+      "IND_14_ALCANCE_META": "int64",
+      "IND_15_NUM": "str",
+      "IND_15_DEN": "str",
+      "IND_15_RES": "str",
+      "IND_15_META": "int64",
+      "IND_15_ALCANCE_META": "str",
+      "VL_PQA_VS": "object",
+      "METAS_ALCANCADAS": "object",
+      "METAS_NAO_ALCANCADAS": "object",
+      "QTDE_INDICADORES": "int64",
+      "QTDE_AUSENCIA_CASOS": "int64",
+      "PERCENTUAL": "object"
+    },
+    "missing": {
+      "ANO": 0,
+      "UF": 0,
+      "COD_MUN": 0,
+      "NOME_MUN": 0,
+      "POP_ANO": 152,
+      "IND_01_NUM": 0,
+      "IND_01_DEN": 0,
+      "IND_01_RES": 0,
+      "IND_01_META": 0,
+      "IND_01_ALCANCE_META": 0,
+      "IND_02_NUM": 0,
+      "IND_02_DEN": 0,
+      "IND_02_RES": 0,
+      "IND_02_META": 0,
+      "IND_02_ALCANCE_META": 0,
+      "IND_03_NUM": 0,
+      "IND_03_DEN": 0,
+      "IND_03_RES": 0,
+      "IND_03_META": 0,
+      "IND_03_ALCANCE_META": 0,
+      "IND_04_NUM": 0,
+      "IND_04_DEN": 0,
+      "IND_04_RES": 0,
+      "IND_04_META": 0,
+      "IND_04_ALCANCE_META": 0,
+      "IND_05_NUM": 0,
+      "IND_05_DEN": 0,
+      "IND_05_RES": 0,
+      "IND_05_META": 0,
+      "IND_05_ALCANCE_META": 0,
+      "IND_06_NUM": 0,
+      "IND_06_DEN": 0,
+      "IND_06_RES": 0,
+      "IND_06_META": 0,
+      "IND_06_ALCANCE_META": 0,
+      "IND_07_NUM": 0,
+      "IND_07_DEN": 0,
+      "IND_07_RES": 0,
+      "IND_07_META": 0,
+      "IND_07_ALCANCE_META": 0,
+      "IND_08_NUM": 0,
+      "IND_08_DEN": 0,
+      "IND_08_RES": 0,
+      "IND_08_META": 0,
+      "IND_08_ALCANCE_META": 0,
+      "IND_09_NUM": 78,
+      "IND_09_DEN": 5570,
+      "IND_09_RES": 5570,
+      "IND_09_META": 0,
+      "IND_09_ALCANCE_META": 0,
+      "IND_10_NUM": 0,
+      "IND_10_DEN": 0,
+      "IND_10_RES": 0,
+      "IND_10_META": 0,
+      "IND_10_ALCANCE_META": 0,
+      "IND_11_NUM": 0,
+      "IND_11_DEN": 0,
+      "IND_11_RES": 0,
+      "IND_11_META": 0,
+      "IND_11_ALCANCE_META": 0,
+      "IND_12_NUM": 0,
+      "IND_12_DEN": 0,
+      "IND_12_RES": 0,
+      "IND_12_META": 0,
+      "IND_12_ALCANCE_META": 0,
+      "IND_13_NUM": 0,
+      "IND_13_DEN": 0,
+      "IND_13_RES": 0,
+      "IND_13_META": 0,
+      "IND_13_ALCANCE_META": 0,
+      "IND_14_NUM": 0,
+      "IND_14_DEN": 0,
+      "IND_14_RES": 0,
+      "IND_14_META": 0,
+      "IND_14_ALCANCE_META": 0,
+      "IND_15_NUM": 5570,
+      "IND_15_DEN": 5570,
+      "IND_15_RES": 5570,
+      "IND_15_META": 0,
+      "IND_15_ALCANCE_META": 5570,
+      "VL_PQA_VS": 152,
+      "METAS_ALCANCADAS": 156,
+      "METAS_NAO_ALCANCADAS": 156,
+      "QTDE_INDICADORES": 0,
+      "QTDE_AUSENCIA_CASOS": 0,
+      "PERCENTUAL": 152
+    },
+    "null_tokens": {
+      "POP_ANO": {
+        "NULL": 152,
+        "4057": 4,
+        "1856": 4,
+        "18162": 3,
+        "11301": 3,
+        "7420": 3,
+        "12644": 3,
+        "14397": 3,
+        "7567": 3,
+        "10693": 3
+      },
+      "IND_09_NUM": {
+        "0": 871,
+        "NULL": 78,
+        "870": 6,
+        "8000": 5,
+        "750": 5,
+        "1276": 5,
+        "4510": 4,
+        "7439": 4,
+        "1100": 4,
+        "4979": 4
+      },
+      "VL_PQA_VS": {
+        "NULL": 152,
+        "3406.38": 73,
+        "3419.24": 61,
+        "4320": 55,
+        "3360": 53,
+        "4800": 48,
+        "3077.316": 35,
+        "2400": 34,
+        "2640": 29,
+        "3600": 25
+      },
+      "METAS_ALCANCADAS": {
+        "6": 1039,
+        "5": 973,
+        "7": 817,
+        "4": 790,
+        "8": 563,
+        "3": 501,
+        "9": 282,
+        "2": 228,
+        "NULL": 156,
+        "10": 122
+      },
+      "METAS_NAO_ALCANCADAS": {
+        "9": 1039,
+        "10": 973,
+        "8": 817,
+        "11": 790,
+        "7": 563,
+        "12": 501,
+        "6": 282,
+        "13": 228,
+        "NULL": 156,
+        "5": 122
+      },
+      "PERCENTUAL": {
+        "100": 1168,
+        "90": 935,
+        "50": 581,
+        "70": 547,
+        "40": 398,
+        "80": 396,
+        "60": 332,
+        "75": 236,
+        "65": 234,
+        "55": 216
+      }
+    },
+    "indicators": {
+      "IND_01": {
+        "res_n": 5570,
+        "min": 0.0,
+        "max": 4.0,
+        "q95": 1.2796756756756762,
+        "meta": {
+          "Não": 3102,
+          "Sim": 2468
+        },
+        "alcance": {
+          "0": 3102,
+          "1": 2468
+        },
+        "res_ratio_factor": {
+          "1.0": 5564
+        }
+      },
+      "IND_02": {
+        "res_n": 5570,
+        "min": 0.0,
+        "max": 242.0,
+        "q95": 121.0,
+        "meta": {
+          "Sim": 2971,
+          "Não": 2599
+        },
+        "alcance": {
+          "1": 2971,
+          "0": 2599
+        },
+        "res_ratio_factor": {
+          "100.0": 329,
+          "99.6667": 49,
+          "99.75": 46,
+          "100.2857": 45
+        }
+      },
+      "IND_03": {
+        "res_n": 5570,
+        "min": 0.0,
+        "max": 1400.0,
+        "q95": 100.0,
+        "meta": {
+          "Não": 4657,
+          "Sim": 913
+        },
+        "alcance": {
+          "0": 4657,
+          "1": 913
+        },
+        "res_ratio_factor": {
+          "100.0": 1475
+        }
+      },
+      "IND_04": {
+        "res_n": 5570,
+        "min": 0.0,
+        "max": 100.0,
+        "q95": 100.0,
+        "meta": {
+          "Não": 4617,
+          "Sim": 953
+        },
+        "alcance": {
+          "0": 4617,
+          "1": 953
+        },
+        "res_ratio_factor": {
+          "100.0": 5470
+        }
+      },
+      "IND_05": {
+        "res_n": 5570,
+        "min": 0.0,
+        "max": 4.53070175438596,
+        "q95": 1.7066287878787847,
+        "meta": {
+          "Não": 4271,
+          "Sim": 1299
+        },
+        "alcance": {
+          "0": 4271,
+          "1": 1299
+        },
+        "res_ratio_factor": {
+          "1.0": 4515
+        }
+      },
+      "IND_06": {
+        "res_n": 5570,
+        "min": 0.0,
+        "max": 1.0,
+        "q95": 1.0,
+        "meta": {
+          "Sim": 4334,
+          "Não": 1236
+        },
+        "alcance": {
+          "1": 4334,
+          "0": 1236
+        },
+        "res_ratio_factor": {
+          "1.0": 5565
+        }
+      },
+      "IND_07": {
+        "res_n": 5570,
+        "min": 0.0,
+        "max": 1.0,
+        "q95": 1.0,
+        "meta": {
+          "Não": 2987,
+          "Sim": 2583
+        },
+        "alcance": {
+          "0": 2987,
+          "1": 2583
+        },
+        "res_ratio_factor": {
+          "1.0": 3829
+        }
+      },
+      "IND_08": {
+        "res_n": 5570,
+        "min": 0.0,
+        "max": 100.0,
+        "q95": 43.26515151515153,
+        "meta": {
+          "Não": 5466,
+          "Sim": 104
+        },
+        "alcance": {
+          "1": 4888,
+          "0": 682
+        },
+        "res_ratio_factor": {
+          "100.0": 462
+        }
+      },
+      "IND_09": {
+        "res_n": 0,
+        "min": null,
+        "max": null,
+        "q95": null,
+        "meta": {
+          "Sim": 2895,
+          "Não": 2675
+        },
+        "alcance": {
+          "1": 2895,
+          "0": 2675
+        },
+        "res_ratio_factor": {}
+      },
+      "IND_10": {
+        "res_n": 5570,
+        "min": 0.0,
+        "max": 1500.0,
+        "q95": 100.0,
+        "meta": {
+          "Não": 3534,
+          "Sim": 2036
+        },
+        "alcance": {
+          "0": 3534,
+          "1": 2036
+        },
+        "res_ratio_factor": {
+          "100.0": 1749,
+          "100.05": 52,
+          "99.96": 47,
+          "99.9": 30
+        }
+      },
+      "IND_11": {
+        "res_n": 5570,
+        "min": 0.0,
+        "max": 1400.0,
+        "q95": 100.0,
+        "meta": {
+          "Não": 4198,
+          "Sim": 1372
+        },
+        "alcance": {
+          "0": 4198,
+          "1": 1372
+        },
+        "res_ratio_factor": {
+          "100.0": 2417
+        }
+      },
+      "IND_12": {
+        "res_n": 5570,
+        "min": 0.0,
+        "max": 67.8,
+        "q95": 4.028912466843508,
+        "meta": {
+          "Não": 4755,
+          "Sim": 815
+        },
+        "alcance": {
+          "0": 4755,
+          "1": 815
+        },
+        "res_ratio_factor": {
+          "1.0": 2636
+        }
+      },
+      "IND_13": {
+        "res_n": 5570,
+        "min": -100.0,
+        "max": 17600.0,
+        "q95": 198.57903225806456,
+        "meta": {
+          "Não": 4367,
+          "Sim": 1203
+        },
+        "alcance": {
+          "0": 4367,
+          "1": 1203
+        },
+        "res_ratio_factor": {
+          "0.0": 46,
+          "1.0": 21,
+          "2.0": 17,
+          "3.0": 17
+        }
+      },
+      "IND_14": {
+        "res_n": 5570,
+        "min": 0.0,
+        "max": 100.0,
+        "q95": 100.0,
+        "meta": {
+          "Não": 2814,
+          "Sim": 2756
+        },
+        "alcance": {
+          "0": 2814,
+          "1": 2756
+        },
+        "res_ratio_factor": {
+          "100.0": 3181,
+          "100.2439": 1
+        }
+      },
+      "IND_15": {
+        "res_n": 0,
+        "min": null,
+        "max": null,
+        "q95": null,
+        "meta": {
+          "0": 5570
+        },
+        "alcance": {
+          "NULL": 5570
+        },
+        "res_ratio_factor": {}
+      }
+    }
+  },
+  "PQA_VS_2014": {
+    "rows": 5570,
+    "columns": [
+      "ANO",
+      "UF",
+      "COD_MUN",
+      "NOME_MUN",
+      "POP_ANO",
+      "IND_01_NUM",
+      "IND_01_DEN",
+      "IND_01_RES",
+      "IND_01_META",
+      "IND_01_ALCANCE_META",
+      "IND_02_NUM",
+      "IND_02_DEN",
+      "IND_02_RES",
+      "IND_02_META",
+      "IND_02_ALCANCE_META",
+      "IND_03_NUM",
+      "IND_03_DEN",
+      "IND_03_RES",
+      "IND_03_META",
+      "IND_03_ALCANCE_META",
+      "IND_04_NUM",
+      "IND_04_DEN",
+      "IND_04_RES",
+      "IND_04_META",
+      "IND_04_ALCANCE_META",
+      "IND_05_NUM",
+      "IND_05_DEN",
+      "IND_05_RES",
+      "IND_05_META",
+      "IND_05_ALCANCE_META",
+      "IND_06_NUM",
+      "IND_06_DEN",
+      "IND_06_RES",
+      "IND_06_META",
+      "IND_06_ALCANCE_META",
+      "IND_07_NUM",
+      "IND_07_DEN",
+      "IND_07_RES",
+      "IND_07_META",
+      "IND_07_ALCANCE_META",
+      "IND_08_NUM",
+      "IND_08_DEN",
+      "IND_08_RES",
+      "IND_08_META",
+      "IND_08_ALCANCE_META",
+      "IND_09_NUM",
+      "IND_09_DEN",
+      "IND_09_RES",
+      "IND_09_META",
+      "IND_09_ALCANCE_META",
+      "IND_10_NUM",
+      "IND_10_DEN",
+      "IND_10_RES",
+      "IND_10_META",
+      "IND_10_ALCANCE_META",
+      "IND_11_NUM",
+      "IND_11_DEN",
+      "IND_11_RES",
+      "IND_11_META",
+      "IND_11_ALCANCE_META",
+      "IND_12_NUM",
+      "IND_12_DEN",
+      "IND_12_RES",
+      "IND_12_META",
+      "IND_12_ALCANCE_META",
+      "IND_13_NUM",
+      "IND_13_DEN",
+      "IND_13_RES",
+      "IND_13_META",
+      "IND_13_ALCANCE_META",
+      "IND_14_NUM",
+      "IND_14_DEN",
+      "IND_14_RES",
+      "IND_14_META",
+      "IND_14_ALCANCE_META",
+      "IND_15_NUM",
+      "IND_15_DEN",
+      "IND_15_RES",
+      "IND_15_META",
+      "IND_15_ALCANCE_META",
+      "VL_PQA_VS",
+      "METAS_ALCANCADAS",
+      "METAS_NAO_ALCANCADAS",
+      "QTDE_INDICADORES",
+      "QTDE_AUSENCIA_CASOS",
+      "PERCENTUAL"
+    ],
+    "types": {
+      "ANO": "int64",
+      "UF": "str",
+      "COD_MUN": "int64",
+      "NOME_MUN": "str",
+      "POP_ANO": "object",
+      "IND_01_NUM": "int64",
+      "IND_01_DEN": "int64",
+      "IND_01_RES": "float64",
+      "IND_01_META": "str",
+      "IND_01_ALCANCE_META": "int64",
+      "IND_02_NUM": "int64",
+      "IND_02_DEN": "int64",
+      "IND_02_RES": "float64",
+      "IND_02_META": "str",
+      "IND_02_ALCANCE_META": "int64",
+      "IND_03_NUM": "int64",
+      "IND_03_DEN": "int64",
+      "IND_03_RES": "float64",
+      "IND_03_META": "str",
+      "IND_03_ALCANCE_META": "int64",
+      "IND_04_NUM": "int64",
+      "IND_04_DEN": "int64",
+      "IND_04_RES": "float64",
+      "IND_04_META": "str",
+      "IND_04_ALCANCE_META": "int64",
+      "IND_05_NUM": "int64",
+      "IND_05_DEN": "int64",
+      "IND_05_RES": "float64",
+      "IND_05_META": "str",
+      "IND_05_ALCANCE_META": "int64",
+      "IND_06_NUM": "str",
+      "IND_06_DEN": "str",
+      "IND_06_RES": "int64",
+      "IND_06_META": "str",
+      "IND_06_ALCANCE_META": "int64",
+      "IND_07_NUM": "int64",
+      "IND_07_DEN": "int64",
+      "IND_07_RES": "float64",
+      "IND_07_META": "str",
+      "IND_07_ALCANCE_META": "int64",
+      "IND_08_NUM": "int64",
+      "IND_08_DEN": "int64",
+      "IND_08_RES": "float64",
+      "IND_08_META": "str",
+      "IND_08_ALCANCE_META": "int64",
+      "IND_09_NUM": "str",
+      "IND_09_DEN": "str",
+      "IND_09_RES": "int64",
+      "IND_09_META": "str",
+      "IND_09_ALCANCE_META": "int64",
+      "IND_10_NUM": "object",
+      "IND_10_DEN": "object",
+      "IND_10_RES": "object",
+      "IND_10_META": "str",
+      "IND_10_ALCANCE_META": "int64",
+      "IND_11_NUM": "int64",
+      "IND_11_DEN": "int64",
+      "IND_11_RES": "float64",
+      "IND_11_META": "str",
+      "IND_11_ALCANCE_META": "int64",
+      "IND_12_NUM": "int64",
+      "IND_12_DEN": "int64",
+      "IND_12_RES": "float64",
+      "IND_12_META": "str",
+      "IND_12_ALCANCE_META": "int64",
+      "IND_13_NUM": "int64",
+      "IND_13_DEN": "int64",
+      "IND_13_RES": "float64",
+      "IND_13_META": "str",
+      "IND_13_ALCANCE_META": "int64",
+      "IND_14_NUM": "object",
+      "IND_14_DEN": "object",
+      "IND_14_RES": "object",
+      "IND_14_META": "str",
+      "IND_14_ALCANCE_META": "int64",
+      "IND_15_NUM": "str",
+      "IND_15_DEN": "str",
+      "IND_15_RES": "str",
+      "IND_15_META": "int64",
+      "IND_15_ALCANCE_META": "str",
+      "VL_PQA_VS": "object",
+      "METAS_ALCANCADAS": "object",
+      "METAS_NAO_ALCANCADAS": "object",
+      "QTDE_INDICADORES": "int64",
+      "QTDE_AUSENCIA_CASOS": "int64",
+      "PERCENTUAL": "object"
+    },
+    "missing": {
+      "ANO": 0,
+      "UF": 0,
+      "COD_MUN": 0,
+      "NOME_MUN": 0,
+      "POP_ANO": 124,
+      "IND_01_NUM": 0,
+      "IND_01_DEN": 0,
+      "IND_01_RES": 0,
+      "IND_01_META": 0,
+      "IND_01_ALCANCE_META": 0,
+      "IND_02_NUM": 0,
+      "IND_02_DEN": 0,
+      "IND_02_RES": 0,
+      "IND_02_META": 0,
+      "IND_02_ALCANCE_META": 0,
+      "IND_03_NUM": 0,
+      "IND_03_DEN": 0,
+      "IND_03_RES": 0,
+      "IND_03_META": 0,
+      "IND_03_ALCANCE_META": 0,
+      "IND_04_NUM": 0,
+      "IND_04_DEN": 0,
+      "IND_04_RES": 0,
+      "IND_04_META": 0,
+      "IND_04_ALCANCE_META": 0,
+      "IND_05_NUM": 0,
+      "IND_05_DEN": 0,
+      "IND_05_RES": 0,
+      "IND_05_META": 0,
+      "IND_05_ALCANCE_META": 0,
+      "IND_06_NUM": 5570,
+      "IND_06_DEN": 5570,
+      "IND_06_RES": 0,
+      "IND_06_META": 0,
+      "IND_06_ALCANCE_META": 0,
+      "IND_07_NUM": 0,
+      "IND_07_DEN": 0,
+      "IND_07_RES": 0,
+      "IND_07_META": 0,
+      "IND_07_ALCANCE_META": 0,
+      "IND_08_NUM": 0,
+      "IND_08_DEN": 0,
+      "IND_08_RES": 0,
+      "IND_08_META": 0,
+      "IND_08_ALCANCE_META": 0,
+      "IND_09_NUM": 5570,
+      "IND_09_DEN": 5570,
+      "IND_09_RES": 0,
+      "IND_09_META": 0,
+      "IND_09_ALCANCE_META": 0,
+      "IND_10_NUM": 2630,
+      "IND_10_DEN": 2630,
+      "IND_10_RES": 2630,
+      "IND_10_META": 0,
+      "IND_10_ALCANCE_META": 0,
+      "IND_11_NUM": 0,
+      "IND_11_DEN": 0,
+      "IND_11_RES": 0,
+      "IND_11_META": 0,
+      "IND_11_ALCANCE_META": 0,
+      "IND_12_NUM": 0,
+      "IND_12_DEN": 0,
+      "IND_12_RES": 0,
+      "IND_12_META": 0,
+      "IND_12_ALCANCE_META": 0,
+      "IND_13_NUM": 0,
+      "IND_13_DEN": 0,
+      "IND_13_RES": 0,
+      "IND_13_META": 0,
+      "IND_13_ALCANCE_META": 0,
+      "IND_14_NUM": 1090,
+      "IND_14_DEN": 1090,
+      "IND_14_RES": 1090,
+      "IND_14_META": 0,
+      "IND_14_ALCANCE_META": 0,
+      "IND_15_NUM": 5570,
+      "IND_15_DEN": 5570,
+      "IND_15_RES": 5570,
+      "IND_15_META": 0,
+      "IND_15_ALCANCE_META": 5570,
+      "VL_PQA_VS": 124,
+      "METAS_ALCANCADAS": 124,
+      "METAS_NAO_ALCANCADAS": 124,
+      "QTDE_INDICADORES": 0,
+      "QTDE_AUSENCIA_CASOS": 0,
+      "PERCENTUAL": 124
+    },
+    "null_tokens": {
+      "POP_ANO": {
+        "NULL": 124,
+        "4659": 4,
+        "3389": 4,
+        "2935": 4,
+        "2817": 4,
+        "11209": 3,
+        "7774": 3,
+        "3485": 3,
+        "10008": 3,
+        "3813": 3
+      },
+      "IND_10_NUM": {
+        "NULL": 2630,
+        "2": 232,
+        "3": 211,
+        "4": 207,
+        "0": 205,
+        "1": 164,
+        "5": 159,
+        "6": 133,
+        "8": 112,
+        "7": 111
+      },
+      "IND_10_DEN": {
+        "NULL": 2630,
+        "3": 223,
+        "4": 214,
+        "2": 207,
+        "5": 176,
+        "1": 151,
+        "6": 138,
+        "7": 124,
+        "8": 116,
+        "10": 107
+      },
+      "IND_10_RES": {
+        "NULL": 2630,
+        "1": 1581,
+        "0": 207,
+        "0.666666666666667": 41,
+        "0.5": 39,
+        "0.75": 33,
+        "0.8": 24,
+        "0.333333333333333": 24,
+        "0.857142857142857": 22,
+        "0.833333333333333": 22
+      },
+      "IND_14_NUM": {
+        "NULL": 1090,
+        "1": 741,
+        "2": 521,
+        "3": 421,
+        "4": 299,
+        "5": 232,
+        "6": 209,
+        "7": 167,
+        "8": 138,
+        "9": 124
+      },
+      "IND_14_DEN": {
+        "NULL": 1090,
+        "1": 717,
+        "2": 524,
+        "3": 413,
+        "4": 317,
+        "5": 227,
+        "6": 219,
+        "7": 174,
+        "8": 143,
+        "9": 119
+      },
+      "IND_14_RES": {
+        "1": 3320,
+        "NULL": 1090,
+        "0.5": 82,
+        "0": 71,
+        "0.666666666666667": 59,
+        "0.75": 57,
+        "0.833333333333333": 39,
+        "0.8": 35,
+        "0.857142857142857": 35,
+        "0.888888888888889": 29
+      },
+      "VL_PQA_VS": {
+        "NULL": 124,
+        "0": 5,
+        "12312": 2,
+        "46380.4": 2,
+        "7950.24": 2,
+        "13556.4": 2,
+        "4956.48": 2,
+        "9143.712": 2,
+        "4967.424": 2,
+        "2969.28": 2
+      },
+      "METAS_ALCANCADAS": {
+        "6": 1110,
+        "5": 1082,
+        "7": 861,
+        "4": 807,
+        "3": 521,
+        "8": 515,
+        "9": 220,
+        "2": 190,
+        "NULL": 124,
+        "10": 75
+      },
+      "METAS_NAO_ALCANCADAS": {
+        "9": 1110,
+        "10": 1082,
+        "8": 861,
+        "11": 807,
+        "12": 521,
+        "7": 515,
+        "6": 220,
+        "13": 190,
+        "NULL": 124,
+        "5": 75
+      },
+      "PERCENTUAL": {
+        "100": 1804,
+        "90": 1137,
+        "70": 583,
+        "50": 437,
+        "75": 347,
+        "55": 269,
+        "40": 233,
+        "30": 139,
+        "60": 138,
+        "80": 135
+      }
+    },
+    "indicators": {
+      "IND_01": {
+        "res_n": 5570,
+        "min": 0.0,
+        "max": 299.0,
+        "q95": 1.3,
+        "meta": {
+          "Não": 3238,
+          "Sim": 2332
+        },
+        "alcance": {
+          "0": 3238,
+          "1": 2332
+        },
+        "res_ratio_factor": {
+          "1.0": 5569
+        }
+      },
+      "IND_02": {
+        "res_n": 5570,
+        "min": 0.0,
+        "max": 6055.0,
+        "q95": 1.3069858712715863,
+        "meta": {
+          "Sim": 3034,
+          "Não": 2536
+        },
+        "alcance": {
+          "1": 3034,
+          "0": 2536
+        },
+        "res_ratio_factor": {
+          "1.0": 5569
+        }
+      },
+      "IND_03": {
+        "res_n": 5570,
+        "min": 0.0,
+        "max": 8.0,
+        "q95": 1.2,
+        "meta": {
+          "Não": 3530,
+          "Sim": 2040
+        },
+        "alcance": {
+          "0": 3530,
+          "1": 2040
+        },
+        "res_ratio_factor": {
+          "1.0": 2954
+        }
+      },
+      "IND_04": {
+        "res_n": 5570,
+        "min": 0.0,
+        "max": 1.0,
+        "q95": 1.0,
+        "meta": {
+          "Não": 5004,
+          "Sim": 566
+        },
+        "alcance": {
+          "0": 5004,
+          "1": 566
+        },
+        "res_ratio_factor": {
+          "1.0": 5476
+        }
+      },
+      "IND_05": {
+        "res_n": 5570,
+        "min": 0.0,
+        "max": 3.57666666666667,
+        "q95": 1.6293608124253307,
+        "meta": {
+          "Não": 4397,
+          "Sim": 1173
+        },
+        "alcance": {
+          "0": 4397,
+          "1": 1173
+        },
+        "res_ratio_factor": {
+          "1.0": 3553
+        }
+      },
+      "IND_06": {
+        "res_n": 5570,
+        "min": 0.0,
+        "max": 53.0,
+        "q95": 53.0,
+        "meta": {
+          "Sim": 4278,
+          "Não": 1292
+        },
+        "alcance": {
+          "1": 4278,
+          "0": 1292
+        },
+        "res_ratio_factor": {}
+      },
+      "IND_07": {
+        "res_n": 5570,
+        "min": 0.0,
+        "max": 1.0,
+        "q95": 1.0,
+        "meta": {
+          "Não": 3627,
+          "Sim": 1943
+        },
+        "alcance": {
+          "0": 3627,
+          "1": 1943
+        },
+        "res_ratio_factor": {
+          "1.0": 2782
+        }
+      },
+      "IND_08": {
+        "res_n": 5570,
+        "min": 0.0,
+        "max": 1.0,
+        "q95": 0.32618828297715546,
+        "meta": {
+          "Não": 5475,
+          "Sim": 95
+        },
+        "alcance": {
+          "0": 5475,
+          "1": 95
+        },
+        "res_ratio_factor": {
+          "1.0": 367
+        }
+      },
+      "IND_09": {
+        "res_n": 5570,
+        "min": 0.0,
+        "max": 1.0,
+        "q95": 1.0,
+        "meta": {
+          "Sim": 3447,
+          "Não": 2123
+        },
+        "alcance": {
+          "1": 3447,
+          "0": 2123
+        },
+        "res_ratio_factor": {}
+      },
+      "IND_10": {
+        "res_n": 2940,
+        "min": 0.0,
+        "max": 3.0,
+        "q95": 1.0,
+        "meta": {
+          "Não": 3459,
+          "Sim": 2111
+        },
+        "alcance": {
+          "0": 3459,
+          "1": 2111
+        },
+        "res_ratio_factor": {
+          "1.0": 2733
+        }
+      },
+      "IND_11": {
+        "res_n": 5570,
+        "min": 0.0,
+        "max": 3.75,
+        "q95": 1.0,
+        "meta": {
+          "Não": 4144,
+          "Sim": 1426
+        },
+        "alcance": {
+          "0": 4144,
+          "1": 1426
+        },
+        "res_ratio_factor": {
+          "1.0": 2379
+        }
+      },
+      "IND_12": {
+        "res_n": 5570,
+        "min": 0.0,
+        "max": 166.5,
+        "q95": 4.25745327102804,
+        "meta": {
+          "Não": 4664,
+          "Sim": 906
+        },
+        "alcance": {
+          "0": 4664,
+          "1": 906
+        },
+        "res_ratio_factor": {
+          "1.0": 2939
+        }
+      },
+      "IND_13": {
+        "res_n": 5570,
+        "min": -100.0,
+        "max": 23600.0,
+        "q95": 300.0,
+        "meta": {
+          "Sim": 3820,
+          "Não": 1750
+        },
+        "alcance": {
+          "1": 3820,
+          "0": 1750
+        },
+        "res_ratio_factor": {
+          "1.0": 501,
+          "2.0": 395,
+          "3.0": 258,
+          "4.0": 247
+        }
+      },
+      "IND_14": {
+        "res_n": 4480,
+        "min": 0.0,
+        "max": 1.0,
+        "q95": 1.0,
+        "meta": {
+          "Sim": 3824,
+          "Não": 1746
+        },
+        "alcance": {
+          "1": 3824,
+          "0": 1746
+        },
+        "res_ratio_factor": {
+          "1.0": 4409
+        }
+      },
+      "IND_15": {
+        "res_n": 0,
+        "min": null,
+        "max": null,
+        "q95": null,
+        "meta": {
+          "0": 5570
+        },
+        "alcance": {
+          "NULL": 5570
+        },
+        "res_ratio_factor": {}
+      }
+    }
+  },
+  "PQA_VS_2015": {
+    "rows": 5570,
+    "columns": [
+      "ANO",
+      "UF",
+      "COD_MUN",
+      "NOME_MUN",
+      "POP_ANO",
+      "IND_01_NUM",
+      "IND_01_DEN",
+      "IND_01_RES",
+      "IND_01_META",
+      "IND_01_ALCANCE_META",
+      "IND_02_NUM",
+      "IND_02_DEN",
+      "IND_02_RES",
+      "IND_02_META",
+      "IND_02_ALCANCE_META",
+      "IND_03_NUM",
+      "IND_03_DEN",
+      "IND_03_RES",
+      "IND_03_META",
+      "IND_03_ALCANCE_META",
+      "IND_04_NUM",
+      "IND_04_DEN",
+      "IND_04_RES",
+      "IND_04_META",
+      "IND_04_ALCANCE_META",
+      "IND_05_NUM",
+      "IND_05_DEN",
+      "IND_05_RES",
+      "IND_05_META",
+      "IND_05_ALCANCE_META",
+      "IND_06_NUM",
+      "IND_06_DEN",
+      "IND_06_RES",
+      "IND_06_META",
+      "IND_06_ALCANCE_META",
+      "IND_07_NUM",
+      "IND_07_DEN",
+      "IND_07_RES",
+      "IND_07_META",
+      "IND_07_ALCANCE_META",
+      "IND_08_NUM",
+      "IND_08_DEN",
+      "IND_08_RES",
+      "IND_08_META",
+      "IND_08_ALCANCE_META",
+      "IND_09_NUM",
+      "IND_09_DEN",
+      "IND_09_RES",
+      "IND_09_META",
+      "IND_09_ALCANCE_META",
+      "IND_10_NUM",
+      "IND_10_DEN",
+      "IND_10_RES",
+      "IND_10_META",
+      "IND_10_ALCANCE_META",
+      "IND_11_NUM",
+      "IND_11_DEN",
+      "IND_11_RES",
+      "IND_11_META",
+      "IND_11_ALCANCE_META",
+      "IND_12_NUM",
+      "IND_12_DEN",
+      "IND_12_RES",
+      "IND_12_META",
+      "IND_12_ALCANCE_META",
+      "IND_13_NUM",
+      "IND_13_DEN",
+      "IND_13_RES",
+      "IND_13_META",
+      "IND_13_ALCANCE_META",
+      "IND_14_NUM",
+      "IND_14_DEN",
+      "IND_14_RES",
+      "IND_14_META",
+      "IND_14_ALCANCE_META",
+      "IND_15_NUM",
+      "IND_15_DEN",
+      "IND_15_RES",
+      "IND_15_META",
+      "IND_15_ALCANCE_META",
+      "VL_PQA_VS",
+      "METAS_ALCANCADAS",
+      "METAS_NAO_ALCANCADAS",
+      "QTDE_INDICADORES",
+      "QTDE_AUSENCIA_CASOS",
+      "PERCENTUAL"
+    ],
+    "types": {
+      "ANO": "int64",
+      "UF": "str",
+      "COD_MUN": "int64",
+      "NOME_MUN": "str",
+      "POP_ANO": "object",
+      "IND_01_NUM": "int64",
+      "IND_01_DEN": "int64",
+      "IND_01_RES": "float64",
+      "IND_01_META": "str",
+      "IND_01_ALCANCE_META": "int64",
+      "IND_02_NUM": "int64",
+      "IND_02_DEN": "int64",
+      "IND_02_RES": "float64",
+      "IND_02_META": "str",
+      "IND_02_ALCANCE_META": "int64",
+      "IND_03_NUM": "int64",
+      "IND_03_DEN": "int64",
+      "IND_03_RES": "float64",
+      "IND_03_META": "str",
+      "IND_03_ALCANCE_META": "int64",
+      "IND_04_NUM": "int64",
+      "IND_04_DEN": "int64",
+      "IND_04_RES": "float64",
+      "IND_04_META": "str",
+      "IND_04_ALCANCE_META": "int64",
+      "IND_05_NUM": "int64",
+      "IND_05_DEN": "int64",
+      "IND_05_RES": "float64",
+      "IND_05_META": "str",
+      "IND_05_ALCANCE_META": "int64",
+      "IND_06_NUM": "str",
+      "IND_06_DEN": "str",
+      "IND_06_RES": "int64",
+      "IND_06_META": "str",
+      "IND_06_ALCANCE_META": "int64",
+      "IND_07_NUM": "int64",
+      "IND_07_DEN": "int64",
+      "IND_07_RES": "float64",
+      "IND_07_META": "str",
+      "IND_07_ALCANCE_META": "int64",
+      "IND_08_NUM": "int64",
+      "IND_08_DEN": "int64",
+      "IND_08_RES": "float64",
+      "IND_08_META": "str",
+      "IND_08_ALCANCE_META": "int64",
+      "IND_09_NUM": "str",
+      "IND_09_DEN": "str",
+      "IND_09_RES": "object",
+      "IND_09_META": "str",
+      "IND_09_ALCANCE_META": "int64",
+      "IND_10_NUM": "int64",
+      "IND_10_DEN": "int64",
+      "IND_10_RES": "float64",
+      "IND_10_META": "str",
+      "IND_10_ALCANCE_META": "int64",
+      "IND_11_NUM": "int64",
+      "IND_11_DEN": "int64",
+      "IND_11_RES": "float64",
+      "IND_11_META": "str",
+      "IND_11_ALCANCE_META": "int64",
+      "IND_12_NUM": "int64",
+      "IND_12_DEN": "int64",
+      "IND_12_RES": "float64",
+      "IND_12_META": "str",
+      "IND_12_ALCANCE_META": "int64",
+      "IND_13_NUM": "int64",
+      "IND_13_DEN": "int64",
+      "IND_13_RES": "float64",
+      "IND_13_META": "str",
+      "IND_13_ALCANCE_META": "int64",
+      "IND_14_NUM": "object",
+      "IND_14_DEN": "object",
+      "IND_14_RES": "object",
+      "IND_14_META": "str",
+      "IND_14_ALCANCE_META": "int64",
+      "IND_15_NUM": "str",
+      "IND_15_DEN": "str",
+      "IND_15_RES": "str",
+      "IND_15_META": "int64",
+      "IND_15_ALCANCE_META": "str",
+      "VL_PQA_VS": "object",
+      "METAS_ALCANCADAS": "object",
+      "METAS_NAO_ALCANCADAS": "object",
+      "QTDE_INDICADORES": "int64",
+      "QTDE_AUSENCIA_CASOS": "int64",
+      "PERCENTUAL": "object"
+    },
+    "missing": {
+      "ANO": 0,
+      "UF": 0,
+      "COD_MUN": 0,
+      "NOME_MUN": 0,
+      "POP_ANO": 96,
+      "IND_01_NUM": 0,
+      "IND_01_DEN": 0,
+      "IND_01_RES": 0,
+      "IND_01_META": 0,
+      "IND_01_ALCANCE_META": 0,
+      "IND_02_NUM": 0,
+      "IND_02_DEN": 0,
+      "IND_02_RES": 0,
+      "IND_02_META": 0,
+      "IND_02_ALCANCE_META": 0,
+      "IND_03_NUM": 0,
+      "IND_03_DEN": 0,
+      "IND_03_RES": 0,
+      "IND_03_META": 0,
+      "IND_03_ALCANCE_META": 0,
+      "IND_04_NUM": 0,
+      "IND_04_DEN": 0,
+      "IND_04_RES": 0,
+      "IND_04_META": 0,
+      "IND_04_ALCANCE_META": 0,
+      "IND_05_NUM": 0,
+      "IND_05_DEN": 0,
+      "IND_05_RES": 0,
+      "IND_05_META": 0,
+      "IND_05_ALCANCE_META": 0,
+      "IND_06_NUM": 5570,
+      "IND_06_DEN": 5570,
+      "IND_06_RES": 0,
+      "IND_06_META": 0,
+      "IND_06_ALCANCE_META": 0,
+      "IND_07_NUM": 0,
+      "IND_07_DEN": 0,
+      "IND_07_RES": 0,
+      "IND_07_META": 0,
+      "IND_07_ALCANCE_META": 0,
+      "IND_08_NUM": 0,
+      "IND_08_DEN": 0,
+      "IND_08_RES": 0,
+      "IND_08_META": 0,
+      "IND_08_ALCANCE_META": 0,
+      "IND_09_NUM": 5570,
+      "IND_09_DEN": 5570,
+      "IND_09_RES": 1,
+      "IND_09_META": 0,
+      "IND_09_ALCANCE_META": 0,
+      "IND_10_NUM": 0,
+      "IND_10_DEN": 0,
+      "IND_10_RES": 0,
+      "IND_10_META": 0,
+      "IND_10_ALCANCE_META": 0,
+      "IND_11_NUM": 0,
+      "IND_11_DEN": 0,
+      "IND_11_RES": 0,
+      "IND_11_META": 0,
+      "IND_11_ALCANCE_META": 0,
+      "IND_12_NUM": 0,
+      "IND_12_DEN": 0,
+      "IND_12_RES": 0,
+      "IND_12_META": 0,
+      "IND_12_ALCANCE_META": 0,
+      "IND_13_NUM": 0,
+      "IND_13_DEN": 0,
+      "IND_13_RES": 0,
+      "IND_13_META": 0,
+      "IND_13_ALCANCE_META": 0,
+      "IND_14_NUM": 1038,
+      "IND_14_DEN": 1038,
+      "IND_14_RES": 1038,
+      "IND_14_META": 0,
+      "IND_14_ALCANCE_META": 0,
+      "IND_15_NUM": 5570,
+      "IND_15_DEN": 5570,
+      "IND_15_RES": 5570,
+      "IND_15_META": 0,
+      "IND_15_ALCANCE_META": 5570,
+      "VL_PQA_VS": 96,
+      "METAS_ALCANCADAS": 96,
+      "METAS_NAO_ALCANCADAS": 96,
+      "QTDE_INDICADORES": 0,
+      "QTDE_AUSENCIA_CASOS": 0,
+      "PERCENTUAL": 96
+    },
+    "null_tokens": {
+      "POP_ANO": {
+        "NULL": 96,
+        "5674": 4,
+        "3037": 4,
+        "6478": 4,
+        "8641": 3,
+        "4269": 3,
+        "7682": 3,
+        "10847": 3,
+        "6492": 3,
+        "5560": 3
+      },
+      "IND_09_RES": {
+        "0": 1822,
+        "6": 916,
+        "4": 741,
+        "5": 648,
+        "3": 448,
+        "1": 405,
+        "2": 396,
+        "7": 64,
+        "8": 48,
+        "11": 32
+      },
+      "IND_14_NUM": {
+        "NULL": 1038,
+        "1": 768,
+        "2": 537,
+        "3": 421,
+        "4": 321,
+        "5": 252,
+        "7": 204,
+        "6": 197,
+        "8": 144,
+        "9": 129
+      },
+      "IND_14_DEN": {
+        "NULL": 1038,
+        "1": 751,
+        "2": 535,
+        "3": 436,
+        "4": 332,
+        "5": 249,
+        "7": 207,
+        "6": 195,
+        "8": 162,
+        "9": 123
+      },
+      "IND_14_RES": {
+        "1": 3620,
+        "NULL": 1038,
+        "0": 59,
+        "0.666666666666667": 57,
+        "0.5": 54,
+        "0.75": 48,
+        "0.8": 28,
+        "0.875": 25,
+        "0.833333333333333": 22,
+        "0.857142857142857": 21
+      },
+      "VL_PQA_VS": {
+        "NULL": 96,
+        "0": 6,
+        "9348.48": 2,
+        "4469.76": 2,
+        "4444.8": 2,
+        "23662.08": 2,
+        "2559.84": 2,
+        "8510.4": 2,
+        "18397.9695": 1,
+        "8791.3": 1
+      },
+      "METAS_ALCANCADAS": {
+        "5": 1037,
+        "6": 1021,
+        "7": 893,
+        "4": 771,
+        "8": 553,
+        "3": 483,
+        "9": 306,
+        "2": 192,
+        "10": 124,
+        "NULL": 96
+      },
+      "METAS_NAO_ALCANCADAS": {
+        "10": 1037,
+        "9": 1021,
+        "8": 893,
+        "11": 771,
+        "7": 553,
+        "12": 483,
+        "6": 306,
+        "13": 192,
+        "5": 124,
+        "NULL": 96
+      },
+      "PERCENTUAL": {
+        "100": 1970,
+        "90": 1113,
+        "70": 570,
+        "50": 412,
+        "75": 333,
+        "55": 280,
+        "40": 207,
+        "80": 135,
+        "30": 129,
+        "60": 107
+      }
+    },
+    "indicators": {
+      "IND_01": {
+        "res_n": 5570,
+        "min": 0.166666666666667,
+        "max": 166.0,
+        "q95": 1.36734693877551,
+        "meta": {
+          "Sim": 3041,
+          "Não": 2529
+        },
+        "alcance": {
+          "1": 3041,
+          "0": 2529
+        },
+        "res_ratio_factor": {
+          "1.0": 5570
+        }
+      },
+      "IND_02": {
+        "res_n": 5570,
+        "min": 0.153034300791557,
+        "max": 724.0,
+        "q95": 1.36842105263158,
+        "meta": {
+          "Sim": 3413,
+          "Não": 2157
+        },
+        "alcance": {
+          "1": 3413,
+          "0": 2157
+        },
+        "res_ratio_factor": {
+          "1.0": 5570
+        }
+      },
+      "IND_03": {
+        "res_n": 5570,
+        "min": 0.0,
+        "max": 8.0,
+        "q95": 1.25,
+        "meta": {
+          "Não": 2938,
+          "Sim": 2632
+        },
+        "alcance": {
+          "0": 2938,
+          "1": 2632
+        },
+        "res_ratio_factor": {
+          "1.0": 4030
+        }
+      },
+      "IND_04": {
+        "res_n": 5570,
+        "min": 0.0,
+        "max": 1.0,
+        "q95": 1.0,
+        "meta": {
+          "Não": 4480,
+          "Sim": 1090
+        },
+        "alcance": {
+          "0": 4480,
+          "1": 1090
+        },
+        "res_ratio_factor": {
+          "1.0": 5256
+        }
+      },
+      "IND_05": {
+        "res_n": 5570,
+        "min": 0.0,
+        "max": 9.39444444444444,
+        "q95": 1.5675000000000028,
+        "meta": {
+          "Não": 4131,
+          "Sim": 1439
+        },
+        "alcance": {
+          "0": 4131,
+          "1": 1439
+        },
+        "res_ratio_factor": {
+          "1.0": 4419
+        }
+      },
+      "IND_06": {
+        "res_n": 5570,
+        "min": 0.0,
+        "max": 54.0,
+        "q95": 52.0,
+        "meta": {
+          "Sim": 4324,
+          "Não": 1246
+        },
+        "alcance": {
+          "1": 4324,
+          "0": 1246
+        },
+        "res_ratio_factor": {}
+      },
+      "IND_07": {
+        "res_n": 5570,
+        "min": 0.0,
+        "max": 1.0,
+        "q95": 1.0,
+        "meta": {
+          "Não": 3991,
+          "Sim": 1579
+        },
+        "alcance": {
+          "0": 3991,
+          "1": 1579
+        },
+        "res_ratio_factor": {
+          "1.0": 2547
+        }
+      },
+      "IND_08": {
+        "res_n": 5570,
+        "min": 0.0,
+        "max": 1.0,
+        "q95": 0.20562983814215388,
+        "meta": {
+          "Não": 5485,
+          "Sim": 85
+        },
+        "alcance": {
+          "0": 5485,
+          "1": 85
+        },
+        "res_ratio_factor": {
+          "1.0": 319
+        }
+      },
+      "IND_09": {
+        "res_n": 5569,
+        "min": 0.0,
+        "max": 11.0,
+        "q95": 6.0,
+        "meta": {
+          "Sim": 3441,
+          "Não": 2129
+        },
+        "alcance": {
+          "1": 3441,
+          "0": 2129
+        },
+        "res_ratio_factor": {}
+      },
+      "IND_10": {
+        "res_n": 5570,
+        "min": 0.0,
+        "max": 4.71428571428571,
+        "q95": 1.0,
+        "meta": {
+          "Não": 3536,
+          "Sim": 2034
+        },
+        "alcance": {
+          "0": 3536,
+          "1": 2034
+        },
+        "res_ratio_factor": {
+          "1.0": 2683
+        }
+      },
+      "IND_11": {
+        "res_n": 5570,
+        "min": 0.0,
+        "max": 4.33333333333333,
+        "q95": 1.0,
+        "meta": {
+          "Não": 4180,
+          "Sim": 1390
+        },
+        "alcance": {
+          "0": 4180,
+          "1": 1390
+        },
+        "res_ratio_factor": {
+          "1.0": 2316
+        }
+      },
+      "IND_12": {
+        "res_n": 5570,
+        "min": 0.0,
+        "max": 92.5882352941177,
+        "q95": 4.503260869565218,
+        "meta": {
+          "Não": 4578,
+          "Sim": 992
+        },
+        "alcance": {
+          "0": 4578,
+          "1": 992
+        },
+        "res_ratio_factor": {
+          "1.0": 3246
+        }
+      },
+      "IND_13": {
+        "res_n": 5570,
+        "min": -100.0,
+        "max": 27900.0,
+        "q95": 433.333333333333,
+        "meta": {
+          "Não": 3189,
+          "Sim": 2381
+        },
+        "alcance": {
+          "0": 3189,
+          "1": 2381
+        },
+        "res_ratio_factor": {
+          "0.0": 615,
+          "100.0": 203,
+          "-50.0": 169,
+          "1.0": 160
+        }
+      },
+      "IND_14": {
+        "res_n": 4532,
+        "min": 0.0,
+        "max": 1.0,
+        "q95": 1.0,
+        "meta": {
+          "Sim": 4070,
+          "Não": 1500
+        },
+        "alcance": {
+          "1": 4070,
+          "0": 1500
+        },
+        "res_ratio_factor": {
+          "1.0": 4473
+        }
+      },
+      "IND_15": {
+        "res_n": 0,
+        "min": null,
+        "max": null,
+        "q95": null,
+        "meta": {
+          "0": 5570
+        },
+        "alcance": {
+          "NULL": 5570
+        },
+        "res_ratio_factor": {}
+      }
+    }
+  },
+  "PQA_VS_2016": {
+    "rows": 5570,
+    "columns": [
+      "ANO",
+      "UF",
+      "COD_MUN",
+      "NOME_MUN",
+      "POP_ANO",
+      "IND_01_NUM",
+      "IND_01_DEN",
+      "IND_01_RES",
+      "IND_01_META",
+      "IND_01_ALCANCE_META",
+      "IND_02_NUM",
+      "IND_02_DEN",
+      "IND_02_RES",
+      "IND_02_META",
+      "IND_02_ALCANCE_META",
+      "IND_03_NUM",
+      "IND_03_DEN",
+      "IND_03_RES",
+      "IND_03_META",
+      "IND_03_ALCANCE_META",
+      "IND_04_NUM",
+      "IND_04_DEN",
+      "IND_04_RES",
+      "IND_04_META",
+      "IND_04_ALCANCE_META",
+      "IND_05_NUM",
+      "IND_05_DEN",
+      "IND_05_RES",
+      "IND_05_META",
+      "IND_05_ALCANCE_META",
+      "IND_06_NUM",
+      "IND_06_DEN",
+      "IND_06_RES",
+      "IND_06_META",
+      "IND_06_ALCANCE_META",
+      "IND_07_NUM",
+      "IND_07_DEN",
+      "IND_07_RES",
+      "IND_07_META",
+      "IND_07_ALCANCE_META",
+      "IND_08_NUM",
+      "IND_08_DEN",
+      "IND_08_RES",
+      "IND_08_META",
+      "IND_08_ALCANCE_META",
+      "IND_09_NUM",
+      "IND_09_DEN",
+      "IND_09_RES",
+      "IND_09_META",
+      "IND_09_ALCANCE_META",
+      "IND_10_NUM",
+      "IND_10_DEN",
+      "IND_10_RES",
+      "IND_10_META",
+      "IND_10_ALCANCE_META",
+      "IND_11_NUM",
+      "IND_11_DEN",
+      "IND_11_RES",
+      "IND_11_META",
+      "IND_11_ALCANCE_META",
+      "IND_12_NUM",
+      "IND_12_DEN",
+      "IND_12_RES",
+      "IND_12_META",
+      "IND_12_ALCANCE_META",
+      "IND_13_NUM",
+      "IND_13_DEN",
+      "IND_13_RES",
+      "IND_13_META",
+      "IND_13_ALCANCE_META",
+      "IND_14_NUM",
+      "IND_14_DEN",
+      "IND_14_RES",
+      "IND_14_META",
+      "IND_14_ALCANCE_META",
+      "IND_15_NUM",
+      "IND_15_DEN",
+      "IND_15_RES",
+      "IND_15_META",
+      "IND_15_ALCANCE_META",
+      "VL_PQA_VS",
+      "METAS_ALCANCADAS",
+      "METAS_NAO_ALCANCADAS",
+      "QTDE_INDICADORES",
+      "QTDE_AUSENCIA_CASOS",
+      "PERCENTUAL"
+    ],
+    "types": {
+      "ANO": "int64",
+      "UF": "str",
+      "COD_MUN": "int64",
+      "NOME_MUN": "str",
+      "POP_ANO": "object",
+      "IND_01_NUM": "int64",
+      "IND_01_DEN": "int64",
+      "IND_01_RES": "float64",
+      "IND_01_META": "str",
+      "IND_01_ALCANCE_META": "int64",
+      "IND_02_NUM": "int64",
+      "IND_02_DEN": "int64",
+      "IND_02_RES": "float64",
+      "IND_02_META": "str",
+      "IND_02_ALCANCE_META": "int64",
+      "IND_03_NUM": "int64",
+      "IND_03_DEN": "int64",
+      "IND_03_RES": "float64",
+      "IND_03_META": "str",
+      "IND_03_ALCANCE_META": "int64",
+      "IND_04_NUM": "int64",
+      "IND_04_DEN": "int64",
+      "IND_04_RES": "float64",
+      "IND_04_META": "str",
+      "IND_04_ALCANCE_META": "int64",
+      "IND_05_NUM": "int64",
+      "IND_05_DEN": "int64",
+      "IND_05_RES": "float64",
+      "IND_05_META": "str",
+      "IND_05_ALCANCE_META": "int64",
+      "IND_06_NUM": "str",
+      "IND_06_DEN": "str",
+      "IND_06_RES": "int64",
+      "IND_06_META": "str",
+      "IND_06_ALCANCE_META": "int64",
+      "IND_07_NUM": "int64",
+      "IND_07_DEN": "int64",
+      "IND_07_RES": "float64",
+      "IND_07_META": "str",
+      "IND_07_ALCANCE_META": "int64",
+      "IND_08_NUM": "int64",
+      "IND_08_DEN": "int64",
+      "IND_08_RES": "float64",
+      "IND_08_META": "str",
+      "IND_08_ALCANCE_META": "int64",
+      "IND_09_NUM": "str",
+      "IND_09_DEN": "str",
+      "IND_09_RES": "int64",
+      "IND_09_META": "str",
+      "IND_09_ALCANCE_META": "int64",
+      "IND_10_NUM": "int64",
+      "IND_10_DEN": "int64",
+      "IND_10_RES": "float64",
+      "IND_10_META": "str",
+      "IND_10_ALCANCE_META": "int64",
+      "IND_11_NUM": "int64",
+      "IND_11_DEN": "int64",
+      "IND_11_RES": "float64",
+      "IND_11_META": "str",
+      "IND_11_ALCANCE_META": "int64",
+      "IND_12_NUM": "int64",
+      "IND_12_DEN": "int64",
+      "IND_12_RES": "float64",
+      "IND_12_META": "str",
+      "IND_12_ALCANCE_META": "int64",
+      "IND_13_NUM": "int64",
+      "IND_13_DEN": "int64",
+      "IND_13_RES": "int64",
+      "IND_13_META": "str",
+      "IND_13_ALCANCE_META": "int64",
+      "IND_14_NUM": "int64",
+      "IND_14_DEN": "int64",
+      "IND_14_RES": "float64",
+      "IND_14_META": "str",
+      "IND_14_ALCANCE_META": "int64",
+      "IND_15_NUM": "int64",
+      "IND_15_DEN": "int64",
+      "IND_15_RES": "float64",
+      "IND_15_META": "str",
+      "IND_15_ALCANCE_META": "int64",
+      "VL_PQA_VS": "object",
+      "METAS_ALCANCADAS": "object",
+      "METAS_NAO_ALCANCADAS": "object",
+      "QTDE_INDICADORES": "int64",
+      "QTDE_AUSENCIA_CASOS": "int64",
+      "PERCENTUAL": "object"
+    },
+    "missing": {
+      "ANO": 0,
+      "UF": 0,
+      "COD_MUN": 0,
+      "NOME_MUN": 0,
+      "POP_ANO": 41,
+      "IND_01_NUM": 0,
+      "IND_01_DEN": 0,
+      "IND_01_RES": 0,
+      "IND_01_META": 0,
+      "IND_01_ALCANCE_META": 0,
+      "IND_02_NUM": 0,
+      "IND_02_DEN": 0,
+      "IND_02_RES": 0,
+      "IND_02_META": 0,
+      "IND_02_ALCANCE_META": 0,
+      "IND_03_NUM": 0,
+      "IND_03_DEN": 0,
+      "IND_03_RES": 0,
+      "IND_03_META": 0,
+      "IND_03_ALCANCE_META": 0,
+      "IND_04_NUM": 0,
+      "IND_04_DEN": 0,
+      "IND_04_RES": 0,
+      "IND_04_META": 0,
+      "IND_04_ALCANCE_META": 0,
+      "IND_05_NUM": 0,
+      "IND_05_DEN": 0,
+      "IND_05_RES": 0,
+      "IND_05_META": 0,
+      "IND_05_ALCANCE_META": 0,
+      "IND_06_NUM": 5570,
+      "IND_06_DEN": 5570,
+      "IND_06_RES": 0,
+      "IND_06_META": 0,
+      "IND_06_ALCANCE_META": 0,
+      "IND_07_NUM": 0,
+      "IND_07_DEN": 0,
+      "IND_07_RES": 0,
+      "IND_07_META": 0,
+      "IND_07_ALCANCE_META": 0,
+      "IND_08_NUM": 0,
+      "IND_08_DEN": 0,
+      "IND_08_RES": 0,
+      "IND_08_META": 0,
+      "IND_08_ALCANCE_META": 0,
+      "IND_09_NUM": 5570,
+      "IND_09_DEN": 5570,
+      "IND_09_RES": 0,
+      "IND_09_META": 0,
+      "IND_09_ALCANCE_META": 0,
+      "IND_10_NUM": 0,
+      "IND_10_DEN": 0,
+      "IND_10_RES": 0,
+      "IND_10_META": 0,
+      "IND_10_ALCANCE_META": 0,
+      "IND_11_NUM": 0,
+      "IND_11_DEN": 0,
+      "IND_11_RES": 0,
+      "IND_11_META": 0,
+      "IND_11_ALCANCE_META": 0,
+      "IND_12_NUM": 0,
+      "IND_12_DEN": 0,
+      "IND_12_RES": 0,
+      "IND_12_META": 0,
+      "IND_12_ALCANCE_META": 0,
+      "IND_13_NUM": 0,
+      "IND_13_DEN": 0,
+      "IND_13_RES": 0,
+      "IND_13_META": 0,
+      "IND_13_ALCANCE_META": 0,
+      "IND_14_NUM": 0,
+      "IND_14_DEN": 0,
+      "IND_14_RES": 0,
+      "IND_14_META": 0,
+      "IND_14_ALCANCE_META": 0,
+      "IND_15_NUM": 0,
+      "IND_15_DEN": 0,
+      "IND_15_RES": 0,
+      "IND_15_META": 0,
+      "IND_15_ALCANCE_META": 0,
+      "VL_PQA_VS": 41,
+      "METAS_ALCANCADAS": 41,
+      "METAS_NAO_ALCANCADAS": 41,
+      "QTDE_INDICADORES": 0,
+      "QTDE_AUSENCIA_CASOS": 0,
+      "PERCENTUAL": 41
+    },
+    "null_tokens": {
+      "POP_ANO": {
+        "NULL": 41,
+        "7804": 4,
+        "3600": 3,
+        "5187": 3,
+        "5523": 3,
+        "17573": 3,
+        "8495": 3,
+        "4630": 3,
+        "10235": 3,
+        "3664": 3
+      },
+      "VL_PQA_VS": {
+        "NULL": 41,
+        "0": 4,
+        "1747.2": 2,
+        "2915.52": 2,
+        "5134.08": 2,
+        "10374.72": 2,
+        "39089.712": 2,
+        "2313.402": 2,
+        "5658.894": 2,
+        "7065.662": 2
+      },
+      "METAS_ALCANCADAS": {
+        "7": 923,
+        "6": 900,
+        "5": 832,
+        "8": 735,
+        "4": 593,
+        "9": 543,
+        "3": 311,
+        "10": 308,
+        "11": 152,
+        "2": 123
+      },
+      "METAS_NAO_ALCANCADAS": {
+        "8": 923,
+        "9": 900,
+        "10": 832,
+        "7": 735,
+        "11": 593,
+        "6": 543,
+        "12": 311,
+        "5": 308,
+        "4": 152,
+        "13": 123
+      },
+      "PERCENTUAL": {
+        "100": 2789,
+        "90": 894,
+        "70": 446,
+        "50": 292,
+        "75": 290,
+        "55": 203,
+        "40": 158,
+        "80": 124,
+        "60": 90,
+        "30": 74
+      }
+    },
+    "indicators": {
+      "IND_01": {
+        "res_n": 5570,
+        "min": 0.125,
+        "max": 64.0,
+        "q95": 1.31578947368421,
+        "meta": {
+          "Sim": 3269,
+          "Não": 2301
+        },
+        "alcance": {
+          "1": 3269,
+          "0": 2301
+        },
+        "res_ratio_factor": {
+          "1.0": 5570
+        }
+      },
+      "IND_02": {
+        "res_n": 5570,
+        "min": 0.0273783185840708,
+        "max": 1481.0,
+        "q95": 1.130239130434785,
+        "meta": {
+          "Sim": 2840,
+          "Não": 2730
+        },
+        "alcance": {
+          "1": 2840,
+          "0": 2730
+        },
+        "res_ratio_factor": {
+          "1.0": 5570
+        }
+      },
+      "IND_03": {
+        "res_n": 5570,
+        "min": 0.0,
+        "max": 11.0,
+        "q95": 1.26666666666667,
+        "meta": {
+          "Não": 3038,
+          "Sim": 2532
+        },
+        "alcance": {
+          "0": 3038,
+          "1": 2532
+        },
+        "res_ratio_factor": {
+          "1.0": 3779
+        }
+      },
+      "IND_04": {
+        "res_n": 5570,
+        "min": 0.0,
+        "max": 1.0,
+        "q95": 1.0,
+        "meta": {
+          "Não": 3541,
+          "Sim": 2029
+        },
+        "alcance": {
+          "0": 3541,
+          "1": 2029
+        },
+        "res_ratio_factor": {
+          "1.0": 3886
+        }
+      },
+      "IND_05": {
+        "res_n": 5570,
+        "min": 0.0,
+        "max": 6.07777777777778,
+        "q95": 1.377989130434786,
+        "meta": {
+          "Não": 4262,
+          "Sim": 1308
+        },
+        "alcance": {
+          "0": 4262,
+          "1": 1308
+        },
+        "res_ratio_factor": {
+          "1.0": 3065
+        }
+      },
+      "IND_06": {
+        "res_n": 5570,
+        "min": 0.0,
+        "max": 52.0,
+        "q95": 52.0,
+        "meta": {
+          "Sim": 4430,
+          "Não": 1140
+        },
+        "alcance": {
+          "1": 4430,
+          "0": 1140
+        },
+        "res_ratio_factor": {}
+      },
+      "IND_07": {
+        "res_n": 5570,
+        "min": 0.0,
+        "max": 1.0,
+        "q95": 1.0,
+        "meta": {
+          "Não": 3573,
+          "Sim": 1997
+        },
+        "alcance": {
+          "0": 3573,
+          "1": 1997
+        },
+        "res_ratio_factor": {
+          "1.0": 3063
+        }
+      },
+      "IND_08": {
+        "res_n": 5570,
+        "min": 0.0,
+        "max": 1.0,
+        "q95": 0.5,
+        "meta": {
+          "Não": 5434,
+          "Sim": 136
+        },
+        "alcance": {
+          "0": 5434,
+          "1": 136
+        },
+        "res_ratio_factor": {
+          "1.0": 375
+        }
+      },
+      "IND_09": {
+        "res_n": 5570,
+        "min": 0.0,
+        "max": 7.0,
+        "q95": 7.0,
+        "meta": {
+          "Sim": 3896,
+          "Não": 1674
+        },
+        "alcance": {
+          "1": 3896,
+          "0": 1674
+        },
+        "res_ratio_factor": {}
+      },
+      "IND_10": {
+        "res_n": 5570,
+        "min": 0.0,
+        "max": 11.0,
+        "q95": 1.0,
+        "meta": {
+          "Não": 3496,
+          "Sim": 2074
+        },
+        "alcance": {
+          "0": 3496,
+          "1": 2074
+        },
+        "res_ratio_factor": {
+          "1.0": 2669
+        }
+      },
+      "IND_11": {
+        "res_n": 5570,
+        "min": 0.0,
+        "max": 11.0,
+        "q95": 1.0,
+        "meta": {
+          "Não": 3861,
+          "Sim": 1709
+        },
+        "alcance": {
+          "0": 3861,
+          "1": 1709
+        },
+        "res_ratio_factor": {
+          "1.0": 2498
+        }
+      },
+      "IND_12": {
+        "res_n": 5570,
+        "min": 0.0,
+        "max": 82.6666666666667,
+        "q95": 4.790187788271472,
+        "meta": {
+          "Não": 4516,
+          "Sim": 1054
+        },
+        "alcance": {
+          "0": 4516,
+          "1": 1054
+        },
+        "res_ratio_factor": {
+          "1.0": 3351
+        }
+      },
+      "IND_13": {
+        "res_n": 5570,
+        "min": 0.0,
+        "max": 0.0,
+        "q95": 0.0,
+        "meta": {
+          "Não": 5570
+        },
+        "alcance": {
+          "0": 5570
+        },
+        "res_ratio_factor": {
+          "0.0": 5012
+        }
+      },
+      "IND_14": {
+        "res_n": 5570,
+        "min": 0.0,
+        "max": 1.0,
+        "q95": 1.0,
+        "meta": {
+          "Sim": 3554,
+          "Não": 2016
+        },
+        "alcance": {
+          "1": 3554,
+          "0": 2016
+        },
+        "res_ratio_factor": {
+          "1.0": 4164
+        }
+      },
+      "IND_15": {
+        "res_n": 5570,
+        "min": 0.0,
+        "max": 1.0,
+        "q95": 1.0,
+        "meta": {
+          "Sim": 2883,
+          "Não": 2687
+        },
+        "alcance": {
+          "1": 2883,
+          "0": 2687
+        },
+        "res_ratio_factor": {
+          "1.0": 3618
+        }
+      }
+    }
+  },
+  "PQA_VS_2017": {
+    "rows": 5570,
+    "columns": [
+      "ANO",
+      "UF",
+      "COD_MUN",
+      "NOME_MUN",
+      "POP_ANO",
+      "IND_01_NUM",
+      "IND_01_DEN",
+      "IND_01_RES",
+      "IND_01_META",
+      "IND_01_ALCANCE_META",
+      "IND_02_NUM",
+      "IND_02_DEN",
+      "IND_02_RES",
+      "IND_02_META",
+      "IND_02_ALCANCE_META",
+      "IND_03_NUM",
+      "IND_03_DEN",
+      "IND_03_RES",
+      "IND_03_META",
+      "IND_03_ALCANCE_META",
+      "IND_04_NUM",
+      "IND_04_DEN",
+      "IND_04_RES",
+      "IND_04_META",
+      "IND_04_ALCANCE_META",
+      "IND_05_NUM",
+      "IND_05_DEN",
+      "IND_05_RES",
+      "IND_05_META",
+      "IND_05_ALCANCE_META",
+      "IND_06_NUM",
+      "IND_06_DEN",
+      "IND_06_RES",
+      "IND_06_META",
+      "IND_06_ALCANCE_META",
+      "IND_07_NUM",
+      "IND_07_DEN",
+      "IND_07_RES",
+      "IND_07_META",
+      "IND_07_ALCANCE_META",
+      "IND_08_NUM",
+      "IND_08_DEN",
+      "IND_08_RES",
+      "IND_08_META",
+      "IND_08_ALCANCE_META",
+      "IND_09_NUM",
+      "IND_09_DEN",
+      "IND_09_RES",
+      "IND_09_META",
+      "IND_09_ALCANCE_META",
+      "IND_10_NUM",
+      "IND_10_DEN",
+      "IND_10_RES",
+      "IND_10_META",
+      "IND_10_ALCANCE_META",
+      "IND_11_NUM",
+      "IND_11_DEN",
+      "IND_11_RES",
+      "IND_11_META",
+      "IND_11_ALCANCE_META",
+      "IND_12_NUM",
+      "IND_12_DEN",
+      "IND_12_RES",
+      "IND_12_META",
+      "IND_12_ALCANCE_META",
+      "IND_13_NUM",
+      "IND_13_DEN",
+      "IND_13_RES",
+      "IND_13_META",
+      "IND_13_ALCANCE_META",
+      "IND_14_NUM",
+      "IND_14_DEN",
+      "IND_14_RES",
+      "IND_14_META",
+      "IND_14_ALCANCE_META",
+      "IND_15_NUM",
+      "IND_15_DEN",
+      "IND_15_RES",
+      "IND_15_META",
+      "IND_15_ALCANCE_META",
+      "VL_PQA_VS",
+      "METAS_ALCANCADAS",
+      "METAS_NAO_ALCANCADAS",
+      "QTDE_INDICADORES",
+      "QTDE_AUSENCIA_CASOS",
+      "PERCENTUAL"
+    ],
+    "types": {
+      "ANO": "int64",
+      "UF": "str",
+      "COD_MUN": "int64",
+      "NOME_MUN": "str",
+      "POP_ANO": "int64",
+      "IND_01_NUM": "int64",
+      "IND_01_DEN": "int64",
+      "IND_01_RES": "float64",
+      "IND_01_META": "str",
+      "IND_01_ALCANCE_META": "int64",
+      "IND_02_NUM": "int64",
+      "IND_02_DEN": "int64",
+      "IND_02_RES": "float64",
+      "IND_02_META": "str",
+      "IND_02_ALCANCE_META": "int64",
+      "IND_03_NUM": "int64",
+      "IND_03_DEN": "int64",
+      "IND_03_RES": "float64",
+      "IND_03_META": "str",
+      "IND_03_ALCANCE_META": "int64",
+      "IND_04_NUM": "int64",
+      "IND_04_DEN": "int64",
+      "IND_04_RES": "float64",
+      "IND_04_META": "str",
+      "IND_04_ALCANCE_META": "int64",
+      "IND_05_NUM": "int64",
+      "IND_05_DEN": "int64",
+      "IND_05_RES": "float64",
+      "IND_05_META": "str",
+      "IND_05_ALCANCE_META": "int64",
+      "IND_06_NUM": "str",
+      "IND_06_DEN": "str",
+      "IND_06_RES": "int64",
+      "IND_06_META": "str",
+      "IND_06_ALCANCE_META": "int64",
+      "IND_07_NUM": "object",
+      "IND_07_DEN": "object",
+      "IND_07_RES": "object",
+      "IND_07_META": "str",
+      "IND_07_ALCANCE_META": "int64",
+      "IND_08_NUM": "int64",
+      "IND_08_DEN": "int64",
+      "IND_08_RES": "float64",
+      "IND_08_META": "str",
+      "IND_08_ALCANCE_META": "int64",
+      "IND_09_NUM": "str",
+      "IND_09_DEN": "str",
+      "IND_09_RES": "int64",
+      "IND_09_META": "str",
+      "IND_09_ALCANCE_META": "int64",
+      "IND_10_NUM": "object",
+      "IND_10_DEN": "object",
+      "IND_10_RES": "object",
+      "IND_10_META": "str",
+      "IND_10_ALCANCE_META": "int64",
+      "IND_11_NUM": "int64",
+      "IND_11_DEN": "int64",
+      "IND_11_RES": "float64",
+      "IND_11_META": "str",
+      "IND_11_ALCANCE_META": "int64",
+      "IND_12_NUM": "int64",
+      "IND_12_DEN": "int64",
+      "IND_12_RES": "float64",
+      "IND_12_META": "str",
+      "IND_12_ALCANCE_META": "int64",
+      "IND_13_NUM": "int64",
+      "IND_13_DEN": "int64",
+      "IND_13_RES": "float64",
+      "IND_13_META": "str",
+      "IND_13_ALCANCE_META": "int64",
+      "IND_14_NUM": "int64",
+      "IND_14_DEN": "int64",
+      "IND_14_RES": "float64",
+      "IND_14_META": "str",
+      "IND_14_ALCANCE_META": "int64",
+      "IND_15_NUM": "int64",
+      "IND_15_DEN": "int64",
+      "IND_15_RES": "float64",
+      "IND_15_META": "str",
+      "IND_15_ALCANCE_META": "int64",
+      "VL_PQA_VS": "object",
+      "METAS_ALCANCADAS": "object",
+      "METAS_NAO_ALCANCADAS": "object",
+      "QTDE_INDICADORES": "int64",
+      "QTDE_AUSENCIA_CASOS": "int64",
+      "PERCENTUAL": "object"
+    },
+    "missing": {
+      "ANO": 0,
+      "UF": 0,
+      "COD_MUN": 0,
+      "NOME_MUN": 0,
+      "POP_ANO": 0,
+      "IND_01_NUM": 0,
+      "IND_01_DEN": 0,
+      "IND_01_RES": 0,
+      "IND_01_META": 0,
+      "IND_01_ALCANCE_META": 0,
+      "IND_02_NUM": 0,
+      "IND_02_DEN": 0,
+      "IND_02_RES": 0,
+      "IND_02_META": 0,
+      "IND_02_ALCANCE_META": 0,
+      "IND_03_NUM": 0,
+      "IND_03_DEN": 0,
+      "IND_03_RES": 0,
+      "IND_03_META": 0,
+      "IND_03_ALCANCE_META": 0,
+      "IND_04_NUM": 0,
+      "IND_04_DEN": 0,
+      "IND_04_RES": 0,
+      "IND_04_META": 0,
+      "IND_04_ALCANCE_META": 0,
+      "IND_05_NUM": 0,
+      "IND_05_DEN": 0,
+      "IND_05_RES": 0,
+      "IND_05_META": 0,
+      "IND_05_ALCANCE_META": 0,
+      "IND_06_NUM": 5570,
+      "IND_06_DEN": 5570,
+      "IND_06_RES": 0,
+      "IND_06_META": 0,
+      "IND_06_ALCANCE_META": 0,
+      "IND_07_NUM": 3352,
+      "IND_07_DEN": 3352,
+      "IND_07_RES": 3352,
+      "IND_07_META": 0,
+      "IND_07_ALCANCE_META": 0,
+      "IND_08_NUM": 0,
+      "IND_08_DEN": 0,
+      "IND_08_RES": 0,
+      "IND_08_META": 0,
+      "IND_08_ALCANCE_META": 0,
+      "IND_09_NUM": 5570,
+      "IND_09_DEN": 5570,
+      "IND_09_RES": 0,
+      "IND_09_META": 0,
+      "IND_09_ALCANCE_META": 0,
+      "IND_10_NUM": 2633,
+      "IND_10_DEN": 2633,
+      "IND_10_RES": 2633,
+      "IND_10_META": 0,
+      "IND_10_ALCANCE_META": 0,
+      "IND_11_NUM": 0,
+      "IND_11_DEN": 0,
+      "IND_11_RES": 0,
+      "IND_11_META": 0,
+      "IND_11_ALCANCE_META": 0,
+      "IND_12_NUM": 0,
+      "IND_12_DEN": 0,
+      "IND_12_RES": 0,
+      "IND_12_META": 0,
+      "IND_12_ALCANCE_META": 0,
+      "IND_13_NUM": 0,
+      "IND_13_DEN": 0,
+      "IND_13_RES": 0,
+      "IND_13_META": 0,
+      "IND_13_ALCANCE_META": 0,
+      "IND_14_NUM": 0,
+      "IND_14_DEN": 0,
+      "IND_14_RES": 0,
+      "IND_14_META": 0,
+      "IND_14_ALCANCE_META": 0,
+      "IND_15_NUM": 0,
+      "IND_15_DEN": 0,
+      "IND_15_RES": 0,
+      "IND_15_META": 0,
+      "IND_15_ALCANCE_META": 0,
+      "VL_PQA_VS": 23,
+      "METAS_ALCANCADAS": 23,
+      "METAS_NAO_ALCANCADAS": 23,
+      "QTDE_INDICADORES": 0,
+      "QTDE_AUSENCIA_CASOS": 0,
+      "PERCENTUAL": 23
+    },
+    "null_tokens": {
+      "IND_07_NUM": {
+        "": 3352,
+        "1": 790,
+        "0": 379,
+        "2": 324,
+        "3": 168,
+        "4": 111,
+        "6": 67,
+        "5": 66,
+        "7": 37,
+        "8": 31
+      },
+      "IND_07_DEN": {
+        "": 3352,
+        "1": 871,
+        "2": 419,
+        "3": 225,
+        "4": 154,
+        "5": 76,
+        "6": 60,
+        "7": 59,
+        "8": 47,
+        "9": 34
+      },
+      "IND_07_RES": {
+        "": 3352,
+        "1": 1092,
+        "0": 379,
+        "0.5": 184,
+        "0.666666666666667": 83,
+        "0.75": 62,
+        "0.333333333333333": 44,
+        "0.8": 29,
+        "0.833333333333333": 18,
+        "0.25": 18
+      },
+      "IND_10_NUM": {
+        "": 2633,
+        "0": 320,
+        "3": 255,
+        "2": 231,
+        "4": 197,
+        "1": 188,
+        "5": 148,
+        "6": 123,
+        "7": 109,
+        "8": 97
+      },
+      "IND_10_DEN": {
+        "": 2633,
+        "3": 258,
+        "2": 233,
+        "4": 203,
+        "1": 189,
+        "5": 149,
+        "6": 135,
+        "7": 125,
+        "0": 113,
+        "8": 107
+      },
+      "IND_10_RES": {
+        "": 2633,
+        "1": 1567,
+        "0": 323,
+        "0.5": 41,
+        "0.75": 33,
+        "0.666666666666667": 31,
+        "0.8": 19,
+        "0.833333333333333": 16,
+        "0.333333333333333": 15,
+        "0.857142857142857": 15
+      },
+      "VL_PQA_VS": {
+        "NULL": 23,
+        "24019.948": 2,
+        "4219.2": 2,
+        "15344.64": 2,
+        "7499.52": 2,
+        "6149.088": 2,
+        "3031.68": 2,
+        "14541.12": 2,
+        "9177.408": 2,
+        "10125.12": 2
+      },
+      "METAS_ALCANCADAS": {
+        "7": 1040,
+        "6": 975,
+        "8": 919,
+        "9": 696,
+        "5": 675,
+        "4": 391,
+        "10": 371,
+        "11": 172,
+        "3": 170,
+        "12": 65
+      },
+      "METAS_NAO_ALCANCADAS": {
+        "8": 1040,
+        "9": 975,
+        "7": 919,
+        "6": 696,
+        "10": 675,
+        "11": 391,
+        "5": 371,
+        "4": 172,
+        "12": 170,
+        "3": 65
+      },
+      "PERCENTUAL": {
+        "100": 3384,
+        "90": 916,
+        "70": 389,
+        "75": 212,
+        "50": 148,
+        "80": 106,
+        "55": 104,
+        "60": 78,
+        "40": 72,
+        "65": 38
+      }
+    },
+    "indicators": {
+      "IND_01": {
+        "res_n": 5570,
+        "min": 0.130434782608696,
+        "max": 9999.0,
+        "q95": 1.3957658779576563,
+        "meta": {
+          "Sim": 3331,
+          "Não": 2239
+        },
+        "alcance": {
+          "1": 3331,
+          "0": 2239
+        },
+        "res_ratio_factor": {
+          "1.0": 5570
+        }
+      },
+      "IND_02": {
+        "res_n": 5570,
+        "min": 0.0769230769230769,
+        "max": 9999.0,
+        "q95": 1.2145076674737656,
+        "meta": {
+          "Sim": 3192,
+          "Não": 2378
+        },
+        "alcance": {
+          "1": 3192,
+          "0": 2378
+        },
+        "res_ratio_factor": {
+          "1.0": 5570
+        }
+      },
+      "IND_03": {
+        "res_n": 5570,
+        "min": 0.0,
+        "max": 11.0,
+        "q95": 2.0,
+        "meta": {
+          "Sim": 3938,
+          "Não": 1632
+        },
+        "alcance": {
+          "1": 3938,
+          "0": 1632
+        },
+        "res_ratio_factor": {
+          "1.0": 5245
+        }
+      },
+      "IND_04": {
+        "res_n": 5570,
+        "min": 0.0,
+        "max": 1.0,
+        "q95": 1.0,
+        "meta": {
+          "Não": 4131,
+          "Sim": 1439
+        },
+        "alcance": {
+          "0": 4131,
+          "1": 1439
+        },
+        "res_ratio_factor": {
+          "1.0": 3147
+        }
+      },
+      "IND_05": {
+        "res_n": 5570,
+        "min": 0.0,
+        "max": 6.10606060606061,
+        "q95": 1.432083333333334,
+        "meta": {
+          "Não": 3978,
+          "Sim": 1592
+        },
+        "alcance": {
+          "0": 3978,
+          "1": 1592
+        },
+        "res_ratio_factor": {
+          "1.0": 3473
+        }
+      },
+      "IND_06": {
+        "res_n": 5570,
+        "min": 0.0,
+        "max": 52.0,
+        "q95": 52.0,
+        "meta": {
+          "Sim": 4653,
+          "Não": 917
+        },
+        "alcance": {
+          "1": 4653,
+          "0": 917
+        },
+        "res_ratio_factor": {}
+      },
+      "IND_07": {
+        "res_n": 2218,
+        "min": 0.0,
+        "max": 1.0,
+        "q95": 1.0,
+        "meta": {
+          "Não": 4287,
+          "Sim": 1283
+        },
+        "alcance": {
+          "0": 4287,
+          "1": 1283
+        },
+        "res_ratio_factor": {
+          "1.0": 1839
+        }
+      },
+      "IND_08": {
+        "res_n": 5570,
+        "min": 0.0,
+        "max": 1.0,
+        "q95": 0.5,
+        "meta": {
+          "Não": 5407,
+          "Sim": 163
+        },
+        "alcance": {
+          "0": 5407,
+          "1": 163
+        },
+        "res_ratio_factor": {
+          "1.0": 395
+        }
+      },
+      "IND_09": {
+        "res_n": 5570,
+        "min": 0.0,
+        "max": 6.0,
+        "q95": 6.0,
+        "meta": {
+          "Sim": 3939,
+          "Não": 1631
+        },
+        "alcance": {
+          "1": 3939,
+          "0": 1631
+        },
+        "res_ratio_factor": {}
+      },
+      "IND_10": {
+        "res_n": 2937,
+        "min": 0.0,
+        "max": 9.0,
+        "q95": 1.0,
+        "meta": {
+          "Não": 3518,
+          "Sim": 2052
+        },
+        "alcance": {
+          "0": 3518,
+          "1": 2052
+        },
+        "res_ratio_factor": {
+          "1.0": 2614
+        }
+      },
+      "IND_11": {
+        "res_n": 5570,
+        "min": 0.0,
+        "max": 1.0,
+        "q95": 1.0,
+        "meta": {
+          "Não": 3640,
+          "Sim": 1930
+        },
+        "alcance": {
+          "0": 3640,
+          "1": 1930
+        },
+        "res_ratio_factor": {
+          "1.0": 2647
+        }
+      },
+      "IND_12": {
+        "res_n": 5570,
+        "min": 0.0,
+        "max": 150.727272727273,
+        "q95": 4.798522167487685,
+        "meta": {
+          "Não": 4417,
+          "Sim": 1153
+        },
+        "alcance": {
+          "0": 4417,
+          "1": 1153
+        },
+        "res_ratio_factor": {
+          "1.0": 3782,
+          "1.0011": 1,
+          "1.0003": 1,
+          "1.0004": 1
+        }
+      },
+      "IND_13": {
+        "res_n": 5570,
+        "min": -100.0,
+        "max": 39100.0,
+        "q95": 600.0,
+        "meta": {
+          "Sim": 2925,
+          "Não": 2645
+        },
+        "alcance": {
+          "1": 2925,
+          "0": 2645
+        },
+        "res_ratio_factor": {
+          "0.0": 504,
+          "200.0": 211,
+          "-22.2222": 143,
+          "75.0": 143
+        }
+      },
+      "IND_14": {
+        "res_n": 5570,
+        "min": 0.0,
+        "max": 1.0,
+        "q95": 1.0,
+        "meta": {
+          "Sim": 3966,
+          "Não": 1604
+        },
+        "alcance": {
+          "1": 3966,
+          "0": 1604
+        },
+        "res_ratio_factor": {
+          "1.0": 4598
+        }
+      },
+      "IND_15": {
+        "res_n": 5570,
+        "min": 0.0,
+        "max": 1.0,
+        "q95": 1.0,
+        "meta": {
+          "Sim": 3511,
+          "Não": 2059
+        },
+        "alcance": {
+          "1": 3511,
+          "0": 2059
+        },
+        "res_ratio_factor": {
+          "1.0": 4118
+        }
+      }
+    }
+  },
+  "PQA_VS_2018": {
+    "rows": 5570,
+    "columns": [
+      "ANO",
+      "UF",
+      "COD_MUN",
+      "NOME_MUN",
+      "POP_ANO",
+      "IND_01_NUM",
+      "IND_01_DEN",
+      "IND_01_RES",
+      "IND_01_META",
+      "IND_01_ALCANCE_META",
+      "IND_02_NUM",
+      "IND_02_DEN",
+      "IND_02_RES",
+      "IND_02_META",
+      "IND_02_ALCANCE_META",
+      "IND_03_NUM",
+      "IND_03_DEN",
+      "IND_03_RES",
+      "IND_03_META",
+      "IND_03_ALCANCE_META",
+      "IND_04_NUM",
+      "IND_04_DEN",
+      "IND_04_RES",
+      "IND_04_META",
+      "IND_04_ALCANCE_META",
+      "IND_05_NUM",
+      "IND_05_DEN",
+      "IND_05_RES",
+      "IND_05_META",
+      "IND_05_ALCANCE_META",
+      "IND_06_NUM",
+      "IND_06_DEN",
+      "IND_06_RES",
+      "IND_06_META",
+      "IND_06_ALCANCE_META",
+      "IND_07_NUM",
+      "IND_07_DEN",
+      "IND_07_RES",
+      "IND_07_META",
+      "IND_07_ALCANCE_META",
+      "IND_08_NUM",
+      "IND_08_DEN",
+      "IND_08_RES",
+      "IND_08_META",
+      "IND_08_ALCANCE_META",
+      "IND_09_NUM",
+      "IND_09_DEN",
+      "IND_09_RES",
+      "IND_09_META",
+      "IND_09_ALCANCE_META",
+      "IND_10_NUM",
+      "IND_10_DEN",
+      "IND_10_RES",
+      "IND_10_META",
+      "IND_10_ALCANCE_META",
+      "IND_11_NUM",
+      "IND_11_DEN",
+      "IND_11_RES",
+      "IND_11_META",
+      "IND_11_ALCANCE_META",
+      "IND_12_NUM",
+      "IND_12_DEN",
+      "IND_12_RES",
+      "IND_12_META",
+      "IND_12_ALCANCE_META",
+      "IND_13_NUM",
+      "IND_13_DEN",
+      "IND_13_RES",
+      "IND_13_META",
+      "IND_13_ALCANCE_META",
+      "IND_14_NUM",
+      "IND_14_DEN",
+      "IND_14_RES",
+      "IND_14_META",
+      "IND_14_ALCANCE_META",
+      "IND_15_NUM",
+      "IND_15_DEN",
+      "IND_15_RES",
+      "IND_15_META",
+      "IND_15_ALCANCE_META",
+      "VL_PQA_VS",
+      "METAS_ALCANCADAS",
+      "METAS_NAO_ALCANCADAS",
+      "QTDE_INDICADORES",
+      "QTDE_AUSENCIA_CASOS",
+      "PERCENTUAL"
+    ],
+    "types": {
+      "ANO": "int64",
+      "UF": "str",
+      "COD_MUN": "int64",
+      "NOME_MUN": "str",
+      "POP_ANO": "int64",
+      "IND_01_NUM": "int64",
+      "IND_01_DEN": "int64",
+      "IND_01_RES": "float64",
+      "IND_01_META": "str",
+      "IND_01_ALCANCE_META": "int64",
+      "IND_02_NUM": "int64",
+      "IND_02_DEN": "int64",
+      "IND_02_RES": "float64",
+      "IND_02_META": "str",
+      "IND_02_ALCANCE_META": "int64",
+      "IND_03_NUM": "int64",
+      "IND_03_DEN": "int64",
+      "IND_03_RES": "float64",
+      "IND_03_META": "str",
+      "IND_03_ALCANCE_META": "int64",
+      "IND_04_NUM": "int64",
+      "IND_04_DEN": "int64",
+      "IND_04_RES": "float64",
+      "IND_04_META": "str",
+      "IND_04_ALCANCE_META": "int64",
+      "IND_05_NUM": "int64",
+      "IND_05_DEN": "int64",
+      "IND_05_RES": "float64",
+      "IND_05_META": "str",
+      "IND_05_ALCANCE_META": "int64",
+      "IND_06_NUM": "int64",
+      "IND_06_DEN": "int64",
+      "IND_06_RES": "float64",
+      "IND_06_META": "str",
+      "IND_06_ALCANCE_META": "int64",
+      "IND_07_NUM": "int64",
+      "IND_07_DEN": "int64",
+      "IND_07_RES": "float64",
+      "IND_07_META": "str",
+      "IND_07_ALCANCE_META": "int64",
+      "IND_08_NUM": "str",
+      "IND_08_DEN": "str",
+      "IND_08_RES": "int64",
+      "IND_08_META": "str",
+      "IND_08_ALCANCE_META": "int64",
+      "IND_09_NUM": "int64",
+      "IND_09_DEN": "int64",
+      "IND_09_RES": "float64",
+      "IND_09_META": "str",
+      "IND_09_ALCANCE_META": "int64",
+      "IND_10_NUM": "int64",
+      "IND_10_DEN": "int64",
+      "IND_10_RES": "float64",
+      "IND_10_META": "str",
+      "IND_10_ALCANCE_META": "int64",
+      "IND_11_NUM": "int64",
+      "IND_11_DEN": "int64",
+      "IND_11_RES": "float64",
+      "IND_11_META": "str",
+      "IND_11_ALCANCE_META": "int64",
+      "IND_12_NUM": "int64",
+      "IND_12_DEN": "int64",
+      "IND_12_RES": "float64",
+      "IND_12_META": "str",
+      "IND_12_ALCANCE_META": "int64",
+      "IND_13_NUM": "int64",
+      "IND_13_DEN": "int64",
+      "IND_13_RES": "float64",
+      "IND_13_META": "str",
+      "IND_13_ALCANCE_META": "int64",
+      "IND_14_NUM": "int64",
+      "IND_14_DEN": "int64",
+      "IND_14_RES": "float64",
+      "IND_14_META": "str",
+      "IND_14_ALCANCE_META": "int64",
+      "IND_15_NUM": "str",
+      "IND_15_DEN": "str",
+      "IND_15_RES": "str",
+      "IND_15_META": "int64",
+      "IND_15_ALCANCE_META": "str",
+      "VL_PQA_VS": "object",
+      "METAS_ALCANCADAS": "object",
+      "METAS_NAO_ALCANCADAS": "object",
+      "QTDE_INDICADORES": "int64",
+      "QTDE_AUSENCIA_CASOS": "int64",
+      "PERCENTUAL": "object"
+    },
+    "missing": {
+      "ANO": 0,
+      "UF": 0,
+      "COD_MUN": 0,
+      "NOME_MUN": 0,
+      "POP_ANO": 0,
+      "IND_01_NUM": 0,
+      "IND_01_DEN": 0,
+      "IND_01_RES": 0,
+      "IND_01_META": 0,
+      "IND_01_ALCANCE_META": 0,
+      "IND_02_NUM": 0,
+      "IND_02_DEN": 0,
+      "IND_02_RES": 0,
+      "IND_02_META": 0,
+      "IND_02_ALCANCE_META": 0,
+      "IND_03_NUM": 0,
+      "IND_03_DEN": 0,
+      "IND_03_RES": 0,
+      "IND_03_META": 0,
+      "IND_03_ALCANCE_META": 0,
+      "IND_04_NUM": 0,
+      "IND_04_DEN": 0,
+      "IND_04_RES": 0,
+      "IND_04_META": 0,
+      "IND_04_ALCANCE_META": 0,
+      "IND_05_NUM": 0,
+      "IND_05_DEN": 0,
+      "IND_05_RES": 0,
+      "IND_05_META": 0,
+      "IND_05_ALCANCE_META": 0,
+      "IND_06_NUM": 0,
+      "IND_06_DEN": 0,
+      "IND_06_RES": 0,
+      "IND_06_META": 0,
+      "IND_06_ALCANCE_META": 0,
+      "IND_07_NUM": 0,
+      "IND_07_DEN": 0,
+      "IND_07_RES": 0,
+      "IND_07_META": 0,
+      "IND_07_ALCANCE_META": 0,
+      "IND_08_NUM": 5570,
+      "IND_08_DEN": 5570,
+      "IND_08_RES": 0,
+      "IND_08_META": 0,
+      "IND_08_ALCANCE_META": 0,
+      "IND_09_NUM": 0,
+      "IND_09_DEN": 0,
+      "IND_09_RES": 0,
+      "IND_09_META": 0,
+      "IND_09_ALCANCE_META": 0,
+      "IND_10_NUM": 0,
+      "IND_10_DEN": 0,
+      "IND_10_RES": 0,
+      "IND_10_META": 0,
+      "IND_10_ALCANCE_META": 0,
+      "IND_11_NUM": 0,
+      "IND_11_DEN": 0,
+      "IND_11_RES": 0,
+      "IND_11_META": 0,
+      "IND_11_ALCANCE_META": 0,
+      "IND_12_NUM": 0,
+      "IND_12_DEN": 0,
+      "IND_12_RES": 0,
+      "IND_12_META": 0,
+      "IND_12_ALCANCE_META": 0,
+      "IND_13_NUM": 0,
+      "IND_13_DEN": 0,
+      "IND_13_RES": 0,
+      "IND_13_META": 0,
+      "IND_13_ALCANCE_META": 0,
+      "IND_14_NUM": 0,
+      "IND_14_DEN": 0,
+      "IND_14_RES": 0,
+      "IND_14_META": 0,
+      "IND_14_ALCANCE_META": 0,
+      "IND_15_NUM": 5570,
+      "IND_15_DEN": 5570,
+      "IND_15_RES": 5570,
+      "IND_15_META": 0,
+      "IND_15_ALCANCE_META": 5570,
+      "VL_PQA_VS": 9,
+      "METAS_ALCANCADAS": 9,
+      "METAS_NAO_ALCANCADAS": 9,
+      "QTDE_INDICADORES": 0,
+      "QTDE_AUSENCIA_CASOS": 0,
+      "PERCENTUAL": 9
+    },
+    "null_tokens": {
+      "VL_PQA_VS": {
+        "NULL": 9,
+        "0": 3,
+        "4219.2": 2,
+        "3614.4": 2,
+        "14541.12": 2,
+        "7256.64": 2,
+        "6808.32": 2,
+        "7061.76": 2,
+        "2573.856": 2,
+        "6832.32": 2
+      },
+      "METAS_ALCANCADAS": {
+        "7": 1027,
+        "6": 951,
+        "8": 894,
+        "5": 751,
+        "9": 659,
+        "4": 442,
+        "10": 362,
+        "11": 171,
+        "3": 164,
+        "2": 60
+      },
+      "METAS_NAO_ALCANCADAS": {
+        "7": 1027,
+        "8": 951,
+        "6": 894,
+        "9": 751,
+        "5": 659,
+        "10": 442,
+        "4": 362,
+        "3": 171,
+        "11": 164,
+        "12": 60
+      },
+      "PERCENTUAL": {
+        "100": 3284,
+        "90": 938,
+        "70": 376,
+        "75": 224,
+        "50": 166,
+        "55": 129,
+        "80": 109,
+        "40": 89,
+        "60": 81,
+        "30": 48
+      }
+    },
+    "indicators": {
+      "IND_01": {
+        "res_n": 5570,
+        "min": 0.125,
+        "max": 7.5,
+        "q95": 1.42083128381702,
+        "meta": {
+          "Sim": 3238,
+          "Não": 2332
+        },
+        "alcance": {
+          "1": 3238,
+          "0": 2332
+        },
+        "res_ratio_factor": {
+          "1.0": 5570
+        }
+      },
+      "IND_02": {
+        "res_n": 5570,
+        "min": 0.290836653386454,
+        "max": 3.38983050847458,
+        "q95": 1.28571428571429,
+        "meta": {
+          "Sim": 3959,
+          "Não": 1611
+        },
+        "alcance": {
+          "1": 3959,
+          "0": 1611
+        },
+        "res_ratio_factor": {
+          "1.0": 5570
+        }
+      },
+      "IND_03": {
+        "res_n": 5570,
+        "min": 0.0,
+        "max": 6.0,
+        "q95": 1.0,
+        "meta": {
+          "Sim": 4151,
+          "Não": 1419
+        },
+        "alcance": {
+          "1": 4151,
+          "0": 1419
+        },
+        "res_ratio_factor": {
+          "1.0": 5380
+        }
+      },
+      "IND_04": {
+        "res_n": 5570,
+        "min": 0.0,
+        "max": 1.0,
+        "q95": 1.0,
+        "meta": {
+          "Não": 3432,
+          "Sim": 2138
+        },
+        "alcance": {
+          "0": 3432,
+          "1": 2138
+        },
+        "res_ratio_factor": {
+          "1.0": 3848
+        }
+      },
+      "IND_05": {
+        "res_n": 5570,
+        "min": 0.0,
+        "max": 6.09782608695652,
+        "q95": 1.432651515151513,
+        "meta": {
+          "Não": 3666,
+          "Sim": 1904
+        },
+        "alcance": {
+          "0": 3666,
+          "1": 1904
+        },
+        "res_ratio_factor": {
+          "1.0": 3619
+        }
+      },
+      "IND_06": {
+        "res_n": 5570,
+        "min": 0.0,
+        "max": 1.0,
+        "q95": 1.0,
+        "meta": {
+          "Não": 4059,
+          "Sim": 1511
+        },
+        "alcance": {
+          "0": 4059,
+          "1": 1511
+        },
+        "res_ratio_factor": {
+          "1.0": 2232
+        }
+      },
+      "IND_07": {
+        "res_n": 5570,
+        "min": 0.0,
+        "max": 2.0,
+        "q95": 0.333333333333333,
+        "meta": {
+          "Não": 5447,
+          "Sim": 123
+        },
+        "alcance": {
+          "0": 5447,
+          "1": 123
+        },
+        "res_ratio_factor": {
+          "1.0": 329
+        }
+      },
+      "IND_08": {
+        "res_n": 5570,
+        "min": 0.0,
+        "max": 6.0,
+        "q95": 6.0,
+        "meta": {
+          "Sim": 3536,
+          "Não": 2034
+        },
+        "alcance": {
+          "1": 3536,
+          "0": 2034
+        },
+        "res_ratio_factor": {}
+      },
+      "IND_09": {
+        "res_n": 5570,
+        "min": 0.0,
+        "max": 3.2,
+        "q95": 1.0,
+        "meta": {
+          "Não": 3706,
+          "Sim": 1864
+        },
+        "alcance": {
+          "0": 3706,
+          "1": 1864
+        },
+        "res_ratio_factor": {
+          "1.0": 2440
+        }
+      },
+      "IND_10": {
+        "res_n": 5570,
+        "min": 0.0,
+        "max": 1.0,
+        "q95": 1.0,
+        "meta": {
+          "Não": 3519,
+          "Sim": 2051
+        },
+        "alcance": {
+          "0": 3519,
+          "1": 2051
+        },
+        "res_ratio_factor": {
+          "1.0": 2764
+        }
+      },
+      "IND_11": {
+        "res_n": 5570,
+        "min": 0.0,
+        "max": 142.4,
+        "q95": 4.705598717474415,
+        "meta": {
+          "Não": 4352,
+          "Sim": 1218
+        },
+        "alcance": {
+          "0": 4352,
+          "1": 1218
+        },
+        "res_ratio_factor": {
+          "1.0": 3976
+        }
+      },
+      "IND_12": {
+        "res_n": 5570,
+        "min": -100.0,
+        "max": 219966.666666667,
+        "q95": 8968.333333333338,
+        "meta": {
+          "Sim": 4780,
+          "Não": 790
+        },
+        "alcance": {
+          "1": 4780,
+          "0": 790
+        },
+        "res_ratio_factor": {
+          "0.0": 158,
+          "200.0": 80,
+          "75.0": 63,
+          "600.0": 47
+        }
+      },
+      "IND_13": {
+        "res_n": 5570,
+        "min": 0.0,
+        "max": 1.0,
+        "q95": 1.0,
+        "meta": {
+          "Sim": 4172,
+          "Não": 1398
+        },
+        "alcance": {
+          "1": 4172,
+          "0": 1398
+        },
+        "res_ratio_factor": {
+          "1.0": 4761
+        }
+      },
+      "IND_14": {
+        "res_n": 5570,
+        "min": 0.0,
+        "max": 1.0,
+        "q95": 1.0,
+        "meta": {
+          "Sim": 3826,
+          "Não": 1744
+        },
+        "alcance": {
+          "1": 3826,
+          "0": 1744
+        },
+        "res_ratio_factor": {
+          "1.0": 4359
+        }
+      },
+      "IND_15": {
+        "res_n": 0,
+        "min": null,
+        "max": null,
+        "q95": null,
+        "meta": {
+          "0": 5570
+        },
+        "alcance": {
+          "NULL": 5570
+        },
+        "res_ratio_factor": {}
+      }
+    }
+  },
+  "PQA_VS_2019": {
+    "rows": 5561,
+    "columns": [
+      "ANO",
+      "UF",
+      "COD_MUN",
+      "NOME_MUN",
+      "POP_ANO",
+      "IND_01_NUM",
+      "IND_01_DEN",
+      "IND_01_RES",
+      "IND_01_META",
+      "IND_01_ALCANCE_META",
+      "IND_02_NUM",
+      "IND_02_DEN",
+      "IND_02_RES",
+      "IND_02_META",
+      "IND_02_ALCANCE_META",
+      "IND_03_NUM",
+      "IND_03_DEN",
+      "IND_03_RES",
+      "IND_03_META",
+      "IND_03_ALCANCE_META",
+      "IND_04_NUM",
+      "IND_04_DEN",
+      "IND_04_RES",
+      "IND_04_META",
+      "IND_04_ALCANCE_META",
+      "IND_05_NUM",
+      "IND_05_DEN",
+      "IND_05_RES",
+      "IND_05_META",
+      "IND_05_ALCANCE_META",
+      "IND_06_NUM",
+      "IND_06_DEN",
+      "IND_06_RES",
+      "IND_06_META",
+      "IND_06_ALCANCE_META",
+      "IND_07_NUM",
+      "IND_07_DEN",
+      "IND_07_RES",
+      "IND_07_META",
+      "IND_07_ALCANCE_META",
+      "IND_08_NUM",
+      "IND_08_DEN",
+      "IND_08_RES",
+      "IND_08_META",
+      "IND_08_ALCANCE_META",
+      "IND_09_NUM",
+      "IND_09_DEN",
+      "IND_09_RES",
+      "IND_09_META",
+      "IND_09_ALCANCE_META",
+      "IND_10_NUM",
+      "IND_10_DEN",
+      "IND_10_RES",
+      "IND_10_META",
+      "IND_10_ALCANCE_META",
+      "IND_11_NUM",
+      "IND_11_DEN",
+      "IND_11_RES",
+      "IND_11_META",
+      "IND_11_ALCANCE_META",
+      "IND_12_NUM",
+      "IND_12_DEN",
+      "IND_12_RES",
+      "IND_12_META",
+      "IND_12_ALCANCE_META",
+      "IND_13_NUM",
+      "IND_13_DEN",
+      "IND_13_RES",
+      "IND_13_META",
+      "IND_13_ALCANCE_META",
+      "IND_14_NUM",
+      "IND_14_DEN",
+      "IND_14_RES",
+      "IND_14_META",
+      "IND_14_ALCANCE_META",
+      "IND_15_NUM",
+      "IND_15_DEN",
+      "IND_15_RES",
+      "IND_15_META",
+      "IND_15_ALCANCE_META",
+      "VL_PQA_VS",
+      "METAS_ALCANCADAS",
+      "METAS_NAO_ALCANCADAS",
+      "QTDE_INDICADORES",
+      "QTDE_AUSENCIA_CASOS",
+      "PERCENTUAL"
+    ],
+    "types": {
+      "ANO": "int64",
+      "UF": "str",
+      "COD_MUN": "int64",
+      "NOME_MUN": "str",
+      "POP_ANO": "int64",
+      "IND_01_NUM": "int64",
+      "IND_01_DEN": "int64",
+      "IND_01_RES": "float64",
+      "IND_01_META": "str",
+      "IND_01_ALCANCE_META": "int64",
+      "IND_02_NUM": "int64",
+      "IND_02_DEN": "int64",
+      "IND_02_RES": "float64",
+      "IND_02_META": "str",
+      "IND_02_ALCANCE_META": "int64",
+      "IND_03_NUM": "int64",
+      "IND_03_DEN": "int64",
+      "IND_03_RES": "float64",
+      "IND_03_META": "str",
+      "IND_03_ALCANCE_META": "int64",
+      "IND_04_NUM": "int64",
+      "IND_04_DEN": "int64",
+      "IND_04_RES": "float64",
+      "IND_04_META": "str",
+      "IND_04_ALCANCE_META": "int64",
+      "IND_05_NUM": "int64",
+      "IND_05_DEN": "int64",
+      "IND_05_RES": "float64",
+      "IND_05_META": "str",
+      "IND_05_ALCANCE_META": "int64",
+      "IND_06_NUM": "int64",
+      "IND_06_DEN": "int64",
+      "IND_06_RES": "float64",
+      "IND_06_META": "str",
+      "IND_06_ALCANCE_META": "int64",
+      "IND_07_NUM": "int64",
+      "IND_07_DEN": "int64",
+      "IND_07_RES": "float64",
+      "IND_07_META": "str",
+      "IND_07_ALCANCE_META": "int64",
+      "IND_08_NUM": "str",
+      "IND_08_DEN": "str",
+      "IND_08_RES": "int64",
+      "IND_08_META": "str",
+      "IND_08_ALCANCE_META": "int64",
+      "IND_09_NUM": "object",
+      "IND_09_DEN": "object",
+      "IND_09_RES": "object",
+      "IND_09_META": "str",
+      "IND_09_ALCANCE_META": "int64",
+      "IND_10_NUM": "int64",
+      "IND_10_DEN": "int64",
+      "IND_10_RES": "float64",
+      "IND_10_META": "str",
+      "IND_10_ALCANCE_META": "int64",
+      "IND_11_NUM": "int64",
+      "IND_11_DEN": "int64",
+      "IND_11_RES": "float64",
+      "IND_11_META": "str",
+      "IND_11_ALCANCE_META": "int64",
+      "IND_12_NUM": "int64",
+      "IND_12_DEN": "int64",
+      "IND_12_RES": "float64",
+      "IND_12_META": "str",
+      "IND_12_ALCANCE_META": "int64",
+      "IND_13_NUM": "int64",
+      "IND_13_DEN": "int64",
+      "IND_13_RES": "float64",
+      "IND_13_META": "str",
+      "IND_13_ALCANCE_META": "int64",
+      "IND_14_NUM": "int64",
+      "IND_14_DEN": "int64",
+      "IND_14_RES": "float64",
+      "IND_14_META": "str",
+      "IND_14_ALCANCE_META": "int64",
+      "IND_15_NUM": "str",
+      "IND_15_DEN": "str",
+      "IND_15_RES": "str",
+      "IND_15_META": "int64",
+      "IND_15_ALCANCE_META": "str",
+      "VL_PQA_VS": "float64",
+      "METAS_ALCANCADAS": "int64",
+      "METAS_NAO_ALCANCADAS": "int64",
+      "QTDE_INDICADORES": "int64",
+      "QTDE_AUSENCIA_CASOS": "int64",
+      "PERCENTUAL": "int64"
+    },
+    "missing": {
+      "ANO": 0,
+      "UF": 0,
+      "COD_MUN": 0,
+      "NOME_MUN": 0,
+      "POP_ANO": 0,
+      "IND_01_NUM": 0,
+      "IND_01_DEN": 0,
+      "IND_01_RES": 0,
+      "IND_01_META": 0,
+      "IND_01_ALCANCE_META": 0,
+      "IND_02_NUM": 0,
+      "IND_02_DEN": 0,
+      "IND_02_RES": 0,
+      "IND_02_META": 0,
+      "IND_02_ALCANCE_META": 0,
+      "IND_03_NUM": 0,
+      "IND_03_DEN": 0,
+      "IND_03_RES": 0,
+      "IND_03_META": 0,
+      "IND_03_ALCANCE_META": 0,
+      "IND_04_NUM": 0,
+      "IND_04_DEN": 0,
+      "IND_04_RES": 0,
+      "IND_04_META": 0,
+      "IND_04_ALCANCE_META": 0,
+      "IND_05_NUM": 0,
+      "IND_05_DEN": 0,
+      "IND_05_RES": 0,
+      "IND_05_META": 0,
+      "IND_05_ALCANCE_META": 0,
+      "IND_06_NUM": 0,
+      "IND_06_DEN": 0,
+      "IND_06_RES": 0,
+      "IND_06_META": 0,
+      "IND_06_ALCANCE_META": 0,
+      "IND_07_NUM": 0,
+      "IND_07_DEN": 0,
+      "IND_07_RES": 0,
+      "IND_07_META": 0,
+      "IND_07_ALCANCE_META": 0,
+      "IND_08_NUM": 5561,
+      "IND_08_DEN": 5561,
+      "IND_08_RES": 0,
+      "IND_08_META": 0,
+      "IND_08_ALCANCE_META": 0,
+      "IND_09_NUM": 2769,
+      "IND_09_DEN": 2769,
+      "IND_09_RES": 2769,
+      "IND_09_META": 0,
+      "IND_09_ALCANCE_META": 0,
+      "IND_10_NUM": 0,
+      "IND_10_DEN": 0,
+      "IND_10_RES": 0,
+      "IND_10_META": 0,
+      "IND_10_ALCANCE_META": 0,
+      "IND_11_NUM": 0,
+      "IND_11_DEN": 0,
+      "IND_11_RES": 0,
+      "IND_11_META": 0,
+      "IND_11_ALCANCE_META": 0,
+      "IND_12_NUM": 0,
+      "IND_12_DEN": 0,
+      "IND_12_RES": 0,
+      "IND_12_META": 0,
+      "IND_12_ALCANCE_META": 0,
+      "IND_13_NUM": 0,
+      "IND_13_DEN": 0,
+      "IND_13_RES": 0,
+      "IND_13_META": 0,
+      "IND_13_ALCANCE_META": 0,
+      "IND_14_NUM": 0,
+      "IND_14_DEN": 0,
+      "IND_14_RES": 0,
+      "IND_14_META": 0,
+      "IND_14_ALCANCE_META": 0,
+      "IND_15_NUM": 5561,
+      "IND_15_DEN": 5561,
+      "IND_15_RES": 5561,
+      "IND_15_META": 0,
+      "IND_15_ALCANCE_META": 5561,
+      "VL_PQA_VS": 0,
+      "METAS_ALCANCADAS": 0,
+      "METAS_NAO_ALCANCADAS": 0,
+      "QTDE_INDICADORES": 0,
+      "QTDE_AUSENCIA_CASOS": 0,
+      "PERCENTUAL": 0
+    },
+    "null_tokens": {
+      "IND_09_NUM": {
+        "NULL": 2769,
+        "0": 331,
+        "3": 228,
+        "2": 210,
+        "1": 198,
+        "4": 167,
+        "5": 134,
+        "6": 123,
+        "7": 105,
+        "8": 94
+      },
+      "IND_09_DEN": {
+        "NULL": 2769,
+        "2": 225,
+        "3": 225,
+        "4": 184,
+        "1": 179,
+        "6": 148,
+        "5": 147,
+        "0": 136,
+        "7": 113,
+        "8": 102
+      },
+      "IND_09_RES": {
+        "NULL": 2769,
+        "1": 1506,
+        "0": 336,
+        "0.5": 47,
+        "0.666666666666667": 31,
+        "0.75": 25,
+        "0.8": 22,
+        "0.333333333333333": 19,
+        "0.6": 17,
+        "0.833333333333333": 16
+      }
+    },
+    "indicators": {
+      "IND_01": {
+        "res_n": 5561,
+        "min": 0.142857142857143,
+        "max": 8.0,
+        "q95": 1.41666666666667,
+        "meta": {
+          "Sim": 3502,
+          "Não": 2059
+        },
+        "alcance": {
+          "1": 3502,
+          "0": 2059
+        },
+        "res_ratio_factor": {
+          "1.0": 5561
+        }
+      },
+      "IND_02": {
+        "res_n": 5561,
+        "min": 0.181818181818182,
+        "max": 2.92307692307692,
+        "q95": 1.23728813559322,
+        "meta": {
+          "Sim": 3618,
+          "Não": 1943
+        },
+        "alcance": {
+          "1": 3618,
+          "0": 1943
+        },
+        "res_ratio_factor": {
+          "1.0": 5561
+        }
+      },
+      "IND_03": {
+        "res_n": 5561,
+        "min": 0.0,
+        "max": 22.0,
+        "q95": 1.0,
+        "meta": {
+          "Sim": 3430,
+          "Não": 2131
+        },
+        "alcance": {
+          "1": 3430,
+          "0": 2131
+        },
+        "res_ratio_factor": {
+          "1.0": 4891
+        }
+      },
+      "IND_04": {
+        "res_n": 5561,
+        "min": 0.0,
+        "max": 1.0,
+        "q95": 1.0,
+        "meta": {
+          "Não": 3786,
+          "Sim": 1775
+        },
+        "alcance": {
+          "0": 3786,
+          "1": 1775
+        },
+        "res_ratio_factor": {
+          "1.0": 3463
+        }
+      },
+      "IND_05": {
+        "res_n": 5561,
+        "min": 0.0,
+        "max": 5.89130434782609,
+        "q95": 1.54487179487179,
+        "meta": {
+          "Não": 3526,
+          "Sim": 2035
+        },
+        "alcance": {
+          "0": 3526,
+          "1": 2035
+        },
+        "res_ratio_factor": {
+          "1.0": 3721
+        }
+      },
+      "IND_06": {
+        "res_n": 5561,
+        "min": 0.0,
+        "max": 1.0,
+        "q95": 1.0,
+        "meta": {
+          "Não": 3931,
+          "Sim": 1630
+        },
+        "alcance": {
+          "0": 3931,
+          "1": 1630
+        },
+        "res_ratio_factor": {
+          "1.0": 2575
+        }
+      },
+      "IND_07": {
+        "res_n": 5561,
+        "min": 0.0,
+        "max": 1.0,
+        "q95": 0.5,
+        "meta": {
+          "Não": 5393,
+          "Sim": 168
+        },
+        "alcance": {
+          "0": 5393,
+          "1": 168
+        },
+        "res_ratio_factor": {
+          "1.0": 419
+        }
+      },
+      "IND_08": {
+        "res_n": 5561,
+        "min": 0.0,
+        "max": 10.0,
+        "q95": 6.0,
+        "meta": {
+          "Sim": 4095,
+          "Não": 1466
+        },
+        "alcance": {
+          "1": 4095,
+          "0": 1466
+        },
+        "res_ratio_factor": {}
+      },
+      "IND_09": {
+        "res_n": 2792,
+        "min": 0.0,
+        "max": 2.23584905660377,
+        "q95": 1.0,
+        "meta": {
+          "Não": 3593,
+          "Sim": 1968
+        },
+        "alcance": {
+          "0": 3593,
+          "1": 1968
+        },
+        "res_ratio_factor": {
+          "1.0": 2456
+        }
+      },
+      "IND_10": {
+        "res_n": 5561,
+        "min": 0.0,
+        "max": 1.0,
+        "q95": 1.0,
+        "meta": {
+          "Não": 3584,
+          "Sim": 1977
+        },
+        "alcance": {
+          "0": 3584,
+          "1": 1977
+        },
+        "res_ratio_factor": {
+          "1.0": 2645
+        }
+      },
+      "IND_11": {
+        "res_n": 5561,
+        "min": 0.0,
+        "max": 209.5,
+        "q95": 4.8,
+        "meta": {
+          "Não": 4234,
+          "Sim": 1327
+        },
+        "alcance": {
+          "0": 4234,
+          "1": 1327
+        },
+        "res_ratio_factor": {
+          "1.0": 4104
+        }
+      },
+      "IND_12": {
+        "res_n": 5561,
+        "min": -100.0,
+        "max": 252250.0,
+        "q95": 2350.0,
+        "meta": {
+          "Sim": 4028,
+          "Não": 1533
+        },
+        "alcance": {
+          "1": 4028,
+          "0": 1533
+        },
+        "res_ratio_factor": {
+          "0.0": 89,
+          "200.0": 47,
+          "75.0": 39,
+          "-25.0": 28
+        }
+      },
+      "IND_13": {
+        "res_n": 5561,
+        "min": 0.0,
+        "max": 1.0,
+        "q95": 1.0,
+        "meta": {
+          "Sim": 3794,
+          "Não": 1767
+        },
+        "alcance": {
+          "1": 3794,
+          "0": 1767
+        },
+        "res_ratio_factor": {
+          "1.0": 4323
+        }
+      },
+      "IND_14": {
+        "res_n": 5561,
+        "min": 0.0,
+        "max": 1.0,
+        "q95": 1.0,
+        "meta": {
+          "Sim": 3949,
+          "Não": 1612
+        },
+        "alcance": {
+          "1": 3949,
+          "0": 1612
+        },
+        "res_ratio_factor": {
+          "1.0": 4561
+        }
+      },
+      "IND_15": {
+        "res_n": 0,
+        "min": null,
+        "max": null,
+        "q95": null,
+        "meta": {
+          "0": 5561
+        },
+        "alcance": {
+          "NULL": 5561
+        },
+        "res_ratio_factor": {}
+      }
+    }
+  },
+  "PQA_VS_2020": {
+    "rows": 5570,
+    "columns": [
+      "ANO",
+      "UF",
+      "COD_MUN",
+      "NOME_MUN",
+      "POP_ANO",
+      "IND_01_NUM",
+      "IND_01_DEN",
+      "IND_01_RES",
+      "IND_01_META",
+      "IND_01_ALCANCE_META",
+      "IND_02_NUM",
+      "IND_02_DEN",
+      "IND_02_RES",
+      "IND_02_META",
+      "IND_02_ALCANCE_META",
+      "IND_03_NUM",
+      "IND_03_DEN",
+      "IND_03_RES",
+      "IND_03_META",
+      "IND_03_ALCANCE_META",
+      "IND_04_NUM",
+      "IND_04_DEN",
+      "IND_04_RES",
+      "IND_04_META",
+      "IND_04_ALCANCE_META",
+      "IND_05_NUM",
+      "IND_05_DEN",
+      "IND_05_RES",
+      "IND_05_META",
+      "IND_05_ALCANCE_META",
+      "IND_06_NUM",
+      "IND_06_DEN",
+      "IND_06_RES",
+      "IND_06_META",
+      "IND_06_ALCANCE_META",
+      "IND_07_NUM",
+      "IND_07_DEN",
+      "IND_07_RES",
+      "IND_07_META",
+      "IND_07_ALCANCE_META",
+      "IND_08_NUM",
+      "IND_08_DEN",
+      "IND_08_RES",
+      "IND_08_META",
+      "IND_08_ALCANCE_META",
+      "IND_09_NUM",
+      "IND_09_DEN",
+      "IND_09_RES",
+      "IND_09_META",
+      "IND_09_ALCANCE_META",
+      "IND_10_NUM",
+      "IND_10_DEN",
+      "IND_10_RES",
+      "IND_10_META",
+      "IND_10_ALCANCE_META",
+      "IND_11_NUM",
+      "IND_11_DEN",
+      "IND_11_RES",
+      "IND_11_META",
+      "IND_11_ALCANCE_META",
+      "IND_12_NUM",
+      "IND_12_DEN",
+      "IND_12_RES",
+      "IND_12_META",
+      "IND_12_ALCANCE_META",
+      "IND_13_NUM",
+      "IND_13_DEN",
+      "IND_13_RES",
+      "IND_13_META",
+      "IND_13_ALCANCE_META",
+      "IND_14_NUM",
+      "IND_14_DEN",
+      "IND_14_RES",
+      "IND_14_META",
+      "IND_14_ALCANCE_META",
+      "IND_15_NUM",
+      "IND_15_DEN",
+      "IND_15_RES",
+      "IND_15_META",
+      "IND_15_ALCANCE_META",
+      "VL_PQA_VS",
+      "METAS_ALCANCADAS",
+      "METAS_NAO_ALCANCADAS",
+      "QTDE_INDICADORES",
+      "QTDE_AUSENCIA_CASOS",
+      "PERCENTUAL"
+    ],
+    "types": {
+      "ANO": "int64",
+      "UF": "str",
+      "COD_MUN": "int64",
+      "NOME_MUN": "str",
+      "POP_ANO": "int64",
+      "IND_01_NUM": "int64",
+      "IND_01_DEN": "int64",
+      "IND_01_RES": "float64",
+      "IND_01_META": "str",
+      "IND_01_ALCANCE_META": "int64",
+      "IND_02_NUM": "int64",
+      "IND_02_DEN": "int64",
+      "IND_02_RES": "float64",
+      "IND_02_META": "str",
+      "IND_02_ALCANCE_META": "int64",
+      "IND_03_NUM": "int64",
+      "IND_03_DEN": "int64",
+      "IND_03_RES": "float64",
+      "IND_03_META": "str",
+      "IND_03_ALCANCE_META": "int64",
+      "IND_04_NUM": "int64",
+      "IND_04_DEN": "int64",
+      "IND_04_RES": "float64",
+      "IND_04_META": "str",
+      "IND_04_ALCANCE_META": "int64",
+      "IND_05_NUM": "int64",
+      "IND_05_DEN": "int64",
+      "IND_05_RES": "float64",
+      "IND_05_META": "str",
+      "IND_05_ALCANCE_META": "int64",
+      "IND_06_NUM": "object",
+      "IND_06_DEN": "object",
+      "IND_06_RES": "float64",
+      "IND_06_META": "str",
+      "IND_06_ALCANCE_META": "int64",
+      "IND_07_NUM": "int64",
+      "IND_07_DEN": "int64",
+      "IND_07_RES": "float64",
+      "IND_07_META": "str",
+      "IND_07_ALCANCE_META": "int64",
+      "IND_08_NUM": "str",
+      "IND_08_DEN": "str",
+      "IND_08_RES": "str",
+      "IND_08_META": "str",
+      "IND_08_ALCANCE_META": "int64",
+      "IND_09_NUM": "int64",
+      "IND_09_DEN": "int64",
+      "IND_09_RES": "float64",
+      "IND_09_META": "str",
+      "IND_09_ALCANCE_META": "int64",
+      "IND_10_NUM": "int64",
+      "IND_10_DEN": "int64",
+      "IND_10_RES": "float64",
+      "IND_10_META": "str",
+      "IND_10_ALCANCE_META": "int64",
+      "IND_11_NUM": "int64",
+      "IND_11_DEN": "int64",
+      "IND_11_RES": "float64",
+      "IND_11_META": "str",
+      "IND_11_ALCANCE_META": "int64",
+      "IND_12_NUM": "int64",
+      "IND_12_DEN": "int64",
+      "IND_12_RES": "float64",
+      "IND_12_META": "str",
+      "IND_12_ALCANCE_META": "int64",
+      "IND_13_NUM": "int64",
+      "IND_13_DEN": "int64",
+      "IND_13_RES": "float64",
+      "IND_13_META": "str",
+      "IND_13_ALCANCE_META": "int64",
+      "IND_14_NUM": "object",
+      "IND_14_DEN": "object",
+      "IND_14_RES": "float64",
+      "IND_14_META": "str",
+      "IND_14_ALCANCE_META": "int64",
+      "IND_15_NUM": "str",
+      "IND_15_DEN": "str",
+      "IND_15_RES": "str",
+      "IND_15_META": "int64",
+      "IND_15_ALCANCE_META": "str",
+      "VL_PQA_VS": "object",
+      "METAS_ALCANCADAS": "object",
+      "METAS_NAO_ALCANCADAS": "object",
+      "QTDE_INDICADORES": "int64",
+      "QTDE_AUSENCIA_CASOS": "int64",
+      "PERCENTUAL": "object"
+    },
+    "missing": {
+      "ANO": 0,
+      "UF": 0,
+      "COD_MUN": 0,
+      "NOME_MUN": 0,
+      "POP_ANO": 0,
+      "IND_01_NUM": 0,
+      "IND_01_DEN": 0,
+      "IND_01_RES": 0,
+      "IND_01_META": 0,
+      "IND_01_ALCANCE_META": 0,
+      "IND_02_NUM": 0,
+      "IND_02_DEN": 0,
+      "IND_02_RES": 0,
+      "IND_02_META": 0,
+      "IND_02_ALCANCE_META": 0,
+      "IND_03_NUM": 0,
+      "IND_03_DEN": 0,
+      "IND_03_RES": 0,
+      "IND_03_META": 0,
+      "IND_03_ALCANCE_META": 0,
+      "IND_04_NUM": 0,
+      "IND_04_DEN": 0,
+      "IND_04_RES": 0,
+      "IND_04_META": 0,
+      "IND_04_ALCANCE_META": 0,
+      "IND_05_NUM": 0,
+      "IND_05_DEN": 0,
+      "IND_05_RES": 0,
+      "IND_05_META": 0,
+      "IND_05_ALCANCE_META": 0,
+      "IND_06_NUM": 3391,
+      "IND_06_DEN": 3391,
+      "IND_06_RES": 0,
+      "IND_06_META": 0,
+      "IND_06_ALCANCE_META": 0,
+      "IND_07_NUM": 0,
+      "IND_07_DEN": 0,
+      "IND_07_RES": 0,
+      "IND_07_META": 0,
+      "IND_07_ALCANCE_META": 0,
+      "IND_08_NUM": 5570,
+      "IND_08_DEN": 5570,
+      "IND_08_RES": 5570,
+      "IND_08_META": 5570,
+      "IND_08_ALCANCE_META": 0,
+      "IND_09_NUM": 0,
+      "IND_09_DEN": 0,
+      "IND_09_RES": 0,
+      "IND_09_META": 0,
+      "IND_09_ALCANCE_META": 0,
+      "IND_10_NUM": 0,
+      "IND_10_DEN": 0,
+      "IND_10_RES": 0,
+      "IND_10_META": 0,
+      "IND_10_ALCANCE_META": 0,
+      "IND_11_NUM": 0,
+      "IND_11_DEN": 0,
+      "IND_11_RES": 0,
+      "IND_11_META": 0,
+      "IND_11_ALCANCE_META": 0,
+      "IND_12_NUM": 0,
+      "IND_12_DEN": 0,
+      "IND_12_RES": 0,
+      "IND_12_META": 0,
+      "IND_12_ALCANCE_META": 0,
+      "IND_13_NUM": 0,
+      "IND_13_DEN": 0,
+      "IND_13_RES": 0,
+      "IND_13_META": 0,
+      "IND_13_ALCANCE_META": 0,
+      "IND_14_NUM": 1234,
+      "IND_14_DEN": 1234,
+      "IND_14_RES": 0,
+      "IND_14_META": 0,
+      "IND_14_ALCANCE_META": 0,
+      "IND_15_NUM": 5570,
+      "IND_15_DEN": 5570,
+      "IND_15_RES": 5570,
+      "IND_15_META": 0,
+      "IND_15_ALCANCE_META": 5570,
+      "VL_PQA_VS": 9,
+      "METAS_ALCANCADAS": 9,
+      "METAS_NAO_ALCANCADAS": 9,
+      "QTDE_INDICADORES": 0,
+      "QTDE_AUSENCIA_CASOS": 0,
+      "PERCENTUAL": 9
+    },
+    "null_tokens": {
+      "IND_06_NUM": {
+        "NULL": 3391,
+        "1": 740,
+        "0": 449,
+        "2": 292,
+        "3": 163,
+        "4": 97,
+        "5": 66,
+        "6": 44,
+        "7": 30,
+        "8": 30
+      },
+      "IND_06_DEN": {
+        "NULL": 3391,
+        "1": 882,
+        "2": 325,
+        "3": 212,
+        "4": 146,
+        "5": 83,
+        "6": 59,
+        "7": 49,
+        "8": 43,
+        "0": 25
+      },
+      "IND_14_NUM": {
+        "NULL": 1234,
+        "1": 498,
+        "2": 373,
+        "3": 255,
+        "4": 205,
+        "5": 179,
+        "6": 148,
+        "7": 125,
+        "8": 116,
+        "10": 109
+      },
+      "IND_14_DEN": {
+        "NULL": 1234,
+        "1": 491,
+        "2": 355,
+        "3": 255,
+        "4": 213,
+        "5": 177,
+        "6": 139,
+        "7": 125,
+        "8": 118,
+        "10": 112
+      },
+      "VL_PQA_VS": {
+        "NULL": 9,
+        "12000": 9,
+        "6231.72": 2,
+        "7189.698": 2,
+        "5082.984": 2,
+        "6275.8245": 2,
+        "5293.44": 2,
+        "2242.656": 2,
+        "2610.816": 2,
+        "2543.608": 2
+      },
+      "METAS_ALCANCADAS": {
+        "6": 1134,
+        "7": 1044,
+        "5": 864,
+        "8": 808,
+        "4": 562,
+        "9": 505,
+        "3": 254,
+        "10": 231,
+        "2": 72,
+        "11": 61
+      },
+      "METAS_NAO_ALCANCADAS": {
+        "8": 1134,
+        "7": 1044,
+        "9": 864,
+        "6": 808,
+        "10": 562,
+        "5": 505,
+        "11": 254,
+        "4": 231,
+        "12": 72,
+        "3": 61
+      },
+      "PERCENTUAL": {
+        "100": 2812,
+        "90": 1033,
+        "70": 441,
+        "75": 292,
+        "50": 250,
+        "55": 175,
+        "80": 139,
+        "60": 125,
+        "40": 118,
+        "30": 67
+      }
+    },
+    "indicators": {
+      "IND_01": {
+        "res_n": 5570,
+        "min": 0.162162162162162,
+        "max": 9.5,
+        "q95": 1.5,
+        "meta": {
+          "Sim": 4073,
+          "Não": 1497
+        },
+        "alcance": {
+          "1": 4073,
+          "0": 1497
+        },
+        "res_ratio_factor": {
+          "1.0": 5570
+        }
+      },
+      "IND_02": {
+        "res_n": 5570,
+        "min": 0.141414141414141,
+        "max": 2.23076923076923,
+        "q95": 1.18181818181818,
+        "meta": {
+          "Não": 2840,
+          "Sim": 2730
+        },
+        "alcance": {
+          "0": 2840,
+          "1": 2730
+        },
+        "res_ratio_factor": {
+          "1.0": 5570
+        }
+      },
+      "IND_03": {
+        "res_n": 5570,
+        "min": 0.0,
+        "max": 12.0,
+        "q95": 1.25,
+        "meta": {
+          "Sim": 3359,
+          "Não": 2211
+        },
+        "alcance": {
+          "1": 3359,
+          "0": 2211
+        },
+        "res_ratio_factor": {
+          "1.0": 4555
+        }
+      },
+      "IND_04": {
+        "res_n": 5570,
+        "min": 0.0,
+        "max": 1.0,
+        "q95": 1.0,
+        "meta": {
+          "Não": 4134,
+          "Sim": 1436
+        },
+        "alcance": {
+          "0": 4134,
+          "1": 1436
+        },
+        "res_ratio_factor": {
+          "1.0": 3128
+        }
+      },
+      "IND_05": {
+        "res_n": 5570,
+        "min": 0.0,
+        "max": 6.97916666666667,
+        "q95": 1.43518518518519,
+        "meta": {
+          "Não": 3813,
+          "Sim": 1757
+        },
+        "alcance": {
+          "0": 3813,
+          "1": 1757
+        },
+        "res_ratio_factor": {
+          "1.0": 3591
+        }
+      },
+      "IND_06": {
+        "res_n": 5570,
+        "min": 0.0,
+        "max": 1.0,
+        "q95": 1.0,
+        "meta": {
+          "Não": 4420,
+          "Sim": 1150
+        },
+        "alcance": {
+          "0": 4420,
+          "1": 1150
+        },
+        "res_ratio_factor": {
+          "1.0": 1730
+        }
+      },
+      "IND_07": {
+        "res_n": 5570,
+        "min": 0.0,
+        "max": 1.0,
+        "q95": 0.4437301587301588,
+        "meta": {
+          "Não": 5432,
+          "Sim": 138
+        },
+        "alcance": {
+          "0": 5432,
+          "1": 138
+        },
+        "res_ratio_factor": {
+          "1.0": 353
+        }
+      },
+      "IND_08": {
+        "res_n": 0,
+        "min": null,
+        "max": null,
+        "q95": null,
+        "meta": {
+          "": 5570
+        },
+        "alcance": {
+          "0": 5570
+        },
+        "res_ratio_factor": {}
+      },
+      "IND_09": {
+        "res_n": 5570,
+        "min": 0.0,
+        "max": 6.66666666666667,
+        "q95": 1.0,
+        "meta": {
+          "Não": 3582,
+          "Sim": 1988
+        },
+        "alcance": {
+          "0": 3582,
+          "1": 1988
+        },
+        "res_ratio_factor": {
+          "1.0": 2481
+        }
+      },
+      "IND_10": {
+        "res_n": 5570,
+        "min": 0.0,
+        "max": 4.8,
+        "q95": 1.0,
+        "meta": {
+          "Não": 4079,
+          "Sim": 1491
+        },
+        "alcance": {
+          "0": 4079,
+          "1": 1491
+        },
+        "res_ratio_factor": {
+          "1.0": 2074
+        }
+      },
+      "IND_11": {
+        "res_n": 5570,
+        "min": 0.0,
+        "max": 853.0,
+        "q95": 5.789179802955666,
+        "meta": {
+          "Não": 4216,
+          "Sim": 1354
+        },
+        "alcance": {
+          "0": 4216,
+          "1": 1354
+        },
+        "res_ratio_factor": {
+          "1.0": 4736
+        }
+      },
+      "IND_12": {
+        "res_n": 5570,
+        "min": -100.0,
+        "max": 11000.0,
+        "q95": 486.46315789473704,
+        "meta": {
+          "Sim": 3487,
+          "Não": 2083
+        },
+        "alcance": {
+          "1": 3487,
+          "0": 2083
+        },
+        "res_ratio_factor": {
+          "0.0": 11,
+          "-23.4375": 5,
+          "-22.9592": 4,
+          "-18.75": 4
+        }
+      },
+      "IND_13": {
+        "res_n": 5570,
+        "min": 0.0,
+        "max": 1.0,
+        "q95": 1.0,
+        "meta": {
+          "Sim": 3591,
+          "Não": 1979
+        },
+        "alcance": {
+          "1": 3591,
+          "0": 1979
+        },
+        "res_ratio_factor": {
+          "1.0": 4094
+        }
+      },
+      "IND_14": {
+        "res_n": 5570,
+        "min": 0.0,
+        "max": 1.0,
+        "q95": 1.0,
+        "meta": {
+          "Sim": 3709,
+          "Não": 1861
+        },
+        "alcance": {
+          "1": 3709,
+          "0": 1861
+        },
+        "res_ratio_factor": {
+          "1.0": 4326
+        }
+      },
+      "IND_15": {
+        "res_n": 0,
+        "min": null,
+        "max": null,
+        "q95": null,
+        "meta": {
+          "0": 5570
+        },
+        "alcance": {
+          "NULL": 5570
+        },
+        "res_ratio_factor": {}
+      }
+    }
+  },
+  "PQA_VS_2021": {
+    "rows": 5561,
+    "columns": [
+      "ANO",
+      "UF",
+      "COD_MUN",
+      "NOME_MUN",
+      "POP_ANO",
+      "IND_01_NUM",
+      "IND_01_DEN",
+      "IND_01_RES",
+      "IND_01_META",
+      "IND_01_ALCANCE_META",
+      "IND_02_NUM",
+      "IND_02_DEN",
+      "IND_02_RES",
+      "IND_02_META",
+      "IND_02_ALCANCE_META",
+      "IND_03_NUM",
+      "IND_03_DEN",
+      "IND_03_RES",
+      "IND_03_META",
+      "IND_03_ALCANCE_META",
+      "IND_04_NUM",
+      "IND_04_DEN",
+      "IND_04_RES",
+      "IND_04_META",
+      "IND_04_ALCANCE_META",
+      "IND_05_NUM",
+      "IND_05_DEN",
+      "IND_05_RES",
+      "IND_05_META",
+      "IND_05_ALCANCE_META",
+      "IND_06_NUM",
+      "IND_06_DEN",
+      "IND_06_RES",
+      "IND_06_META",
+      "IND_06_ALCANCE_META",
+      "IND_07_NUM",
+      "IND_07_DEN",
+      "IND_07_RES",
+      "IND_07_META",
+      "IND_07_ALCANCE_META",
+      "IND_08_NUM",
+      "IND_08_DEN",
+      "IND_08_RES",
+      "IND_08_META",
+      "IND_08_ALCANCE_META",
+      "IND_09_NUM",
+      "IND_09_DEN",
+      "IND_09_RES",
+      "IND_09_META",
+      "IND_09_ALCANCE_META",
+      "IND_10_NUM",
+      "IND_10_DEN",
+      "IND_10_RES",
+      "IND_10_META",
+      "IND_10_ALCANCE_META",
+      "IND_11_NUM",
+      "IND_11_DEN",
+      "IND_11_RES",
+      "IND_11_META",
+      "IND_11_ALCANCE_META",
+      "IND_12_NUM",
+      "IND_12_DEN",
+      "IND_12_RES",
+      "IND_12_META",
+      "IND_12_ALCANCE_META",
+      "IND_13_NUM",
+      "IND_13_DEN",
+      "IND_13_RES",
+      "IND_13_META",
+      "IND_13_ALCANCE_META",
+      "IND_14_NUM",
+      "IND_14_DEN",
+      "IND_14_RES",
+      "IND_14_META",
+      "IND_14_ALCANCE_META",
+      "IND_15_NUM",
+      "IND_15_DEN",
+      "IND_15_RES",
+      "IND_15_META",
+      "IND_15_ALCANCE_META",
+      "VL_PQA_VS",
+      "METAS_ALCANCADAS",
+      "METAS_NAO_ALCANCADAS",
+      "QTDE_INDICADORES",
+      "QTDE_AUSENCIA_CASOS",
+      "PERCENTUAL"
+    ],
+    "types": {
+      "ANO": "int64",
+      "UF": "str",
+      "COD_MUN": "int64",
+      "NOME_MUN": "str",
+      "POP_ANO": "int64",
+      "IND_01_NUM": "int64",
+      "IND_01_DEN": "int64",
+      "IND_01_RES": "float64",
+      "IND_01_META": "str",
+      "IND_01_ALCANCE_META": "int64",
+      "IND_02_NUM": "int64",
+      "IND_02_DEN": "int64",
+      "IND_02_RES": "float64",
+      "IND_02_META": "str",
+      "IND_02_ALCANCE_META": "int64",
+      "IND_03_NUM": "int64",
+      "IND_03_DEN": "int64",
+      "IND_03_RES": "float64",
+      "IND_03_META": "str",
+      "IND_03_ALCANCE_META": "int64",
+      "IND_04_NUM": "int64",
+      "IND_04_DEN": "int64",
+      "IND_04_RES": "float64",
+      "IND_04_META": "str",
+      "IND_04_ALCANCE_META": "int64",
+      "IND_05_NUM": "int64",
+      "IND_05_DEN": "int64",
+      "IND_05_RES": "float64",
+      "IND_05_META": "str",
+      "IND_05_ALCANCE_META": "int64",
+      "IND_06_NUM": "object",
+      "IND_06_DEN": "object",
+      "IND_06_RES": "float64",
+      "IND_06_META": "str",
+      "IND_06_ALCANCE_META": "int64",
+      "IND_07_NUM": "int64",
+      "IND_07_DEN": "int64",
+      "IND_07_RES": "float64",
+      "IND_07_META": "str",
+      "IND_07_ALCANCE_META": "int64",
+      "IND_08_NUM": "str",
+      "IND_08_DEN": "str",
+      "IND_08_RES": "str",
+      "IND_08_META": "str",
+      "IND_08_ALCANCE_META": "int64",
+      "IND_09_NUM": "object",
+      "IND_09_DEN": "object",
+      "IND_09_RES": "object",
+      "IND_09_META": "str",
+      "IND_09_ALCANCE_META": "int64",
+      "IND_10_NUM": "int64",
+      "IND_10_DEN": "int64",
+      "IND_10_RES": "float64",
+      "IND_10_META": "str",
+      "IND_10_ALCANCE_META": "int64",
+      "IND_11_NUM": "int64",
+      "IND_11_DEN": "int64",
+      "IND_11_RES": "float64",
+      "IND_11_META": "str",
+      "IND_11_ALCANCE_META": "int64",
+      "IND_12_NUM": "int64",
+      "IND_12_DEN": "int64",
+      "IND_12_RES": "float64",
+      "IND_12_META": "str",
+      "IND_12_ALCANCE_META": "int64",
+      "IND_13_NUM": "object",
+      "IND_13_DEN": "object",
+      "IND_13_RES": "float64",
+      "IND_13_META": "str",
+      "IND_13_ALCANCE_META": "int64",
+      "IND_14_NUM": "object",
+      "IND_14_DEN": "object",
+      "IND_14_RES": "float64",
+      "IND_14_META": "str",
+      "IND_14_ALCANCE_META": "int64",
+      "IND_15_NUM": "str",
+      "IND_15_DEN": "str",
+      "IND_15_RES": "str",
+      "IND_15_META": "int64",
+      "IND_15_ALCANCE_META": "str",
+      "VL_PQA_VS": "float64",
+      "METAS_ALCANCADAS": "int64",
+      "METAS_NAO_ALCANCADAS": "int64",
+      "QTDE_INDICADORES": "int64",
+      "QTDE_AUSENCIA_CASOS": "int64",
+      "PERCENTUAL": "int64"
+    },
+    "missing": {
+      "ANO": 0,
+      "UF": 0,
+      "COD_MUN": 0,
+      "NOME_MUN": 0,
+      "POP_ANO": 0,
+      "IND_01_NUM": 0,
+      "IND_01_DEN": 0,
+      "IND_01_RES": 0,
+      "IND_01_META": 0,
+      "IND_01_ALCANCE_META": 0,
+      "IND_02_NUM": 0,
+      "IND_02_DEN": 0,
+      "IND_02_RES": 0,
+      "IND_02_META": 0,
+      "IND_02_ALCANCE_META": 0,
+      "IND_03_NUM": 0,
+      "IND_03_DEN": 0,
+      "IND_03_RES": 0,
+      "IND_03_META": 0,
+      "IND_03_ALCANCE_META": 0,
+      "IND_04_NUM": 0,
+      "IND_04_DEN": 0,
+      "IND_04_RES": 0,
+      "IND_04_META": 0,
+      "IND_04_ALCANCE_META": 0,
+      "IND_05_NUM": 0,
+      "IND_05_DEN": 0,
+      "IND_05_RES": 0,
+      "IND_05_META": 0,
+      "IND_05_ALCANCE_META": 0,
+      "IND_06_NUM": 3650,
+      "IND_06_DEN": 3650,
+      "IND_06_RES": 0,
+      "IND_06_META": 0,
+      "IND_06_ALCANCE_META": 0,
+      "IND_07_NUM": 0,
+      "IND_07_DEN": 0,
+      "IND_07_RES": 0,
+      "IND_07_META": 0,
+      "IND_07_ALCANCE_META": 0,
+      "IND_08_NUM": 5561,
+      "IND_08_DEN": 5561,
+      "IND_08_RES": 5561,
+      "IND_08_META": 0,
+      "IND_08_ALCANCE_META": 0,
+      "IND_09_NUM": 78,
+      "IND_09_DEN": 78,
+      "IND_09_RES": 47,
+      "IND_09_META": 0,
+      "IND_09_ALCANCE_META": 0,
+      "IND_10_NUM": 0,
+      "IND_10_DEN": 0,
+      "IND_10_RES": 0,
+      "IND_10_META": 0,
+      "IND_10_ALCANCE_META": 0,
+      "IND_11_NUM": 0,
+      "IND_11_DEN": 0,
+      "IND_11_RES": 0,
+      "IND_11_META": 0,
+      "IND_11_ALCANCE_META": 0,
+      "IND_12_NUM": 0,
+      "IND_12_DEN": 0,
+      "IND_12_RES": 0,
+      "IND_12_META": 0,
+      "IND_12_ALCANCE_META": 0,
+      "IND_13_NUM": 1110,
+      "IND_13_DEN": 1110,
+      "IND_13_RES": 0,
+      "IND_13_META": 0,
+      "IND_13_ALCANCE_META": 0,
+      "IND_14_NUM": 1190,
+      "IND_14_DEN": 1190,
+      "IND_14_RES": 0,
+      "IND_14_META": 0,
+      "IND_14_ALCANCE_META": 0,
+      "IND_15_NUM": 5561,
+      "IND_15_DEN": 5561,
+      "IND_15_RES": 5561,
+      "IND_15_META": 0,
+      "IND_15_ALCANCE_META": 5561,
+      "VL_PQA_VS": 0,
+      "METAS_ALCANCADAS": 0,
+      "METAS_NAO_ALCANCADAS": 0,
+      "QTDE_INDICADORES": 0,
+      "QTDE_AUSENCIA_CASOS": 0,
+      "PERCENTUAL": 0
+    },
+    "null_tokens": {
+      "IND_06_NUM": {
+        "NULL": 3650,
+        "1": 710,
+        "0": 365,
+        "2": 274,
+        "3": 124,
+        "4": 95,
+        "5": 64,
+        "6": 39,
+        "7": 32,
+        "8": 26
+      },
+      "IND_06_DEN": {
+        "NULL": 3650,
+        "1": 838,
+        "2": 321,
+        "3": 189,
+        "4": 112,
+        "5": 68,
+        "6": 62,
+        "7": 37,
+        "9": 26,
+        "8": 26
+      },
+      "IND_09_NUM": {
+        "0": 3181,
+        "2": 246,
+        "1": 191,
+        "3": 186,
+        "4": 154,
+        "5": 140,
+        "6": 128,
+        "7": 81,
+        "NULL": 78,
+        "9": 71
+      },
+      "IND_09_DEN": {
+        "0": 2895,
+        "2": 256,
+        "3": 201,
+        "4": 199,
+        "1": 184,
+        "5": 151,
+        "6": 135,
+        "7": 90,
+        "9": 89,
+        "10": 82
+      },
+      "IND_09_RES": {
+        "0": 3214,
+        "1": 1295,
+        "0.5": 55,
+        "NULL": 47,
+        "0.75": 34,
+        "0.666666666666667": 34,
+        "0.8": 19,
+        "0.25": 18,
+        "0.833333333333333": 18,
+        "0.857142857142857": 18
+      },
+      "IND_13_NUM": {
+        "NULL": 1110,
+        "1": 624,
+        "2": 444,
+        "3": 318,
+        "4": 221,
+        "5": 193,
+        "6": 152,
+        "8": 148,
+        "7": 135,
+        "9": 114
+      },
+      "IND_13_DEN": {
+        "NULL": 1110,
+        "1": 600,
+        "2": 434,
+        "3": 327,
+        "4": 237,
+        "5": 190,
+        "6": 171,
+        "8": 148,
+        "7": 130,
+        "9": 121
+      },
+      "IND_14_NUM": {
+        "NULL": 1190,
+        "1": 500,
+        "2": 347,
+        "3": 259,
+        "4": 207,
+        "5": 184,
+        "6": 158,
+        "8": 130,
+        "7": 129,
+        "10": 102
+      },
+      "IND_14_DEN": {
+        "NULL": 1190,
+        "1": 489,
+        "2": 346,
+        "3": 258,
+        "4": 205,
+        "5": 189,
+        "6": 153,
+        "7": 131,
+        "8": 129,
+        "10": 102
+      }
+    },
+    "indicators": {
+      "IND_01": {
+        "res_n": 5561,
+        "min": 0.342857142857143,
+        "max": 9.5,
+        "q95": 1.94117647058824,
+        "meta": {
+          "Sim": 5159,
+          "Não": 402
+        },
+        "alcance": {
+          "1": 5159,
+          "0": 402
+        },
+        "res_ratio_factor": {
+          "1.0": 5561
+        }
+      },
+      "IND_02": {
+        "res_n": 5561,
+        "min": 0.163084702907712,
+        "max": 2.65714285714286,
+        "q95": 1.17333333333333,
+        "meta": {
+          "Sim": 2823,
+          "Não": 2738
+        },
+        "alcance": {
+          "1": 2823,
+          "0": 2738
+        },
+        "res_ratio_factor": {
+          "1.0": 5561
+        }
+      },
+      "IND_03": {
+        "res_n": 5561,
+        "min": 0.0,
+        "max": 13.0,
+        "q95": 1.0,
+        "meta": {
+          "Não": 3669,
+          "Sim": 1892
+        },
+        "alcance": {
+          "0": 3669,
+          "1": 1892
+        },
+        "res_ratio_factor": {
+          "1.0": 4160
+        }
+      },
+      "IND_04": {
+        "res_n": 5561,
+        "min": 0.0,
+        "max": 1.0,
+        "q95": 1.0,
+        "meta": {
+          "Não": 4648,
+          "Sim": 913
+        },
+        "alcance": {
+          "0": 4648,
+          "1": 913
+        },
+        "res_ratio_factor": {
+          "1.0": 2263
+        }
+      },
+      "IND_05": {
+        "res_n": 5561,
+        "min": 0.0,
+        "max": 14.5185185185185,
+        "q95": 1.54166666666667,
+        "meta": {
+          "Não": 3497,
+          "Sim": 2064
+        },
+        "alcance": {
+          "0": 3497,
+          "1": 2064
+        },
+        "res_ratio_factor": {
+          "1.0": 3748
+        }
+      },
+      "IND_06": {
+        "res_n": 5561,
+        "min": 0.0,
+        "max": 1.0,
+        "q95": 1.0,
+        "meta": {
+          "Não": 4420,
+          "Sim": 1141
+        },
+        "alcance": {
+          "0": 4420,
+          "1": 1141
+        },
+        "res_ratio_factor": {
+          "1.0": 1546
+        }
+      },
+      "IND_07": {
+        "res_n": 5561,
+        "min": 0.0,
+        "max": 1.0,
+        "q95": 0.5,
+        "meta": {
+          "Não": 5396,
+          "Sim": 165
+        },
+        "alcance": {
+          "0": 5396,
+          "1": 165
+        },
+        "res_ratio_factor": {
+          "1.0": 398
+        }
+      },
+      "IND_08": {
+        "res_n": 0,
+        "min": null,
+        "max": null,
+        "q95": null,
+        "meta": {
+          "Sim": 5561
+        },
+        "alcance": {
+          "1": 5561
+        },
+        "res_ratio_factor": {}
+      },
+      "IND_09": {
+        "res_n": 5514,
+        "min": 0.0,
+        "max": 4.0,
+        "q95": 1.0,
+        "meta": {
+          "Não": 3771,
+          "Sim": 1712,
+          "Ver NT Nº 103/2021-CGIAE": 78
+        },
+        "alcance": {
+          "0": 3849,
+          "1": 1712
+        },
+        "res_ratio_factor": {
+          "1.0": 2300
+        }
+      },
+      "IND_10": {
+        "res_n": 5561,
+        "min": 0.0,
+        "max": 16.0,
+        "q95": 1.0,
+        "meta": {
+          "Não": 3888,
+          "Sim": 1673
+        },
+        "alcance": {
+          "0": 3888,
+          "1": 1673
+        },
+        "res_ratio_factor": {
+          "1.0": 2349
+        }
+      },
+      "IND_11": {
+        "res_n": 5561,
+        "min": 0.0,
+        "max": 118.547169811321,
+        "q95": 5.0,
+        "meta": {
+          "Não": 3754,
+          "Sim": 1807
+        },
+        "alcance": {
+          "0": 3754,
+          "1": 1807
+        },
+        "res_ratio_factor": {
+          "1.0": 4889
+        }
+      },
+      "IND_12": {
+        "res_n": 5561,
+        "min": -100.0,
+        "max": 19100.0,
+        "q95": 633.333333333333,
+        "meta": {
+          "Sim": 3759,
+          "Não": 1802
+        },
+        "alcance": {
+          "1": 3759,
+          "0": 1802
+        },
+        "res_ratio_factor": {
+          "200.0": 45,
+          "75.0": 28,
+          "600.0": 23,
+          "31.25": 22
+        }
+      },
+      "IND_13": {
+        "res_n": 5561,
+        "min": 0.0,
+        "max": 1.0,
+        "q95": 1.0,
+        "meta": {
+          "Sim": 3477,
+          "Não": 2084
+        },
+        "alcance": {
+          "1": 3477,
+          "0": 2084
+        },
+        "res_ratio_factor": {
+          "1.0": 4371
+        }
+      },
+      "IND_14": {
+        "res_n": 5561,
+        "min": 0.0,
+        "max": 1.0,
+        "q95": 1.0,
+        "meta": {
+          "Sim": 3694,
+          "Não": 1867
+        },
+        "alcance": {
+          "1": 3694,
+          "0": 1867
+        },
+        "res_ratio_factor": {
+          "1.0": 4346
+        }
+      },
+      "IND_15": {
+        "res_n": 0,
+        "min": null,
+        "max": null,
+        "q95": null,
+        "meta": {
+          "0": 5561
+        },
+        "alcance": {
+          "NULL": 5561
+        },
+        "res_ratio_factor": {}
+      }
+    }
+  }
+}

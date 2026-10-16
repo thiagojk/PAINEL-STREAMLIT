@@ -1,0 +1,8 @@
+.venv/
+__pycache__/
+.pytest_cache/
+*.pyc
+*.log
+.streamlit/secrets.toml
+Base_Painel.xlsx
+~$*.xlsx

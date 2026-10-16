@@ -1,0 +1,17 @@
+{
+  "checks": [
+    "Visão Geral: cards e gráficos renderizados",
+    "Estados: ranking e tabela renderizados",
+    "Municípios: filtro PA/Belém e ficha municipal",
+    "Filtro dependente: município reiniciado ao trocar UF",
+    "Indicadores: definição, metas e distribuição",
+    "Histórico: trajetória municipal e linha da meta",
+    "Comparações: modos estados e municípios",
+    "CSV: download contém somente o município filtrado",
+    "XLSX: download validado com filtro aplicado",
+    "Metodologia: fonte e limitações visíveis",
+    "Tablet: layout 768px sem exceções",
+    "Celular: layout 390px sem transbordamento horizontal da página"
+  ],
+  "browser_errors": []
+}
