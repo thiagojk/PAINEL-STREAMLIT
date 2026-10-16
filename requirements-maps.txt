@@ -1,0 +1,3 @@
+# Somente para regenerar as geometrias; não instalar no Community Cloud.
+shapely==2.1.2
+requests==2.34.2

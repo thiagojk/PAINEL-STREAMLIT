@@ -1,17 +1,50 @@
 {
   "checks": [
-    "Visão Geral: cards e gráficos renderizados",
-    "Estados: ranking e tabela renderizados",
-    "Municípios: filtro PA/Belém e ficha municipal",
-    "Filtro dependente: município reiniciado ao trocar UF",
-    "Indicadores: definição, metas e distribuição",
-    "Histórico: trajetória municipal e linha da meta",
-    "Comparações: modos estados e municípios",
-    "CSV: download contém somente o município filtrado",
-    "XLSX: download validado com filtro aplicado",
-    "Metodologia: fonte e limitações visíveis",
-    "Tablet: layout 768px sem exceções",
-    "Celular: layout 390px sem transbordamento horizontal da página"
+    "Navegação superior aderente à rolagem, sem menu lateral",
+    "Navegação superior acessível por teclado",
+    "Ficha municipal e filtros dependentes PA/Belém → AC",
+    "Histórico municipal com rótulos, valores inicial/final e linha da meta",
+    "Comparações de UFs e municípios, sem regressão",
+    "CSV e XLSX baixados e relidos, somente município filtrado",
+    "Metodologia anterior e seção geográfica presentes",
+    "Mapa nacional renderizado sem tiles externos; tooltip de UF verificado",
+    "Mapa do Pará e tooltip real de Belém verificados",
+    "Mapas: troca de ano e indicador, incluindo reset de indicador indisponível",
+    "Municípios sem observação: cinza, aviso e tooltip distintos, sem imputação",
+    "Mapas e navegação revisados em 1920, 1440, 1366, 1024, 768 e 390px"
   ],
-  "browser_errors": []
+  "larguras": [
+    {
+      "largura": 1920,
+      "sem_overflow_da_pagina": true,
+      "mapa_enquadrado": true
+    },
+    {
+      "largura": 1440,
+      "sem_overflow_da_pagina": true,
+      "mapa_enquadrado": true
+    },
+    {
+      "largura": 1366,
+      "sem_overflow_da_pagina": true,
+      "mapa_enquadrado": true
+    },
+    {
+      "largura": 1024,
+      "sem_overflow_da_pagina": true,
+      "mapa_enquadrado": true
+    },
+    {
+      "largura": 768,
+      "sem_overflow_da_pagina": true,
+      "mapa_enquadrado": true
+    },
+    {
+      "largura": 390,
+      "sem_overflow_da_pagina": true,
+      "mapa_enquadrado": true
+    }
+  ],
+  "browser_errors": [],
+  "requisicoes_externas": []
 }

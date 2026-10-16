@@ -6,11 +6,52 @@ Painel de Indicadores e Metas do Programa de Qualificação das Ações de Vigil
 
 ## O que está disponível
 
-Oito áreas: **Visão Geral**, **Estados**, **Municípios**, **Indicadores**, **Análise Histórica**, **Comparações**, **Tabela de Dados** e **Sobre / Metodologia**. Filtros de ano, UF, município e indicador são dependentes. Comparações permitem até cinco localidades. CSV e XLSX exportam somente o recorte filtrado; a tabela tem paginação.
+Nove áreas: **Visão Geral**, **Estados**, **Municípios**, **Indicadores**, **Mapas**, **Análise Histórica**, **Comparações**, **Tabela de Dados** e **Sobre / Metodologia**. Filtros de ano, UF, município e indicador são dependentes. Comparações permitem até cinco localidades. CSV e XLSX exportam somente o recorte filtrado; a tabela tem paginação.
 
 Base fornecida: `Base_Painel.xlsx`, com **50.112 registros município–ano**, **712.708 observações de indicadores**, **5.570 códigos municipais**, **27 UFs**, **2013–2021** e **15 números de indicador distintos**. O conjunto tem 14 indicadores por ano, exceto 2016–2017, com 15. A numeração muda no tempo; números iguais não garantem conceitos iguais.
 
 O Parquet principal ocupa cerca de **7,54 MiB** (7.903.564 bytes na preparação inicial). Os arquivos tratados estão incluídos no repositório: não é preciso converter o Excel para abrir o painel. O Excel original não é versionado.
+
+## Navegação e interface
+
+A navegação principal fica no topo: **Visão Geral · Estados · Municípios · Indicadores · Mapas · Histórico · Comparações · Dados · Sobre**. É um `st.radio` horizontal nativo, estilizado pela chave pública `pagina`, sem plugins ou JavaScript da aplicação. O widget mantém navegação por teclado e leitor de tela. CSS `position: sticky` o mantém visível sob a barra do Streamlit durante a rolagem; em celular, os itens rolam horizontalmente dentro da faixa, sem alargar a página.
+
+A sidebar não contém navegação nem filtros nesta versão. As faixas de filtros ficam acima das análises, com as dependências ano → UF → município e disponibilidade do indicador preservadas. Cards, fichas municipal/de indicador e tabelas usam estilos compartilhados. Os gráficos têm rótulos no padrão brasileiro; séries densas restringem rótulos e comparações distinguem linhas por cor, marcador e traçado. CSV, XLSX, paginação, alcance de metas e cálculos anteriores foram preservados.
+
+## Mapas locais
+
+Em **Mapas**, selecione um **ano**, **indicador** e **UF**. A opção Brasil abre o coroplético estadual com cumprimento de 0–100% e ranking das UFs. Uma UF abre seu mapa municipal com situação da meta, tooltip com resultado/meta e ranking do recorte. Na página Estados há um atalho que transfere o recorte para Mapas. Mapas e rankings empilham-se em telas menores.
+
+A camada estadual aplica exatamente `atingiram / (atingiram + não atingiram) × 100` a **um único indicador/ano**, reutilizando as métricas existentes. Municípios sem situação são cinza. Territórios da malha sem observação naquele ano também são cinza, mas o tooltip e a contagem identificam essa ausência; eles não são adicionados à base nem ao denominador. Em 2021, por exemplo, sete territórios do Piauí não têm observação na fonte.
+
+### Origem, códigos e tamanho
+
+Geometrias de origem **IBGE**, redistribuídas pelo espelho público [luizpedone/municipal-brazilian-geodata](https://github.com/luizpedone/municipal-brazilian-geodata), fixado na revisão [`e85ba38c0c7d5acda8d8878099a7f321dddefa33`](https://github.com/luizpedone/municipal-brazilian-geodata/tree/e85ba38c0c7d5acda8d8878099a7f321dddefa33). O espelho inclui um script de coleta da API de malhas do IBGE. A API oficial estava bloqueada pela rede deste ambiente; a obtenção foi feita pelo espelho. A licença MIT do espelho foi preservada em `assets/maps/LICENSE-source.txt`.
+
+| Geometrias otimizadas | Quantidade | Bytes | MB decimais |
+|---|---:|---:|---:|
+| Brasil por UF | 27 feições / 1 arquivo | 108.572 | 0,109 |
+| Municípios separados por UF | 5.570 feições / 27 arquivos | 5.910.364 | 5,910 |
+| **Total GeoJSON adicionado** | **28 arquivos** | **6.018.936** | **6,019** |
+
+O total de GeoJSON equivale a **5,74 MiB**. Há ainda **107.761 bytes** de TopoJSON auxiliar de Natural Earth, redistribuído por `world-atlas` 2.0.2, em `static/maps/un/world_110m.json` (integridade SHA-512 do pacote verificada). Somados, os arquivos cartográficos têm **6.126.697 bytes** (aproximadamente 6,13 MB), além de manifestos e licenças. Esse arquivo auxiliar não substitui nem é usado para associar os municípios: as cores e os limites analíticos continuam vindo exclusivamente dos GeoJSONs IBGE. A origem, o hash e a licença auxiliar estão em `static/maps/`. O serviço estático nativo foi habilitado em `.streamlit/config.toml`; somente a UF selecionada é carregada para a análise municipal. O arquivo do Pará tem 296.227 bytes. Geometrias e agregações usam `st.cache_data` com limites de entradas e assinatura do arquivo. As outras páginas não carregam malhas municipais. O Plotly usa coropléticos SVG com `geo.fitbounds="locations"`, autoenquadramento responsivo e camadas globais desativadas. O arquivo TopoJSON auxiliar que o renderizador exige é servido pela própria aplicação, sem depender de CDN. Não há tiles, WebGL ou JavaScript personalizado na aplicação.
+
+**Correspondência: 5.570 de 5.570 municípios da base, 100%; sem correspondência: zero.** O código de sete dígitos da geometria fornece os **seis primeiros dígitos**, comparados como texto ao `COD_MUN` original e à UF. Os prefixos são únicos e a UF corresponde ao seu código oficial. Não foi calculado ou acrescentado dígito municipal, e os Parquets não foram modificados. A cobertura, os hashes, a revisão e o tamanho de cada arquivo estão em `assets/maps/manifest.json`.
+
+A preparação simplificou a geometria com tolerância angular de 0,025° para UFs e 0,006° para municípios, preservando topologia. Os anéis foram orientados no sentido horário externo e anti-horário interno exigido pelo renderizador D3/Plotly, invertendo apenas a ordem dos vértices, sem mudar os limites. As coordenadas foram arredondadas a quatro casas quando válidas, com maior precisão como fallback. Treze geometrias inválidas na origem passaram por reparação topológica de seus componentes poligonais; os identificadores constam no manifesto. Nenhuma geometria foi desenhada ou inventada.
+
+**Limitação cartográfica:** a malha é estática e simplificada. O ano da malha não está declarado nos arquivos do espelho; não se presume que ela reproduza limites municipais em cada ano de 2013–2021. Não usar para medir áreas ou definir limites legais. A metodologia dos dados de saúde continua a mesma.
+
+### Repreparar as geometrias (opcional)
+
+Isso não faz parte da instalação ou execução normal. Os arquivos necessários já estão versionados. Para reproduzir a preparação, com Internet e dependências opcionais:
+
+```bash
+python -m pip install -r requirements-maps.txt
+python scripts/preparar_mapas.py --saida assets/maps_novos
+```
+
+Confira o manifesto, a cobertura, a licença e os testes antes de substituir `assets/maps/` pelo conjunto validado. Não execute conversões concorrentes. Atualize todos os arquivos geográficos e o manifesto juntos. Shapely é usado **somente nessa preparação**; não foi adicionado ao `requirements.txt` do Community Cloud.
 
 ## Executar localmente
 
@@ -87,19 +128,24 @@ A data de atualização da fonte e a procedência institucional do arquivo não 
 ## Estrutura
 
 ```text
-app.py                       # Entrada e navegação entre oito páginas
+app.py                       # Entrada e navegação entre nove páginas
 src/
   data.py                    # Leitura, limpeza, escalas, dicionário e cache
   filters.py                 # Filtros dependentes e séries históricas
   metrics.py                 # Cumprimento, rankings e variação histórica
-  charts.py                  # Plotly e tooltips
+  charts.py                  # Plotly, mapas, rótulos e tooltips
+  navigation.py              # Barra superior com widget nativo
+  geography.py               # GeoJSON local e associação territorial
   styles.py                  # Identidade visual e cards
-  views.py                   # Oito páginas e exportações
+  views.py                   # Nove páginas e exportações
   utils.py                   # Formatação brasileira
 scripts/
   preparar_dados.py           # Excel → Parquet e auditoria
+  preparar_mapas.py           # Obter e simplificar mapas (opcional)
+  medir_desempenho.py         # Medir reruns no AppTest
   iniciar_local.py            # Auxiliar do BAT
-assets/                      # CSS e ícone local
+assets/                      # CSS, ícone e mapas locais
+static/maps/                 # TopoJSON auxiliar, licença e origem
 .streamlit/config.toml       # Tema claro e configurações
 requirements.txt             # Dependências de execução com versões fixadas
 requirements-dev.txt         # pytest e Playwright
@@ -109,18 +155,20 @@ docs/                       # Auditoria, validação e screenshots
 tests/                      # Testes de dados e páginas
 ```
 
-As oito páginas são funções organizadas em `src/views.py`, com navegação única em `app.py`. Isso permite filtros e estilo compartilhados sem repetir código em oito scripts. Não há um backend separado.
+As nove páginas são funções organizadas em `src/views.py`, com navegação única em `app.py`. Isso permite filtros e estilo compartilhados sem repetir código em nove scripts. Não há um backend separado.
 
-## Publicar no Streamlit Community Cloud
+## Streamlit Community Cloud: manter o mesmo aplicativo
 
-1. Envie o projeto e os três arquivos de `data/` ao GitHub.
+Para a aplicação já publicada, faça push na `main` do mesmo repositório e acompanhe a atualização no Community Cloud. Preserve a configuração de entrypoint `app.py` e a URL existente. Para uma instalação inicial, as etapas são:
+
+1. Envie o projeto, os três arquivos de `data/` e os mapas de `assets/maps/` ao GitHub.
 2. Acesse [share.streamlit.io](https://share.streamlit.io) e conecte sua conta GitHub.
 3. Selecione o repositório **thiagojk/PAINEL-STREAMLIT**.
 4. Selecione a branch **main** e o arquivo **app.py**.
 5. Nas opções avançadas, selecione **Python 3.12**.
 6. Faça o deploy.
 
-O app não exige banco, Docker, segredos, servidor externo ou plano pago. O Parquet principal tem menos de 8 MiB, abaixo do limite de 100 MiB por arquivo Git comum do GitHub. O mapa foi omitido para priorizar ranking estável, sem downloads de geometria. XLSX fica limitado a recortes de 100 mil linhas para reduzir consumo de memória; CSV permanece disponível. A validação foi feita neste ambiente Linux; o deploy real no Community Cloud depende da sua conta e não foi executado aqui.
+O app não exige banco, Docker, segredos, servidor externo ou plano pago. O Parquet principal tem menos de 8 MiB, abaixo do limite de 100 MiB por arquivo Git comum do GitHub. Os mapas usam GeoJSON local e projeção SVG nativa do Plotly, sem token, tiles externos ou dependências geoespaciais de execução. XLSX fica limitado a recortes de 100 mil linhas para reduzir consumo de memória; CSV permanece disponível. O dashboard já está publicado pelo proprietário. Esta atualização mantém o mesmo `app.py`, as mesmas dependências de execução e o mesmo repositório: enviar à `main` permite atualizar o aplicativo existente sem criar outro ou alterar sua URL. O estado remoto do deploy não foi verificado nesta máquina.
 
 ## Testes
 
@@ -128,9 +176,10 @@ O app não exige banco, Docker, segredos, servidor externo ou plano pago. O Parq
 python -m pip install -r requirements-dev.txt
 python -m pytest -q
 python -m compileall .
+python -m pip check
 ```
 
-Os testes cobrem limpeza, detecção de novos indicadores, códigos com zeros iniciais, status e conflitos, filtros, conversão Excel/Parquet, repetibilidade, agregações, rankings, séries/renumeração e as oito páginas via `streamlit.testing.v1.AppTest`. Os testes da base real verificam contagens específicas do arquivo inicial; atualizações legítimas exigem revisar essas expectativas.
+Os testes cobrem limpeza, detecção de novos indicadores, códigos com zeros iniciais, status e conflitos, filtros, conversão Excel/Parquet, repetibilidade, agregações, rankings, séries/renumeração e as nove páginas via `streamlit.testing.v1.AppTest`. Os testes da base real verificam contagens específicas do arquivo inicial; atualizações legítimas exigem revisar essas expectativas.
 
 A validação em navegador Chromium cobre navegação, filtros, trajetória, comparação, downloads CSV/XLSX e tamanhos de tela. Veja [validação](docs/VALIDACAO.md) e [screenshots](docs/screenshots/).
 
@@ -142,3 +191,11 @@ python scripts/validar_interface.py
 ```
 
 Se já houver Chromium instalado, use `python scripts/validar_interface.py --chromium /caminho/do/chromium` e dispense o download. A porta pode ser alterada com `--url`. As capturas são gravadas em `docs/screenshots/` e o relatório em `docs/validacao_navegador.json`.
+
+Para repetir a medição de reruns (separada da renderização real de navegador):
+
+```bash
+python scripts/medir_desempenho.py
+```
+
+A comparação com a versão anterior está em `docs/desempenho_antes.json` e `docs/desempenho_depois.json`; os limites da medição estão em `docs/VALIDACAO.md`.

@@ -5,26 +5,24 @@ import logging
 
 import streamlit as st
 from src.data import DATA, file_signature, filter_data, load_data
-from src.filters import global_filters
-from src.styles import apply_styles, header
+from src.filters import global_filters, map_filters
+from src.styles import apply_styles, header, page_heading
+from src.navigation import navigation
 from src import views
 
-st.set_page_config(page_title='PQAVS | Painel de Indicadores', page_icon='assets/icon.svg', layout='wide', initial_sidebar_state='expanded')
+st.set_page_config(page_title='PQAVS | Painel de Indicadores', page_icon='assets/icon.svg', layout='wide', initial_sidebar_state='collapsed')
 apply_styles()
 PAGES = {
     'Visão Geral': (views.overview, 'Painel de Indicadores e Metas', 'Uma visão integrada do cumprimento das metas da vigilância em saúde.'),
     'Estados': (views.states, 'Desempenho dos estados', 'Compare o cumprimento das metas nas Unidades da Federação.'),
     'Municípios': (views.municipalities, 'Olhar sobre os municípios', 'Consulte a ficha municipal e identifique prioridades no território.'),
     'Indicadores': (views.indicators, 'Cada indicador, em detalhe', 'Definições, resultados e metas conforme o dicionário de cada ano.'),
+    'Mapas': (views.maps, 'Análise geográfica', 'Do Brasil ao município: veja onde as metas foram atingidas.'),
     'Análise Histórica': (views.historical, 'O tempo revela a trajetória', 'Acompanhe o cumprimento das metas e a cobertura da avaliação ao longo dos anos.'),
     'Comparações': (views.comparisons, 'Territórios em perspectiva', 'Compare até cinco localidades em uma mesma definição do indicador.'),
     'Tabela de Dados': (views.data_table, 'Explore os dados', 'Consulte e exporte exatamente o recorte que você precisa.'),
     'Sobre / Metodologia': (views.about, 'Sobre o painel', 'Fonte, critérios de cálculo e limites para interpretar os resultados.'),
 }
-with st.sidebar:
-    st.html('<div class="brand"><div class="brand-mark">+</div><div><div class="brand-name">PQAVS</div><div class="brand-caption">Inteligência em saúde</div></div></div>')
-    st.caption('Programa de Qualificação das Ações de Vigilância em Saúde')
-    page = st.radio('Navegação', list(PAGES), label_visibility='collapsed', key='pagina')
 try:
     signature = file_signature()
     base, catalog = load_data(signature)
@@ -32,11 +30,15 @@ try:
 except (OSError, ValueError, KeyError):
     st.error('A base de dados está indisponível ou não pôde ser lida. Prepare os arquivos conforme as instruções do README e tente novamente.')
     st.stop()
+header(metadata)
+page = navigation()
 fn, title, subtitle = PAGES[page]
-header(title, subtitle, metadata)
+page_heading(title, subtitle)
 is_history = page in ['Análise Histórica', 'Comparações']
 if page == 'Sobre / Metodologia':
     filters, period = dict(year=None, uf=None, municipality=None, indicator=None, series=None), None
+elif page == 'Mapas':
+    filters, period = map_filters(base, catalog)
 else:
     filters, period = global_filters(base, catalog, historical=is_history, required_indicator=page == 'Indicadores')
 frame = filter_data(base, **filters)
