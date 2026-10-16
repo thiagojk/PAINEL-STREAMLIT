@@ -52,3 +52,8 @@ def empty_state(title='Não há dados disponíveis para esta combinação de fil
 def fact_sheet(title, facts, eyebrow='FICHA DE ANÁLISE'):
     st.html(f'<section class="fact-sheet"><div class="eyebrow">{escape(eyebrow)}</div><h2>{escape(title)}</h2><div class="fact-grid">' +
             ''.join(f'<div><span>{escape(label)}</span><strong>{escape(value)}</strong></div>' for label, value in facts) + '</div></section>')
+
+
+def indicator_summary(row, show_rule=True):
+    rule = f'<small>{escape(str(row.LABEL_META))}</small>' if show_rule else ''
+    st.html(f'<div class="indicator-brief"><span title="{escape(str(row.DESCRICAO), quote=True)}">{escape(str(row.DESCRICAO))}</span>{rule}</div>')

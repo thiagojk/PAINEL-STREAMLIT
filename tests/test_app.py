@@ -38,3 +38,22 @@ def test_dependent_filters_and_historical_municipality(app):
     app.radio(key='pagina').set_value('Análise Histórica').run(timeout=60)
     assert_clean(app)
     assert any(json.loads(x.proto.spec)['layout']['title']['text'] == 'Trajetória do resultado municipal' for x in app.get('plotly_chart'))
+
+
+def test_contextual_filters_and_clear_keep_navigation():
+    app = AppTest.from_file(str(Path(__file__).resolve().parents[1] / 'app.py')).run(timeout=60)
+    app.selectbox(key='uf').select('PA').run()
+    app.radio(key='pagina').set_value('Estados').run()
+    assert 'uf' not in {w.key for w in app.sidebar.selectbox}
+    assert not app.exception
+    app.radio(key='pagina').set_value('Comparações').run()
+    assert 'comparar_modo' in {w.key for w in app.sidebar.radio}
+    assert app.sidebar.multiselect
+    app.radio(key='pagina').set_value('Tabela de Dados').run()
+    assert 'situacao' in {w.key for w in app.sidebar.multiselect}
+    assert 'linhas_por_pagina' in {w.key for w in app.sidebar.selectbox}
+    app.selectbox(key='uf').select('AC').run()
+    app.sidebar.button(key='limpar_filtros').click().run()
+    assert app.radio(key='pagina').value == 'Tabela de Dados'
+    assert app.selectbox(key='uf').value == 'Todos'
+    assert not app.exception

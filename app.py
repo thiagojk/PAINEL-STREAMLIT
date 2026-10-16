@@ -10,17 +10,17 @@ from src.styles import apply_styles, header, page_heading
 from src.navigation import navigation
 from src import views
 
-st.set_page_config(page_title='PQAVS | Painel de Indicadores', page_icon='assets/icon.svg', layout='wide', initial_sidebar_state='collapsed')
+st.set_page_config(page_title='PQAVS | Painel de Indicadores', page_icon='assets/icon.svg', layout='wide', initial_sidebar_state='auto')
 apply_styles()
 PAGES = {
-    'Visão Geral': (views.overview, 'Painel de Indicadores e Metas', 'Uma visão integrada do cumprimento das metas da vigilância em saúde.'),
-    'Estados': (views.states, 'Desempenho dos estados', 'Compare o cumprimento das metas nas Unidades da Federação.'),
-    'Municípios': (views.municipalities, 'Olhar sobre os municípios', 'Consulte a ficha municipal e identifique prioridades no território.'),
-    'Indicadores': (views.indicators, 'Cada indicador, em detalhe', 'Definições, resultados e metas conforme o dicionário de cada ano.'),
-    'Mapas': (views.maps, 'Análise geográfica', 'Do Brasil ao município: veja onde as metas foram atingidas.'),
-    'Análise Histórica': (views.historical, 'O tempo revela a trajetória', 'Acompanhe o cumprimento das metas e a cobertura da avaliação ao longo dos anos.'),
-    'Comparações': (views.comparisons, 'Territórios em perspectiva', 'Compare até cinco localidades em uma mesma definição do indicador.'),
-    'Tabela de Dados': (views.data_table, 'Explore os dados', 'Consulte e exporte exatamente o recorte que você precisa.'),
+    'Visão Geral': (views.overview, 'Visão Geral', 'Indicadores e cumprimento das metas no recorte selecionado.'),
+    'Estados': (views.states, 'Estados', 'Cumprimento das metas por Unidade da Federação.'),
+    'Municípios': (views.municipalities, 'Municípios', 'Ficha municipal, indicadores e evolução das metas.'),
+    'Indicadores': (views.indicators, 'Indicadores', 'Resultados e metas conforme a definição de cada ano.'),
+    'Mapas': (views.maps, 'Mapas', 'Cumprimento por UF e situação das metas nos municípios.'),
+    'Análise Histórica': (views.historical, 'Histórico', 'Evolução do cumprimento e da cobertura da avaliação.'),
+    'Comparações': (views.comparisons, 'Comparações', 'Até cinco localidades, na mesma definição e período.'),
+    'Tabela de Dados': (views.data_table, 'Dados', 'Consulte e exporte o resultado dos filtros aplicados.'),
     'Sobre / Metodologia': (views.about, 'Sobre o painel', 'Fonte, critérios de cálculo e limites para interpretar os resultados.'),
 }
 try:

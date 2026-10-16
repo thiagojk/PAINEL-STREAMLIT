@@ -1,6 +1,6 @@
 {
   "checks": [
-    "Navegação superior aderente à rolagem, sem menu lateral",
+    "Navegação superior aderente à rolagem, com filtros na sidebar nativa",
     "Navegação superior acessível por teclado",
     "Ficha municipal e filtros dependentes PA/Belém → AC",
     "Histórico municipal com rótulos, valores inicial/final e linha da meta",
@@ -11,7 +11,8 @@
     "Mapa do Pará e tooltip real de Belém verificados",
     "Mapas: troca de ano e indicador, incluindo reset de indicador indisponível",
     "Municípios sem observação: cinza, aviso e tooltip distintos, sem imputação",
-    "Mapas e navegação revisados em 1920, 1440, 1366, 1024, 768 e 390px"
+    "Mapas e navegação revisados em 1920, 1440, 1366, 1024, 768 e 390px",
+    "Sidebar móvel abre e recolhe pelos controles nativos"
   ],
   "larguras": [
     {

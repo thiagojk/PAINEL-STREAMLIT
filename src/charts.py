@@ -12,13 +12,13 @@ BLUE = '#206A8A'
 PALETTE = ['#137C8B', '#5266A4', '#A66D38', '#835894', '#587A3C']
 
 
-def style(fig, title=None, height=355, percent_axis=False):
+def style(fig, title=None, height=325, percent_axis=False):
     fig.update_layout(
         title=dict(text='<br>'.join(textwrap.wrap(title, 36)) if title else '', font=dict(size=16, color='#18344A'), x=0),
         font=dict(family='Arial, sans-serif', size=12, color='#526578'),
         paper_bgcolor='rgba(0,0,0,0)', plot_bgcolor='rgba(0,0,0,0)',
-        margin=dict(l=12, r=16, t=(64 if title and len(title) > 36 else 46) if title else 16, b=16), height=height,
-        legend=dict(title=None, orientation='h', y=-.20, x=0),
+        margin=dict(l=12, r=16, t=(58 if title and len(title) > 36 else 38) if title else 12, b=16), height=height,
+        legend=dict(title=None, orientation='h', y=-.16, x=0),
         hoverlabel=dict(bgcolor='#18344A', font_color='white'),
         separators=',.',
     )
@@ -36,7 +36,7 @@ def donut(frame):
                           text=[percent(100*v/counts.sum()) if counts.sum() and 100*v/counts.sum() >= 5 else '' for v in counts.values],
                           textinfo='text', textposition='inside', textfont=dict(size=13, color='white'), sort=False,
                           hovertemplate='%{label}<br>Registros: %{value:,.0f}<br>Participação no total: %{percent}<extra></extra>'))
-    return style(fig, height=310)
+    return style(fig, height=325)
 
 
 def ranking(summary, group, title, limit=27):
@@ -117,7 +117,7 @@ def add_line_labels(fig, unit='%', max_points=12, ignore_names=None):
                 labels[-1] = percent(last) if unit == '%' else number(last, 2)
                 last_positions.append(last)
         trace.update(mode='lines+markers+text', text=labels,
-                     textposition='top center' if len(candidates) == 1 else 'top right',
+                     textposition=['top center' if i % 2 == 0 else 'bottom center' for i in range(len(values))] if len(candidates) == 1 else 'top right',
                      textfont=dict(size=11, color=trace.line.color), cliponaxis=False)
     return fig
 

@@ -53,6 +53,7 @@ with sync_playwright() as p:
 
     def select(label, value):
         box = page.get_by_test_id('stSelectbox').filter(has=page.get_by_text(label,exact=True)).get_by_role('combobox')
+        if box.input_value() == value: return
         box.fill(value)
         page.get_by_role('option',name=value,exact=True).click()
         page.wait_for_timeout(500)
@@ -72,15 +73,15 @@ with sync_playwright() as p:
         return graph.locator('.hoverlayer').text_content()
 
     snapshot('visao-geral.png')
-    assert page.get_by_test_id('stSidebar').count() == 0
+    assert page.get_by_test_id('stSidebar').count() == 1
     page.get_by_test_id('stMain').evaluate('(el)=>el.scrollTop=650')
     page.wait_for_timeout(250)
     assert 45 <= page.locator('.st-key-pagina').bounding_box()['y'] <= 65
-    results.append('Navegação superior aderente à rolagem, sem menu lateral')
+    results.append('Navegação superior aderente à rolagem, com filtros na sidebar nativa')
     nav('Visão Geral')
     page.locator('.st-key-pagina input[type=radio]').first.focus()
     page.keyboard.press('ArrowRight')
-    expect(page.get_by_role('heading',name='Desempenho dos estados',exact=True)).to_be_visible()
+    expect(page.get_by_role('heading',name='Estados',exact=True)).to_be_visible()
     results.append('Navegação superior acessível por teclado')
     snapshot('estados.png')
     nav('Municípios'); select('UF','PA'); select('Município','Belém · PA (150140)')
@@ -99,7 +100,7 @@ with sync_playwright() as p:
     page.get_by_test_id('stRadio').filter(has=page.get_by_text('Comparar localidades',exact=True)).get_by_text('Municípios',exact=True).click()
     settle()
     results.append('Comparações de UFs e municípios, sem regressão')
-    nav('Dados')
+    nav('Dados'); select('UF','AC'); select('Município','Acrelândia · AC (120001)')
     page.get_by_role('button',name='Preparar CSV do recorte',exact=True).click()
     with page.expect_download() as download:
         page.get_by_role('button',name='Baixar CSV',exact=True).click()
@@ -161,7 +162,27 @@ with sync_playwright() as p:
         assert shape['y'] >= box['y']-2 and shape['y']+shape['height'] <= box['y']+box['height']+2, (width,shape,box)
         dimensions.append({'largura':width,'sem_overflow_da_pagina':True,'mapa_enquadrado':True})
     results.append('Mapas e navegação revisados em 1920, 1440, 1366, 1024, 768 e 390px')
-    nav('Sobre');nav('Visão Geral');snapshot('mobile.png')
+    nav('Sobre');nav('Visão Geral')
+    density=[]
+    for width,height in [(1920,1080),(1440,900),(1366,768),(1024,768),(768,1024),(390,844)]:
+        page.set_viewport_size({'width':width,'height':height})
+        page.get_by_test_id('stMain').evaluate('(el)=>el.scrollTop=0')
+        settle()
+        if width<=768:
+            toggle=page.get_by_test_id('stSidebarCollapseButton').get_by_role('button')
+            if toggle.is_visible(): toggle.click(); page.wait_for_timeout(500)
+        snapshot(f'visao-geral-{width}x{height}.png')
+        graph=page.get_by_test_id('stPlotlyChart').first.bounding_box()
+        density.append({'largura':width,'altura':height,'primeiro_grafico':graph})
+        if width==1366: assert graph['y']<450,graph
+        assert not page.evaluate('document.documentElement.scrollWidth > window.innerWidth')
+    (OUT.parent/'densidade_layout.json').write_text(json.dumps(density,indent=2))
+    snapshot('mobile.png')
+    page.get_by_test_id('stExpandSidebarButton').click()
+    expect(page.get_by_role('button',name='Limpar filtros')).to_be_visible()
+    page.get_by_test_id('stSidebarCollapseButton').get_by_role('button').click()
+    expect(page.get_by_test_id('stExpandSidebarButton')).to_be_visible()
+    results.append('Sidebar móvel abre e recolhe pelos controles nativos')
     page.set_viewport_size({'width':768,'height':1024});snapshot('tablet.png')
     assert not console_errors,console_errors
     assert not external,external

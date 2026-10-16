@@ -18,12 +18,17 @@ def base():
     return pd.read_parquet(DATA / 'base_pqavs.parquet')
 
 
-def test_navigation_nine_areas_no_sidebar():
+def test_navigation_nine_areas_and_sidebar_filters():
     assert len(NAV_LABELS) == 9 and 'Mapas' in NAV_LABELS
     app = AppTest.from_file(str(Path(__file__).resolve().parents[1] / 'app.py')).run(timeout=60)
     assert len(app.radio(key='pagina').options) == 9
     assert app.radio(key='pagina').proto.horizontal
-    assert not app.sidebar.radio and not app.sidebar.selectbox
+    assert not app.sidebar.radio
+    assert {w.key for w in app.sidebar.selectbox} == {'ano', 'uf', 'indicador'}
+    app.sidebar.selectbox(key='uf').select('PA').run()
+    app.sidebar.button(key='limpar_filtros').click().run()
+    assert app.selectbox(key='uf').value == 'Todos'
+    assert app.radio(key='pagina').value == 'Visão Geral'
     assert not app.error and not app.exception
 
 

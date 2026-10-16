@@ -1,3 +1,28 @@
+# Validação da terceira etapa: densidade e UX
+
+## Primeira dobra em 1366×768
+
+Antes, o primeiro gráfico começava em **y=767 px**, praticamente fora da tela. Agora começa em **y=384 px**, com a sidebar aberta: redução de **383 px (50%)**. Sem rolagem, ficam visíveis a navbar, identificação da página, seis cards e os dois primeiros gráficos completos, incluindo suas legendas e notas. A série histórica e a situação das metas compartilham a primeira linha; rankings ficam na segunda.
+
+Compare [antes](screenshots/visao-geral-1366-antes.png) e [depois](screenshots/visao-geral-1366x768.png). Medidas reproduzíveis em `densidade_antes.json` e `densidade_layout.json`.
+
+## Mudanças e verificação
+
+Filtros dependentes passaram para a sidebar nativa recolhível, exclusivamente contextual. Estados não oferece UF; Visão Geral não oferece município; Histórico usa definição/período; Mapas usa ano/UF/indicador. Seleções de comparação e controles de situação/paginação também ficam na lateral. Limpar filtros mantém a página atual. Filtros ocultos não restringem silenciosamente o resultado.
+
+O CSS compartilhado reduz padding, margens e gaps do cabeçalho, navbar, títulos e cards. As grades respondem à largura disponível após abrir/recolher a sidebar. Os gráficos simples usam 325 px; rankings longos e mapas mantêm alturas apropriadas. Rótulos de séries únicas alternam acima/abaixo para evitar aglomeração no celular; valores completos seguem nos tooltips. Fichas e explicações extensas foram movidas para expanders, preservando os alertas metodológicos visíveis.
+
+- `python -m pytest -q`: **34 testes aprovados**, incluindo localização/contexto dos filtros e limpeza sem navegação.
+- `python -m compileall .`: sem erros; `python -m pip check`: nenhuma dependência quebrada.
+- Chromium: nove páginas, navegação por teclado/sticky, filtros PA/Belém → AC, comparação UF/município, CSV/XLSX baixados e relidos, mapas/hover de Pará e Belém, indicador indisponível e territórios sem observação.
+- Layouts **1920×1080, 1440×900, 1366×768, 1024×768, 768×1024 e 390×844**, além dos mapas nas seis larguras: sem overflow horizontal; mapas enquadrados. Capturas em `screenshots/` e relatório em `validacao_navegador.json`.
+- Console JavaScript sem erros e nenhuma requisição externa nos cenários.
+- Hashes de Parquets, metadados, leitura/cache, métricas e geografia idênticos ao início desta etapa. Os testes conferem os hashes das malhas locais. Dependências de execução e `app.py` preservados, compatíveis com o mesmo aplicativo no Community Cloud; deploy público não verificado neste ambiente.
+
+As medições de desempenho abaixo pertencem à segunda etapa; não são um novo benchmark desta rodada. Esta rodada preserva integralmente os módulos de dados, métricas e geografia/cache.
+
+---
+
 # Validação da segunda etapa
 
 A versão anterior da `main` foi inspecionada e seus **21 testes passaram antes das alterações**. A entrega preserva esses casos e acrescenta testes de navegação e geografia. Dados, regras estatísticas e o entrypoint `app.py` foram preservados.
