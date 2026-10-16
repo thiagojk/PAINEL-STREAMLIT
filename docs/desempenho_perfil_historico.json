@@ -1,0 +1,26 @@
+{
+  "contexto": "Python/Linux; preparação e cópia do cache. Exclui frontend e Cloud. Primeira chamada Brasil inclui leitura dos Parquets; as seguintes reutilizam load_data.",
+  "cenarios": [
+    {
+      "uf": "Todos",
+      "primeira_chamada_segundos": 0.30267609400107176,
+      "mediana_cache_segundos": 0.00040561200148658827,
+      "anos": 9,
+      "series_elegiveis": 15
+    },
+    {
+      "uf": "PA",
+      "primeira_chamada_segundos": 0.08074193799984641,
+      "mediana_cache_segundos": 0.0004364970009191893,
+      "anos": 9,
+      "series_elegiveis": 15
+    },
+    {
+      "uf": "AC",
+      "primeira_chamada_segundos": 0.07816076599920052,
+      "mediana_cache_segundos": 0.0003969289973611012,
+      "anos": 9,
+      "series_elegiveis": 15
+    }
+  ]
+}

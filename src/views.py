@@ -9,7 +9,7 @@ import streamlit as st
 from src import charts
 from src.data import DATA, STATUS, filter_data
 from src.metrics import history, summarize, variation, single_municipality_trajectory
-from src.styles import cards, note, empty_state, kpi_grid, indicator_summary
+from src.styles import cards, note, empty_state, kpi_grid, indicator_summary, state_card_groups
 from src.utils import number, percent, result, description_label
 
 RENAME = {
@@ -62,23 +62,27 @@ def overview(frame, whole, catalog, filters):
     if filters['indicator'] != 'Todos':
         sid = catalog.loc[catalog.ANO.eq(filters['year']) & catalog.INDICADOR.eq(filters['indicator']), 'SERIE']
         hist = filter_data(hist, series=sid.iloc[0]) if len(sid) else hist.iloc[0:0]
-    a, b = st.columns([1.5, 1], gap='small')
-    with a, st.container(border=True, key='chartpanel_02'):
-        plot(charts.time_line(history(hist)))
-        st.caption('Mesma localidade; definições e indicadores podem variar entre anos.')
-    with b, st.container(border=True, key='chartpanel_01'):
-        plot(charts.donut(frame))
-        row = summarize(frame).iloc[0]
-        st.caption(f'Situação das metas · {number(row.AVALIADOS)} avaliadas · {number(row.SEM_INFORMACAO)} sem informação')
-    a, b = st.columns(2, gap='small')
-    with a, st.container(border=True, key='chartpanel_03'):
-        plot(charts.ranking(summarize(frame, ['UF']), 'UF', 'Cumprimento por UF · 10 maiores', 10))
-    with b, st.container(border=True, key='chartpanel_04'):
-        summary = summarize(frame, ['INDICADOR'])
-        definitions = catalog.loc[catalog.ANO.eq(filters['year']), ['INDICADOR', 'DESCRICAO']]
-        summary = summary.merge(definitions, on='INDICADOR', how='left')
-        summary['Rotulo'] = summary.INDICADOR.astype('string').str.replace('IND_', '', regex=False) + ' · ' + summary.DESCRICAO.str.replace(r'^Indicador \d+ [-–] ', '', regex=True).str.slice(0, 28) + '…'
-        plot(charts.ranking(summary, 'Rotulo', 'Cumprimento por indicador', 15))
+    evolution, situation = charts.align_row_figures(charts.time_line(history(hist)), charts.donut(frame))
+    with st.container(key='overview_row_1'):
+        a, b = st.columns([1.5, 1], gap='small')
+        with a, st.container(border=True, key='chartpanel_02', height='stretch'):
+            plot(evolution)
+            st.caption('Mesma localidade; definições e indicadores podem variar entre anos.')
+        with b, st.container(border=True, key='chartpanel_01', height='stretch'):
+            plot(situation)
+            row = summarize(frame).iloc[0]
+            st.caption(f'Situação das metas · {number(row.AVALIADOS)} avaliadas · {number(row.SEM_INFORMACAO)} sem informação')
+    summary = summarize(frame, ['INDICADOR'])
+    definitions = catalog.loc[catalog.ANO.eq(filters['year']), ['INDICADOR', 'DESCRICAO']]
+    summary = summary.merge(definitions, on='INDICADOR', how='left')
+    summary['Rotulo'] = summary.INDICADOR.astype('string').str.replace('IND_', '', regex=False) + ' · ' + summary.DESCRICAO.str.replace(r'^Indicador \d+ [-–] ', '', regex=True).str.slice(0, 28) + '…'
+    uf_chart, indicator_chart = charts.align_row_figures(
+        charts.ranking(summarize(frame, ['UF']), 'UF', 'Cumprimento por UF · 10 maiores', 10),
+        charts.ranking(summary, 'Rotulo', 'Cumprimento por indicador', 15))
+    with st.container(key='overview_row_2'):
+        a, b = st.columns(2, gap='small')
+        with a, st.container(border=True, key='chartpanel_03', height='stretch'): plot(uf_chart)
+        with b, st.container(border=True, key='chartpanel_04', height='stretch'): plot(indicator_chart)
     with st.expander('Como interpretar os percentuais e o histórico'):
         note('Cumprimento = metas atingidas ÷ (atingidas + não atingidas). Sem informação fica fora desse denominador. Com vários indicadores, cada par município–indicador conta como uma observação.')
         st.write('O histórico mantém o recorte geográfico. Quando há um indicador selecionado, usa a mesma definição; com todos, a composição dos indicadores varia conforme o ano.')
@@ -101,21 +105,18 @@ def states(frame, whole, catalog, filters):
     year, uf = filters['year'], filters['uf']
     summary, profiles, distribution, thresholds = state_dashboard(file_signature(), year, uf)
     total = summarize(frame).iloc[0]
-    kpi_grid([('Municípios', number(len(profiles)), 'Presentes na base do ano', ''),
+    state_card_groups([('Municípios', number(len(profiles)), 'Presentes na base do ano', ''),
               ('Indicadores', number(len(summary)), f'Definições de {year}', ''),
               ('Metas atingidas', percent(total.CUMPRIMENTO), 'Entre situações conhecidas', 'positive'),
-              ('Não atingidas', percent(total.NAO_CUMPRIMENTO), 'Entre situações conhecidas', 'negative')], small=True)
+              ('Não atingidas', percent(total.NAO_CUMPRIMENTO), 'Entre situações conhecidas', 'negative')], thresholds)
     st.caption('Análise descritiva de situações municipais. Não representa resultado estadual do indicador nem incentivo oficial.')
     with st.container(border=True, key='chartpanel_state_stack'):
         locality = 'Brasil' if uf == 'Todos' else uf
         st.caption('Em telas estreitas, deslize o gráfico lateralmente para ver as barras completas.')
         plot(charts.indicator_stack(summary, st.session_state.get('ordem_estados','Maior não atingimento')))
         st.caption(f'{locality} · municípios observados · {year}. Barras: 100% dos registros de cada indicador, incluindo Sem informação. Ordenação padrão prioriza não atingimento.')
-    st.subheader('Perfil de alcance dos municípios')
+    st.subheader('Distribuição dos municípios por faixa')
     st.caption('Metas atingidas ÷ situações conhecidas em cada município. Aplicabilidade oficial não consta na base; perfil descritivo, sem classificação de incentivo.')
-    kpi_grid([(f'Municípios com ≥{t}%', percent(m['percent']),
-               f'{number(m["municipalities"])} de {number(m["denominator"])} municípios com avaliação', '')
-              for t,m in thresholds.items()], small=True)
     no_assessment = int(profiles.AVALIADOS.eq(0).sum())
     st.caption(f'{number(no_assessment)} municípios sem qualquer situação conhecida: apresentados à parte, fora dos percentuais dos patamares. Sem informação não equivale a não atingimento.')
     left, right = st.columns(2, gap='small')
@@ -201,6 +202,7 @@ def historical(frame, whole, catalog, filters):
     table(hist[['ANO', 'MUNICIPIOS', 'ATINGIRAM', 'NAO_ATINGIRAM', 'SEM_INFORMACAO', 'AVALIADOS', 'CUMPRIMENTO']])
     with st.expander('Definições, metas e alertas por ano'):
         table(catalog[catalog.SERIE.eq(filters['series']) & catalog.ANO.isin(hist.ANO)][['ANO', 'INDICADOR', 'DESCRICAO', 'LABEL_META', 'ALERTA']])
+    historical_profile_exploration(filters)
 
 
 def export_frame(frame, catalog):
@@ -402,7 +404,7 @@ def territorial_history(catalog, filters):
                     else:
                         fig = charts.municipality_map(item['data'], geometry, item['year'], label, str(row.LABEL_META))
                     fig.update_traces(showscale=False)
-                    fig.update_layout(height=300, margin=dict(l=0,r=0,t=4,b=0))
+                    fig.update_layout(height=charts.CHART_HEIGHT_COMPACT, margin=dict(l=0,r=0,t=4,b=0))
                     plot(fig)
                     if not nationwide:
                         absent = int((~item['data'].TEM_OBSERVACAO).sum())
@@ -411,3 +413,38 @@ def territorial_history(catalog, filters):
                         st.caption(f'{number(item["conflicts"])} conflitos META/ALCANCE_META; prioridade de ALCANCE_META preservada.')
                     if row.ALERTA: st.warning(row.ALERTA)
         st.caption('Cinza: sem informação/avaliação; tooltip diferencia territórios sem observação. Não há imputação nem média simples municipal.')
+
+
+def historical_profile_exploration(filters):
+    from src.data import file_signature
+    from src.profile_history import historical_exploration
+    enabled = st.session_state.get('hist_explorar',False)
+    with st.expander('Explorar evolução dos patamares e persistência', expanded=enabled):
+        if not enabled:
+            st.caption('Ative Explorar perfil e persistência na sidebar para carregar estas análises.'); return
+        if filters['municipality'] not in ['Todos',None]:
+            st.info('Estas análises são coletivas por Brasil ou UF. Selecione Todos os municípios para explorar; a trajetória municipal permanece disponível acima.'); return
+        period = st.session_state['hist_perfil_periodo']
+        evolution,coverage,series,excluded = historical_exploration(file_signature(),filters['uf'],period)
+        st.warning('Perfil descritivo das metas com situação conhecida em cada período. Catálogo, metas e conjunto municipal podem mudar. Não representa incentivo oficial, painel de indicadores fixos ou efeito causal do programa.')
+        st.caption(f'Período próprio: {period[0]}–{period[1]} · território do filtro. A evolução usa todas as metas de cada ano, independentemente do indicador selecionado para os gráficos acima.')
+        st.subheader('Evolução do perfil de alcance municipal')
+        with st.container(border=True,key='chartpanel_profile_evolution'):
+            plot(charts.profile_evolution(evolution))
+        st.caption('Cada patamar: percentual de municípios com ao menos uma situação conhecida que atingiu aquela proporção dessas metas. Sem avaliação fica à parte. As linhas são interrompidas quando muda o catálogo ou o conjunto municipal.')
+        with st.expander('Conferir denominadores e mudanças por ano'):
+            data = coverage.rename(columns={'MUNICIPIOS_OBSERVADOS':'Municípios observados','MUNICIPIOS_AVALIADOS':'Municípios com avaliação',
+                       'SEM_AVALIACAO':'Municípios sem avaliação','INDICADORES_CATALOGO':'Indicadores no catálogo',
+                       'AVALIACOES':'Situações conhecidas','CATALOGO_MUDOU':'Mudança de catálogo/metas',
+                       'COORTE_MUDOU':'Mudança do conjunto municipal'})
+            table(data)
+        st.subheader('Cumprimento por série histórica e ano')
+        st.caption('Somente séries analíticas compatíveis com ao menos três anos observados. Anos sem avaliação ficam cinza; escalas originais isoladas por ano não são unidas. Não há classificação de tendência ou significância estatística.')
+        if series.empty:
+            st.info('Nenhuma série com pelo menos três anos de avaliação neste território/período.')
+        else:
+            with st.container(border=True,key='chartpanel_persistence'):
+                st.caption('Em telas estreitas, deslize a matriz lateralmente para consultar todos os anos.')
+                plot(charts.temporal_heatmap(series,sorted(coverage.ANO.tolist())))
+            st.caption('Linhas ordenadas pelo maior cumprimento observado, do menor para o maior: isso facilita localizar séries que se mantiveram em níveis baixos sem inferir tendência por primeiro/último ano.')
+        st.caption(f'{excluded} séries com menos de três anos observados ou definição anual ambígua foram omitidas desta matriz. A análise individual dessas séries permanece no seletor principal.')

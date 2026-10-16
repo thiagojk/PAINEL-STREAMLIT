@@ -1,0 +1,324 @@
+{
+  "pa_2021": {
+    "municipios": 144,
+    "patamares": {
+      "30": {
+        "municipios": 128,
+        "denominador": 144,
+        "percentual": 88.88888888888889
+      },
+      "50": {
+        "municipios": 77,
+        "denominador": 144,
+        "percentual": 53.47222222222222
+      },
+      "70": {
+        "municipios": 10,
+        "denominador": 144,
+        "percentual": 6.944444444444445
+      },
+      "90": {
+        "municipios": 0,
+        "denominador": 144,
+        "percentual": 0.0
+      }
+    },
+    "faixas": {
+      "< 30%": 16,
+      "30% a < 50%": 51,
+      "50% a < 70%": 67,
+      "70% a < 90%": 10,
+      "≥ 90%": 0,
+      "Sem avaliação": 0
+    },
+    "amostra_individual": [
+      {
+        "COD_MUN": "150140",
+        "A": 5,
+        "N": 9,
+        "SHARE": 35.714285714285715
+      },
+      {
+        "COD_MUN": "150060",
+        "A": 8,
+        "N": 6,
+        "SHARE": 57.142857142857146
+      },
+      {
+        "COD_MUN": "150680",
+        "A": 6,
+        "N": 8,
+        "SHARE": 42.857142857142854
+      }
+    ]
+  },
+  "larguras": [
+    {
+      "largura": 1920,
+      "altura": 1080,
+      "alinhamento": [
+        {
+          "linha": "chartpanel_02",
+          "lado_a_lado": true,
+          "esquerdo": {
+            "x": 322.390625,
+            "y": 342.28125,
+            "width": 937.125,
+            "height": 385.78125
+          },
+          "direito": {
+            "x": 1275.515625,
+            "y": 342.28125,
+            "width": 622.09375,
+            "height": 385.78125
+          }
+        },
+        {
+          "linha": "chartpanel_03",
+          "lado_a_lado": true,
+          "esquerdo": {
+            "x": 322.390625,
+            "y": 736.859375,
+            "width": 779.609375,
+            "height": 439
+          },
+          "direito": {
+            "x": 1118,
+            "y": 736.859375,
+            "width": 779.609375,
+            "height": 439
+          }
+        }
+      ],
+      "oito_cards_sem_duplicacao": true,
+      "primeiro_grafico_estados_y": 505.59375,
+      "sem_overflow": true
+    },
+    {
+      "largura": 1440,
+      "altura": 900,
+      "alinhamento": [
+        {
+          "linha": "chartpanel_02",
+          "lado_a_lado": true,
+          "esquerdo": {
+            "x": 322.390625,
+            "y": 342.28125,
+            "width": 649.125,
+            "height": 385.78125
+          },
+          "direito": {
+            "x": 987.515625,
+            "y": 342.28125,
+            "width": 430.09375,
+            "height": 385.78125
+          }
+        },
+        {
+          "linha": "chartpanel_03",
+          "lado_a_lado": true,
+          "esquerdo": {
+            "x": 322.390625,
+            "y": 736.859375,
+            "width": 539.609375,
+            "height": 439
+          },
+          "direito": {
+            "x": 878,
+            "y": 736.859375,
+            "width": 539.609375,
+            "height": 439
+          }
+        }
+      ],
+      "oito_cards_sem_duplicacao": true,
+      "primeiro_grafico_estados_y": 505.59375,
+      "sem_overflow": true
+    },
+    {
+      "largura": 1366,
+      "altura": 768,
+      "alinhamento": [
+        {
+          "linha": "chartpanel_02",
+          "lado_a_lado": true,
+          "esquerdo": {
+            "x": 322.390625,
+            "y": 342.28125,
+            "width": 604.71875,
+            "height": 385.78125
+          },
+          "direito": {
+            "x": 943.109375,
+            "y": 342.28125,
+            "width": 400.5,
+            "height": 385.78125
+          }
+        },
+        {
+          "linha": "chartpanel_03",
+          "lado_a_lado": true,
+          "esquerdo": {
+            "x": 322.390625,
+            "y": 736.859375,
+            "width": 502.609375,
+            "height": 439
+          },
+          "direito": {
+            "x": 841,
+            "y": 736.859375,
+            "width": 502.609375,
+            "height": 439
+          }
+        }
+      ],
+      "oito_cards_sem_duplicacao": true,
+      "primeiro_grafico_estados_y": 505.59375,
+      "sem_overflow": true
+    },
+    {
+      "largura": 1024,
+      "altura": 768,
+      "alinhamento": [
+        {
+          "linha": "chartpanel_02",
+          "lado_a_lado": true,
+          "esquerdo": {
+            "x": 322.390625,
+            "y": 441.21875,
+            "width": 399.53125,
+            "height": 408.171875
+          },
+          "direito": {
+            "x": 737.921875,
+            "y": 441.21875,
+            "width": 263.6875,
+            "height": 408.171875
+          }
+        },
+        {
+          "linha": "chartpanel_03",
+          "lado_a_lado": true,
+          "esquerdo": {
+            "x": 322.390625,
+            "y": 858.1875,
+            "width": 331.609375,
+            "height": 439
+          },
+          "direito": {
+            "x": 670,
+            "y": 858.1875,
+            "width": 331.609375,
+            "height": 439
+          }
+        }
+      ],
+      "oito_cards_sem_duplicacao": true,
+      "primeiro_grafico_estados_y": 505.59375,
+      "sem_overflow": true
+    },
+    {
+      "largura": 768,
+      "altura": 1024,
+      "alinhamento": [
+        {
+          "linha": "chartpanel_02",
+          "lado_a_lado": true,
+          "esquerdo": {
+            "x": 23.390625,
+            "y": 441.21875,
+            "width": 425.328125,
+            "height": 408.171875
+          },
+          "direito": {
+            "x": 464.71875,
+            "y": 441.21875,
+            "width": 280.890625,
+            "height": 408.171875
+          }
+        },
+        {
+          "linha": "chartpanel_03",
+          "lado_a_lado": true,
+          "esquerdo": {
+            "x": 23.390625,
+            "y": 858.1875,
+            "width": 353.109375,
+            "height": 439
+          },
+          "direito": {
+            "x": 392.5,
+            "y": 858.1875,
+            "width": 353.109375,
+            "height": 439
+          }
+        }
+      ],
+      "oito_cards_sem_duplicacao": true,
+      "primeiro_grafico_estados_y": 505.59375,
+      "sem_overflow": true
+    },
+    {
+      "largura": 390,
+      "altura": 844,
+      "alinhamento": [
+        {
+          "linha": "chartpanel_02",
+          "lado_a_lado": false,
+          "esquerdo": {
+            "x": 12.796875,
+            "y": 603.890625,
+            "width": 364.40625,
+            "height": 408.171875
+          },
+          "direito": {
+            "x": 12.796875,
+            "y": 1028.0625,
+            "width": 364.40625,
+            "height": 385.78125
+          }
+        },
+        {
+          "linha": "chartpanel_03",
+          "lado_a_lado": false,
+          "esquerdo": {
+            "x": 12.796875,
+            "y": 1422.640625,
+            "width": 364.40625,
+            "height": 439
+          },
+          "direito": {
+            "x": 12.796875,
+            "y": 1877.640625,
+            "width": 364.40625,
+            "height": 439
+          }
+        }
+      ],
+      "oito_cards_sem_duplicacao": true,
+      "primeiro_grafico_estados_y": 772.40625,
+      "sem_overflow": true
+    }
+  ],
+  "evolucao_2021_confere_com_parquet": true,
+  "renumeracao_conferida": [
+    {
+      "ano": 2016,
+      "numero": "IND_15",
+      "linha": 12,
+      "atingiram": 70,
+      "nao_atingiram": 74,
+      "cumprimento": 48.611111111111114
+    },
+    {
+      "ano": 2021,
+      "numero": "IND_14",
+      "linha": 12,
+      "atingiram": 103,
+      "nao_atingiram": 41,
+      "cumprimento": 71.52777777777777
+    }
+  ],
+  "browser_errors": [],
+  "requisicoes_externas": []
+}

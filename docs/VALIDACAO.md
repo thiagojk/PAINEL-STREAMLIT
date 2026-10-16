@@ -1,3 +1,71 @@
+# Validação da sexta etapa: hierarquia dos cards e explorações históricas
+
+A `main` em `43ada3f` estava limpa e seus **64 testes passaram antes das alterações**. A navegação segue Visão Geral, Estados, Mapas, Histórico, Dados, Sobre; nenhuma página removida foi recriada.
+
+## Resultado atual
+
+- **72 testes aprovados**, preservando os 64 anteriores. Novos casos cobrem denominadores históricos, ausência/ano vazio, mudanças de catálogo e coorte, renumeração, não junção de séries anuais inseguras, período mínimo, todos os anos intermediários, paridade com os patamares já validados em Brasil/PA/AC, alinhamento por linha, cards únicos, carregamento sob demanda e bloqueio da exploração coletiva para município individual.
+- `python -m compileall .`: sem erros. `python -m pip check`: nenhuma dependência quebrada.
+- SHA-256 de Parquets, metadados, 28 GeoJSONs, `data.py`, `metrics.py`, `state_analysis.py`, `rules.py` e configurações metodológicas: idênticos ao início. Metodologia e regras de 2025 não foram alteradas.
+- Chromium: seis páginas, navegação, sidebar, filtros, downloads CSV/XLSX, mapas e evolução territorial preservados. Relatórios existentes atualizados: `validacao_navegador.json`, `validacao_estados.json`, `validacao_evolucao.json`.
+- Validação nova em **1920×1080, 1440×900, 1366×768, 1024×768, 768×1024 e 390×844**, com medições de borda, cards e análise histórica. Resultado em `validacao_refinamento.json`.
+- Nenhum erro JavaScript ou requisição externa nos cenários; sem overflow horizontal da página. Gráficos densos mantêm rolagem interna em telas estreitas.
+
+## Cards e primeira dobra de Estados
+
+Um único bloco HTML contém dois grupos semânticos: Resumo do recorte e Perfil de alcance, cada um com quatro cards. Os cards de patamar foram retirados da posição inferior; aparecem uma única vez, antes das barras principais. A distribuição por faixa permanece abaixo do gráfico, sem repetir cards ou criar outra distribuição.
+
+A hierarquia usa títulos pequenos, espaçamentos contidos, valores legíveis e tooltip de método com foco/aria-label. Cada patamar informa municípios no patamar e denominador com avaliação. A explicação distingue perfil descritivo de incentivo oficial.
+
+A validação mediu oito cards, dois grupos, ausência de duplicação, largura mínima de 130 px e gráfico principal antes de y=600 em 1366×768. Os cards quebram em duas colunas no celular. Compare `screenshots/cards-estados-1366-antes.png` e `screenshots/cards-estados-1366.png`.
+
+## Alinhamento da Visão Geral
+
+`ranking_height` preserva a altura necessária para categorias; `align_row_figures` harmoniza somente os gráficos de cada linha. Constantes compartilhadas representam tamanhos comuns e mapas, sem forçar um tamanho único. Containers nativos `height="stretch"` completam o alinhamento de borda, inclusive com captions quebradas em mais linhas. O donut usa título e legenda centralizada, com melhor ocupação de sua área.
+
+Em 1366×768, os dois painéis da primeira linha mediram aproximadamente **385,8 px** e os dois da segunda, **439 px**. As medições verificaram diferença inferior a 2 px entre bordas inferiores em todas as larguras nas quais os painéis estavam lado a lado. No celular eles empilham naturalmente. Valores, rótulos e agregações anteriores foram preservados.
+
+Capturas: `alinhamento-geral-1366.png`, `alinhamento-rankings-1366.png` e equivalentes nas seis larguras.
+
+## Conferência direta de Pará / 2021
+
+Contagem independente no Parquet: **144 municípios**, cada um com 14 situações conhecidas.
+
+| Faixa | Municípios | Percentual |
+|---|---:|---:|
+| <30% | 16 | 11,1% |
+| 30% a <50% | 51 | 35,4% |
+| 50% a <70% | 67 | 46,5% |
+| 70% a <90% | 10 | 6,9% |
+| ≥90% | 0 | 0,0% |
+| Sem avaliação | 0 | 0,0% |
+
+Patamares: **≥30%: 128/144 (88,9%)**, **≥50%: 77/144 (53,5%)**, **≥70%: 10/144 (6,9%)**, **≥90%: 0/144**. Cards, distribuição e pontos de 2021 da evolução no navegador coincidiram com essas contagens, sem reutilizar o helper de cálculo na conferência independente.
+
+Amostras individuais: Belém `150140`, 5/14 = 35,7%; Altamira `150060`, 8/14 = 57,1%; Santarém `150680`, 6/14 = 42,9%. Os números completos e contagens estão em `validacao_refinamento.json`.
+
+Também foi conferida uma linha renumerada do heatmap no Pará: 2016/IND_15 = 70/(70+74) = 48,61%; 2021/IND_14 = 103/(103+41) = 71,53%. Ambos ocupam a mesma série/linha válida, com números anuais corretos. Nenhuma regra de 2025 é consultada nessa análise.
+
+## Análises avaliadas e decisões
+
+1. **Distribuição do alcance:** já estava implementada e validada. Foi preservada, sem segundo gráfico ou donut redundante.
+2. **Evolução dos patamares:** implementada sob demanda, com período próprio e todas as metas do ano. O denominador municipal usa apenas situações conhecidas, exatamente como o perfil anterior. Município sem avaliação permanece separado; ano sem avaliação fica sem percentual. A composição anual não é tratada como painel fixo.
+3. **Mudanças temporais:** tabela informa indicadores, municípios observados/com avaliação, situações desconhecidas, ausência de registro e mudanças. A assinatura compara definição conceitual/unidade e texto da meta; alterações do conjunto municipal também interrompem as linhas. Renumeração isolada não quebra um conceito válido.
+4. **Persistência:** implementada por heatmap SERIE×ano, escala 0–100, sem preencher lacunas. Com 2013–2021, há 15 séries elegíveis e 48 omitidas por terem menos de três anos observados; séries anuais Original continuam separadas. Exige uma única definição/número por série em cada ano, recusando casos ambíguos.
+5. **Classificações automáticas de tendência/persistência:** não implementadas. O heatmap já comunica padrões; classificar melhora/piora pelas pontas, impor corte não validado de “baixo” ou alegar significância/causalidade seria inadequado. Todos os pontos intermediários permanecem visíveis e são testados.
+
+A exploração coletiva usa Brasil/UF, nunca ignora silenciosamente um município selecionado: nesse caso explica a restrição e mantém a trajetória individual acima. O indicador/período principal continua controlando os gráficos originais; a nova exploração tem período lateral próprio, explicitamente identificado. Inicialmente desativada, só prepara dados após o toggle. Fechar o expander recolhe a apresentação; desligar o toggle suspende o preparo/renderização.
+
+## Cache e compatibilidade
+
+O recorte é resumido por município/ano e série/ano, e o cache guarda apenas resultados pequenos, limitado por assinatura dos Parquets, UF e período. Preparação isolada: cerca de 0,30 s para Brasil incluindo leitura inicial dos dados e 0,08 s para PA/AC reutilizando a base; medianas de cópia do cache inferiores a 1 ms. Medidas em `desempenho_perfil_historico.json`, sem frontend ou garantia de latência no Cloud.
+
+Mesmo `app.py`, dependências e arquitetura do aplicativo existente do Streamlit Community Cloud. Sem novo serviço, banco, Node ou Docker. Deploy público não foi acessado; a atualização efetiva deve ser acompanhada no aplicativo existente depois do push à `main`.
+
+As seções abaixo registram entregas anteriores; relatórios e capturas compartilhados foram atualizados pela rodada vigente.
+
+---
+
 # Validação da quinta etapa: Estados e apresentação metodológica
 
 A `main` em `341d427` foi examinada, incluindo navegação, views, filtros, métricas, pipeline, catálogos, mapas, configurações e testes. **46 testes passaram antes das mudanças**. O arquivo original tem 14 indicadores por ano, exceto 2016–2017, com 15. Todas as 712.708 observações possuem situação conhecida; 30.261 resultados numéricos ausentes não foram convertidos em ausência de avaliação. As 4.784 divergências de 2013 continuam seguindo `ALCANCE_META`.

@@ -7,7 +7,7 @@ from src.historical import concept_options, compatible_years, representative_yea
 
 FILTER_KEYS = {'ano','uf','municipio','indicador','serie','conceito',
                'mapa_ano','mapa_uf','mapa_indicador','situacao','linhas_por_pagina','pagina_tabela',
-               'mapa_historico','ordem_estados'}
+               'mapa_historico','ordem_estados','hist_explorar','hist_perfil_periodo'}
 
 
 def clear_filters():
@@ -67,6 +67,13 @@ def global_filters(base, catalog, historical=False):
             else:
                 period = (years[0], years[0])
                 st.caption(f'Definição disponível somente em {years[0]}.')
+            st.divider()
+            explore = st.toggle('Explorar perfil e persistência', key='hist_explorar')
+            if explore:
+                all_years = sorted(base.ANO.unique().tolist())
+                st.select_slider('Período da exploração territorial', options=all_years,
+                                 value=(all_years[0],all_years[-1]), key='hist_perfil_periodo')
+                st.caption('Análises coletivas por Brasil/UF; período próprio, independente do indicador acima.')
             reset_button()
             st.caption('Séries com a mesma definição e unidade. Regras em Sobre.')
             return dict(year=None, uf=uf, municipality=municipality, indicator=None, series=series), period

@@ -34,7 +34,7 @@ Os seletores de teste do Streamlit são mais legíveis que classes geradas, mas 
 
 A sidebar usa **Ano**, **UF** e **Ordenar indicadores**. O principal gráfico sempre inclui todos os indicadores daquele ano: 14 em 2013–2015 e 2018–2021; 15 em 2016–2017. Não há filtro de indicador capaz de ocultá-los.
 
-A página começa com cards e barras horizontais **100% empilhadas**. Cada barra distribui os registros municipais do indicador em Meta atingida, Meta não atingida e Sem informação. O denominador das três partes é o total de registros do indicador; os percentuais somam 100%. A ordenação padrão é maior percentual de não atingimento; nomes abreviados mantêm o código, e tooltips mostram definição completa, contagens e denominadores.
+A página começa com dois grupos de quatro cards: **Resumo do recorte** e **Perfil de alcance**, este com ≥30/50/70/90%, explicação acessível e contagens. Os patamares aparecem somente no topo. Depois vêm as barras horizontais **100% empilhadas**. Cada barra distribui os registros municipais do indicador em Meta atingida, Meta não atingida e Sem informação. O denominador das três partes é o total de registros do indicador; os percentuais somam 100%. A ordenação padrão é maior percentual de não atingimento; nomes abreviados mantêm o código, e tooltips mostram definição completa, contagens e denominadores.
 
 O perfil municipal calcula `atingidas / (atingidas + não atingidas)` em cada município. Faixas: <30%, 30–<50%, 50–<70%, 70–<90%, ≥90%, além de Sem avaliação. Os quatro patamares mostram a proporção de municípios **com ao menos uma situação conhecida** que alcança ≥30/50/70/90% das situações conhecidas. Municípios sem avaliação ficam explícitos e separados. Esses são perfis **descritivos**, sem pressupor aplicabilidade oficial.
 
@@ -47,6 +47,21 @@ Brasil mostra comparação entre UFs e **heatmap UF × indicador**, com escala f
 Na base atual, todas as 712.708 observações têm situação registrada; resultado numérico ausente não implica avaliação ausente. Cada município presente no ano tem 14 ou 15 registros, conforme o catálogo. Os nove municípios ausentes de 2019/2021 não são acrescentados a partir da malha. Em bases incompletas, pares sem registro são contados separadamente, sem criar falhas nem inferir aplicabilidade.
 
 Não há cadastro de aplicabilidade universal/específica, adesão ou regra histórica de incentivo. Portanto, **nenhum incentivo oficial é exibido para 2013–2021**. Sem informação permanece uma terceira situação e não vira meta não atingida. A exclusão de situações desconhecidas nos percentuais descritivos é explícita e não define o denominador oficial do programa.
+
+## Layout por linha e exploração histórica
+
+A Visão Geral mantém duas linhas de gráficos. `align_row_figures` usa a maior altura requerida pelos gráficos de **cada linha**; os rankings usam `ranking_height`, que cresce com as categorias. `CHART_HEIGHT_STANDARD`, `CHART_HEIGHT_COMPACT`, `CHART_HEIGHT_LARGE` e `CHART_HEIGHT_MAP` centralizam as alturas comuns. Containers nativos com `height="stretch"` alinham também as bordas quando títulos, legendas ou captions ocupam alturas diferentes. O donut ganhou título e legenda centralizados. Não há altura global única para o dashboard.
+
+Estados mantém a distribuição ordinal já existente, sem duplicá-la. `state_card_groups` reutiliza `kpi_html` para mostrar os dois grupos de cards em quatro colunas no desktop e duas em telas estreitas. O ícone de informação tem tooltip, foco por teclado e texto para leitor de tela; os patamares continuam descritivos.
+
+No **Histórico**, ative **Explorar perfil e persistência** na sidebar. A seção secundária fica em expander e só prepara dados quando ativada. Seu **Período da exploração territorial** é independente do período/indicador principal. A evolução usa todas as metas de cada ano no Brasil ou na UF selecionada; com um município específico, a exploração coletiva é bloqueada e a trajetória individual continua acima.
+
+- **Evolução dos patamares:** percentual de municípios com avaliação que atingiu ≥30/50/70/90% das situações conhecidas de cada ano. Catálogo, número de indicadores e cobertura podem variar; há aviso e tabela de denominadores. As linhas são interrompidas quando muda a assinatura de definição/unidade/meta ou o conjunto municipal. Não é painel de indicadores fixos, incentivo oficial ou efeito causal.
+- **Heatmap série × ano:** usa a `SERIE` analítica existente, com ao menos três anos de avaliação no período escolhido. Renumerações válidas ficam na mesma linha; definições distintas, séries anuais de escala não comprovada e anos sem avaliação não são unidos/preenchidos. A escala é fixa em 0–100%, com cinza para lacunas. As linhas são ordenadas pelo maior cumprimento observado, em ordem crescente, facilitando a exploração de persistência sem classificar tendência pelas pontas.
+
+Não foram adicionados outra distribuição/donut de alcance, gráficos redundantes de persistência ou rótulos automáticos de melhora/piora/significância. Não há critério oficial ou teste que sustente essas classificações nesta entrega. Séries com menos de três anos permanecem acessíveis no seletor individual, mas ficam fora desta matriz.
+
+`src/profile_history.py` resume o recorte por município/ano e por série/ano, reutiliza `profile_thresholds` e guarda resultados pequenos em `st.cache_data` com assinatura dos Parquets. Nenhum arquivo de dados, regra histórica ou cadastro de 2025 foi modificado.
 
 ## Regras metodológicas versionadas
 
@@ -194,6 +209,7 @@ src/
   navigation.py              # Barra superior com widget nativo
   geography.py               # GeoJSON local e associação territorial
   state_analysis.py          # Distribuições e perfis descritivos em cache
+  profile_history.py         # Patamares anuais e séries comparáveis em cache
   rules.py                   # Registro temporal e bloqueios de incentivo oficial
   historical.py              # Conceitos do seletor e anos compatíveis
   territorial_history.py     # Recortes e camadas temporais em cache
@@ -265,3 +281,5 @@ A comparação com a versão anterior está em `docs/desempenho_antes.json` e `d
 A validação adicional de conceitos e evolução territorial pode ser repetida com `python scripts/validar_evolucao.py --url http://127.0.0.1:8501/ --chromium /caminho/do/chromium`. O relatório fica em `docs/validacao_evolucao.json`.
 
 A validação numérica de Estados pode ser repetida com `python scripts/validar_estados.py --url http://127.0.0.1:8501/ --chromium /caminho/do/chromium`. O relatório `docs/validacao_estados.json` registra nove recortes, três barras conferidas contra o Parquet e três células do heatmap.
+
+Para repetir a conferência de alinhamento, cards e novas análises: `python scripts/validar_refinamento.py --url http://127.0.0.1:8501/ --chromium /caminho/do/chromium`. O relatório fica em `docs/validacao_refinamento.json`.

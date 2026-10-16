@@ -10,9 +10,25 @@ from src.utils import number, percent, result
 COLORS = {'Atingida': '#14887D', 'Não atingida': '#CA785C', 'Sem informação': '#ACB9C8'}
 BLUE = '#206A8A'
 PALETTE = ['#137C8B', '#5266A4', '#A66D38', '#835894', '#587A3C']
+CHART_HEIGHT_STANDARD = 325
+CHART_HEIGHT_COMPACT = 300
+CHART_HEIGHT_LARGE = 420
+CHART_HEIGHT_MAP = 590
 
 
-def style(fig, title=None, height=325, percent_axis=False):
+def ranking_height(categories):
+    return max(320, categories * 23 + 85)
+
+
+def align_row_figures(*figures):
+    """Ajusta somente esta linha, respeitando a maior altura requerida."""
+    height = max(fig.layout.height or CHART_HEIGHT_STANDARD for fig in figures)
+    for fig in figures:
+        fig.update_layout(height=height)
+    return figures
+
+
+def style(fig, title=None, height=CHART_HEIGHT_STANDARD, percent_axis=False):
     fig.update_layout(
         title=dict(text='<br>'.join(textwrap.wrap(title, 36)) if title else '', font=dict(size=16, color='#18344A'), x=0),
         font=dict(family='Arial, sans-serif', size=12, color='#526578'),
@@ -36,7 +52,9 @@ def donut(frame):
                           text=[percent(100*v/counts.sum()) if counts.sum() and 100*v/counts.sum() >= 5 else '' for v in counts.values],
                           textinfo='text', textposition='inside', textfont=dict(size=13, color='white'), sort=False,
                           hovertemplate='%{label}<br>Registros: %{value:,.0f}<br>Participação no total: %{percent}<extra></extra>'))
-    return style(fig, height=325)
+    style(fig, 'Situação das metas', height=CHART_HEIGHT_STANDARD)
+    fig.update_layout(legend=dict(x=.5,xanchor='center',y=-.04,yanchor='top'))
+    return fig
 
 
 def ranking(summary, group, title, limit=27):
@@ -51,7 +69,7 @@ def ranking(summary, group, title, limit=27):
         '<br>Sem informação: %{customdata[3]:,.0f}' + ('<br>%{customdata[4]}' if 'DESCRICAO' in table else '') + '<extra></extra>'))
     fig.update_xaxes(title='% de metas atingidas entre avaliadas', ticksuffix='%', range=[0, 116])
     fig.update_yaxes(title=None, categoryorder='array', categoryarray=table[group].tolist())
-    return style(fig, title, max(320, len(table) * 23 + 85))
+    return style(fig, title, ranking_height(len(table)))
 
 
 def time_line(summary, title='Evolução do cumprimento das metas', color=None):
@@ -125,7 +143,7 @@ def _map_layout(fig, geojson, title):
     # Autoenquadramento nativo considera o tamanho real do canvas, inclusive no celular.
     fig.update_geos(fitbounds='locations', visible=False, projection_type='mercator')
     fig.update_layout(dragmode='pan', uirevision=title)
-    style(fig, height=590)
+    style(fig, height=CHART_HEIGHT_MAP)
     fig.update_layout(margin=dict(l=0,r=0,t=6,b=0), legend=dict(orientation='h', y=-.02))
     return fig
 
@@ -220,7 +238,7 @@ def profile_bands(distribution):
                         text=[f'{number(r.MUNICIPIOS)} · {percent(r.PERCENTUAL)}' for r in distribution.itertuples()],
                         textposition='outside',cliponaxis=False,
                         hovertemplate='Faixa de metas atingidas: %{y}<br>Municípios: %{customdata[0]}<br>Participação nos municípios observados: %{customdata[1]}<extra></extra>'))
-    style(fig,'Distribuição do perfil municipal',height=420)
+    style(fig,'Distribuição do perfil municipal',height=CHART_HEIGHT_LARGE)
     fig.update_yaxes(autorange='reversed',title=None)
     fig.update_xaxes(title='Municípios observados',range=[0,max(1,distribution.MUNICIPIOS.max())*1.4])
     return fig
@@ -234,7 +252,7 @@ def indicator_comparison(local, national, uf):
         fig.add_trace(go.Scatter(x=data.CUMPRIMENTO,y=data.INDICADOR.astype(str).str.removeprefix('IND_'),
                                  mode='markers',name=name,marker=dict(size=9,color=color),customdata=custom,
                                  hovertemplate='%{customdata[0]}<br>Municípios avaliados: %{customdata[1]}<br>Cumprimento: %{customdata[2]}<extra>%{fullData.name}</extra>'))
-    style(fig,f'{uf} · comparação com Brasil',height=420)
+    style(fig,f'{uf} · comparação com Brasil',height=CHART_HEIGHT_LARGE)
     fig.update_xaxes(title='Metas atingidas entre situações conhecidas',range=[0,105],ticksuffix='%')
     fig.update_yaxes(title='Indicador',autorange='reversed',type='category')
     return fig
@@ -261,4 +279,51 @@ def state_heatmap(territorial, definitions):
     fig.update_layout(plot_bgcolor=COLORS[STATUS[2]])
     fig.update_xaxes(title='Indicador · definição do ano selecionado',type='category',side='top',tickfont_size=11)
     fig.update_yaxes(title=None,type='category',autorange='reversed')
+    return fig
+
+
+def profile_evolution(data):
+    fig = go.Figure()
+    for i, threshold in enumerate([30,50,70,90]):
+        local = data.loc[data.PATAMAR.eq(threshold)].sort_values('ANO')
+        years, values, custom = [], [], []
+        for row in local.itertuples():
+            if row.CATALOGO_MUDOU or row.COORTE_MUDOU:
+                years.append(None);values.append(None);custom.append(['']*6)
+            years.append(row.ANO);values.append(row.PERCENTUAL)
+            custom.append([number(row.MUNICIPIOS),number(row.DENOMINADOR),percent(row.PERCENTUAL),
+                           number(row.INDICADORES_CATALOGO),number(row.SEM_AVALIACAO),str(threshold)])
+        fig.add_trace(go.Scatter(x=years,y=values,mode='lines+markers',name=f'≥{threshold}%',connectgaps=False,
+                                line=dict(color=PALETTE[i],width=2.5,dash=['solid','dash','dot','dashdot'][i]),
+                                marker=dict(size=8,symbol=['circle','square','diamond','triangle-up'][i]),customdata=custom,
+                                hovertemplate='Ano: %{x}<br>Patamar: ≥%{customdata[5]}%<br>Municípios no patamar: %{customdata[0]}<br>Municípios com avaliação: %{customdata[1]}<br>Participação: %{customdata[2]}<br>Indicadores no catálogo: %{customdata[3]}<br>Municípios sem avaliação: %{customdata[4]}<extra></extra>'))
+    style(fig,height=CHART_HEIGHT_LARGE)
+    fig.update_xaxes(title='Ano · metas e território de cada período',dtick=1)
+    fig.update_yaxes(title='Municípios com avaliação',range=[0,105],ticksuffix='%')
+    return fig
+
+
+def temporal_heatmap(data, years):
+    order = data.groupby('SERIE',observed=True).CUMPRIMENTO.max().sort_values(kind='stable').index
+    pivot = data.pivot(index='SERIE',columns='ANO',values='CUMPRIMENTO').reindex(index=order,columns=years)
+    lookup = {(str(r.SERIE),int(r.ANO)):r for r in data.itertuples()}
+    labels = data.drop_duplicates('SERIE').set_index('SERIE').ROTULO
+    custom=[]
+    for series in pivot.index:
+        cells=[]
+        for year in years:
+            r=lookup.get((str(series),year))
+            cells.append([str(year),escape(str(r.DESCRICAO)),str(r.INDICADOR),number(r.AVALIADOS),number(r.ATINGIRAM),
+                          number(r.NAO_ATINGIRAM),number(r.SEM_INFORMACAO),percent(r.CUMPRIMENTO)] if r else [str(year),'Sem avaliação desta série neste ano','—','—','—','—','—','—'])
+        custom.append(cells)
+    fig = go.Figure(go.Heatmap(x=[str(y) for y in years],y=[labels.loc[s] for s in pivot.index],z=pivot.values,
+                              zmin=0,zmax=100,colorscale=[[0,'#B96750'],[.5,'#EEE9DC'],[1,'#15796F']],
+                              xgap=1,ygap=1,hoverongaps=True,customdata=custom,
+                              colorbar=dict(title='Cumprimento municipal',orientation='h',x=.5,y=-.16,len=.7,thickness=10,
+                                            tickvals=[0,25,50,75,100],ticktext=['0%','25%','50%','75%','100%']),
+                              hovertemplate='Ano: %{customdata[0]}<br>%{customdata[1]}<br>Número no ano: %{customdata[2]}<br>Municípios avaliados: %{customdata[3]}<br>Atingiram: %{customdata[4]}<br>Não atingiram: %{customdata[5]}<br>Sem informação: %{customdata[6]}<br>Cumprimento: %{customdata[7]}<extra></extra>'))
+    style(fig,height=max(CHART_HEIGHT_LARGE,100+len(pivot)*30))
+    fig.update_layout(plot_bgcolor=COLORS[STATUS[2]])
+    fig.update_xaxes(title='Ano',type='category',side='top')
+    fig.update_yaxes(title=None,autorange='reversed',type='category')
     return fig

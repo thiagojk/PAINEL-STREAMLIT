@@ -112,3 +112,15 @@ h1 { font-size:1.4rem !important; } h2 { font-size:1.16rem !important; } h3 { fo
   .st-key-chartpanel_state_stack [data-testid="stElementContainer"]:has([data-testid="stPlotlyChart"]),
   .st-key-chartpanel_state_heatmap [data-testid="stElementContainer"]:has([data-testid="stPlotlyChart"]) {min-width:720px;}
 }
+.state-card-groups {display:grid;gap:8px;}
+.metric-group-heading {display:flex;align-items:center;flex-wrap:wrap;gap:6px;color:#355a6c;font-size:12px;font-weight:700;margin-bottom:5px;}
+.metric-group-note {font-size:11px;font-weight:400;color:#637b8b;margin-left:auto;}
+.metric-help {display:inline-grid;place-items:center;width:15px;height:15px;border:1px solid #7c9ba8;border-radius:50%;font-size:10px;cursor:help;}
+.metric-help:focus-visible {outline:2px solid #137b80;outline-offset:2px;}
+.state-card-groups .kpi {padding:7px 10px;}
+.state-card-groups .kpi-value {font-size:25px;margin:2px 0;}
+@container (max-width:650px) {
+  .st-key-chartpanel_profile_evolution,.st-key-chartpanel_persistence {overflow-x:auto;}
+  .st-key-chartpanel_profile_evolution [data-testid="stElementContainer"]:has([data-testid="stPlotlyChart"]) {min-width:620px;}
+  .st-key-chartpanel_persistence [data-testid="stElementContainer"]:has([data-testid="stPlotlyChart"]) {min-width:900px;}
+}

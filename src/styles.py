@@ -21,10 +21,29 @@ def page_heading(title, subtitle):
     st.html(f'<div class="page-heading"><h1>{escape(title)}</h1><p>{escape(subtitle)}</p></div>')
 
 
-def kpi_grid(values, small=False):
-    st.html('<div class="kpi-grid' + (' kpi-four' if small else '') + '">' + ''.join(
+def kpi_html(values, small=False):
+    return ('<div class="kpi-grid' + (' kpi-four' if small else '') + '">' + ''.join(
         f'<div class="kpi {tone}"><div class="kpi-label">{escape(label)}</div><div class="kpi-value">{escape(value)}</div><div class="kpi-note">{escape(note)}</div></div>'
         for label, value, note, tone in values) + '</div>')
+
+
+def kpi_grid(values, small=False):
+    st.html(kpi_html(values, small))
+
+
+def state_card_groups(summary, thresholds):
+    help_text = ('Percentual de municípios com ao menos uma situação conhecida que atingiu pelo menos '
+                 'a proporção indicada dessas metas. Aplicabilidade oficial não consta na base; '
+                 'perfil descritivo, sem classificação de incentivo.')
+    profile = [(f'Municípios com ≥{t}%', percent(m['percent']),
+                f'{number(m["municipalities"])} de {number(m["denominator"])} com avaliação', '')
+               for t,m in thresholds.items()]
+    st.html('<div class="state-card-groups"><section aria-label="Resumo do recorte">'
+            '<div class="metric-group-heading">Resumo do recorte</div>' + kpi_html(summary, True) +
+            '</section><section aria-label="Perfil de alcance"><div class="metric-group-heading">Perfil de alcance '
+            '<span class="metric-help" tabindex="0" title="' + escape(help_text, quote=True) + '" aria-label="' +
+            escape(help_text, quote=True) + '">i</span><span class="metric-group-note">Descritivo · situações conhecidas</span></div>' +
+            kpi_html(profile, True) + '</section></div>')
 
 
 def cards(frame, summary):
