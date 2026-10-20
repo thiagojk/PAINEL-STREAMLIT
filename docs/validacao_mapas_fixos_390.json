@@ -1,0 +1,210 @@
+{
+  "telas": [
+    {
+      "largura": 390,
+      "comparacao": false,
+      "main": {
+        "h": 844,
+        "sh": 844,
+        "w": 390,
+        "sw": 390,
+        "top": 0
+      },
+      "area_mapas": {
+        "h": 386,
+        "sh": 1116,
+        "w": 364,
+        "sw": 364
+      }
+    },
+    {
+      "largura": 390,
+      "comparacao": true,
+      "main": {
+        "h": 844,
+        "sh": 844,
+        "w": 390,
+        "sw": 390,
+        "top": 0
+      },
+      "area_mapas": {
+        "h": 386,
+        "sh": 1650,
+        "w": 364,
+        "sw": 364
+      }
+    },
+    {
+      "largura": 390,
+      "comparacao": false,
+      "main": {
+        "h": 844,
+        "sh": 844,
+        "w": 390,
+        "sw": 390,
+        "top": 0
+      },
+      "area_mapas": {
+        "h": 386,
+        "sh": 1116,
+        "w": 364,
+        "sw": 364
+      }
+    },
+    {
+      "largura": 390,
+      "comparacao": false,
+      "main": {
+        "h": 844,
+        "sh": 844,
+        "w": 390,
+        "sw": 390,
+        "top": 0
+      },
+      "area_mapas": {
+        "h": 386,
+        "sh": 1116,
+        "w": 364,
+        "sw": 364
+      }
+    },
+    {
+      "largura": 390,
+      "comparacao": true,
+      "main": {
+        "h": 844,
+        "sh": 844,
+        "w": 390,
+        "sw": 390,
+        "top": 0
+      },
+      "area_mapas": {
+        "h": 386,
+        "sh": 1642,
+        "w": 364,
+        "sw": 364
+      }
+    },
+    {
+      "largura": 390,
+      "comparacao": false,
+      "main": {
+        "h": 844,
+        "sh": 844,
+        "w": 390,
+        "sw": 390,
+        "top": 0
+      },
+      "area_mapas": {
+        "h": 386,
+        "sh": 1116,
+        "w": 364,
+        "sw": 364
+      }
+    },
+    {
+      "largura": 390,
+      "comparacao": false,
+      "main": {
+        "h": 844,
+        "sh": 844,
+        "w": 390,
+        "sw": 390,
+        "top": 0
+      },
+      "area_mapas": {
+        "h": 386,
+        "sh": 1116,
+        "w": 364,
+        "sw": 364
+      }
+    },
+    {
+      "largura": 390,
+      "comparacao": true,
+      "main": {
+        "h": 844,
+        "sh": 844,
+        "w": 390,
+        "sw": 390,
+        "top": 0
+      },
+      "area_mapas": {
+        "h": 386,
+        "sh": 1642,
+        "w": 364,
+        "sw": 364
+      }
+    },
+    {
+      "largura": 390,
+      "comparacao": false,
+      "main": {
+        "h": 844,
+        "sh": 844,
+        "w": 390,
+        "sw": 390,
+        "top": 0
+      },
+      "area_mapas": {
+        "h": 386,
+        "sh": 1116,
+        "w": 364,
+        "sw": 364
+      }
+    },
+    {
+      "largura": 390,
+      "comparacao": false,
+      "main": {
+        "h": 844,
+        "sh": 844,
+        "w": 390,
+        "sw": 390,
+        "top": 0
+      },
+      "area_mapas": {
+        "h": 386,
+        "sh": 1116,
+        "w": 364,
+        "sw": 364
+      }
+    },
+    {
+      "largura": 390,
+      "comparacao": true,
+      "main": {
+        "h": 844,
+        "sh": 844,
+        "w": 390,
+        "sw": 390,
+        "top": 0
+      },
+      "area_mapas": {
+        "h": 386,
+        "sh": 1642,
+        "w": 364,
+        "sw": 364
+      }
+    },
+    {
+      "largura": 390,
+      "comparacao": false,
+      "main": {
+        "h": 844,
+        "sh": 844,
+        "w": 390,
+        "sw": 390,
+        "top": 0
+      },
+      "area_mapas": {
+        "h": 386,
+        "sh": 1116,
+        "w": 364,
+        "sw": 364
+      }
+    }
+  ],
+  "erros": [],
+  "externos": []
+}

@@ -40,7 +40,7 @@ def test_sidebar_mode_synchronizes_current_history_and_reuses_sources(monkeypatc
         assert app.sidebar.multiselect[0].value==years
         figures=[json.loads(x.proto.spec) for x in app.get('plotly_chart')]
         maps=[f for f in figures if f['data'] and f['data'][0]['type']=='choropleth']
-        assert len(maps)==6  # principal + cinco anos reais da mesma série conceitual
+        assert len(maps)==5  # comparação substitui o principal; sem ranking
         for index,figure in enumerate(maps):
             for trace in figure['data']:
                 scale=trace['colorscale']
@@ -50,7 +50,17 @@ def test_sidebar_mode_synchronizes_current_history_and_reuses_sources(monkeypatc
                 else:
                     assert trace['zmin']==0 and trace['zmax']==100
                     assert scale==theme.MAP_PROGRESS_SCALE or scale==[[0,theme.MAP_STATUS_MISSING],[1,theme.MAP_STATUS_MISSING]]
-                    if index:assert trace['showscale'] is False
+                    assert trace['showscale'] is False
+        app.toggle(key='mapa_historico').set_value(False).run(timeout=60)
+        assert len(app.get('plotly_chart'))==2
+        current=json.loads(app.get('plotly_chart')[0].proto.spec)['data']
+        if mode=='Grau de alcance (%)':
+            assert current[0]['colorscale']==theme.MAP_PROGRESS_SCALE
+            assert current[0]['zmin']==0 and current[0]['zmax']==100
+        else:
+            assert all(t['colorscale']==[[0,theme.MAP_STATUS_COLORS[t['name']]],[1,theme.MAP_STATUS_COLORS[t['name']]]] for t in current)
+        app.toggle(key='mapa_historico').set_value(True).run(timeout=60)
+        assert app.sidebar.multiselect[0].value==years
         assert reads==baseline  # a troca não relê Parquet nem GeoJSON
     assert theme.MAP_STATUS_REACHED!=theme.MAP_STATUS_NOT_REACHED
     assert theme.MAP_STATUS_MISSING!=theme.MAP_PROGRESS_SCALE[0][1]

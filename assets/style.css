@@ -131,3 +131,71 @@ h1 { font-size:1.4rem !important; } h2 { font-size:1.16rem !important; } h3 { fo
 .st-key-map_mode [role="radiogroup"] label:has(input:checked) {background:var(--primary-light);border-color:var(--primary);}
 .st-key-map_mode [role="radiogroup"] label:has(input:focus-visible) {outline:2px solid var(--primary);outline-offset:2px;}
 .st-key-map_mode [role="radiogroup"] label p {white-space:normal;}
+
+/* Somente Mapas ocupa o viewport; os demais fluxos mantêm o layout original. */
+[data-testid="stMain"]:has([class*="st-key-map_viewport_"]) {overflow:hidden;}
+[data-testid="stMainBlockContainer"]:has([class*="st-key-map_viewport_"]) {height:100dvh;min-height:0;padding-top:.7rem;padding-bottom:.7rem;}
+[data-testid="stMainBlockContainer"]:has([class*="st-key-map_viewport_"]) > [data-testid="stVerticalBlock"] {height:100%;min-height:0;gap:6px;}
+[data-testid="stMainBlockContainer"]:has([class*="st-key-map_viewport_"]) > [data-testid="stVerticalBlock"] > * {flex-shrink:0;}
+[data-testid="stMainBlockContainer"]:has([class*="st-key-map_viewport_"]) .page-heading p:empty {display:none;}
+[class*="st-key-map_viewport_"] {flex:1 1 0 !important;min-height:0 !important;overflow:auto;overscroll-behavior:contain;}
+.st-key-map_current,.st-key-map_comparison {min-height:0 !important;}
+.st-key-map_current > [data-testid="stHorizontalBlock"] {height:100%;min-height:0;}
+.st-key-map_main,.st-key-map_ranking {min-height:0 !important;overflow:hidden;}
+[class*="st-key-map_viewport_"] [data-testid="stPlotlyChart"] {min-height:0;}
+[class*="st-key-map_viewport_"] [data-testid="stElementContainer"]:has(> [data-testid="stPlotlyChart"]) {flex:1 1 0 !important;min-height:0 !important;}
+.st-key-map_history_grid {flex:1 1 0 !important;min-height:0 !important;}
+.st-key-map_history_grid > [data-testid="stHorizontalBlock"] {height:100%;grid-auto-rows:minmax(0,1fr);align-items:stretch;}
+.st-key-map_history_grid [data-testid="stColumn"] {min-height:0 !important;}
+[class*="st-key-map_year_"] {min-height:0 !important;gap:0 !important;padding:5px !important;}
+.st-key-map_comparison .shared-scale {margin:0;max-width:420px;font-size:10px;}
+.st-key-map_comparison .shared-scale div {height:7px;margin:2px 0;}
+.st-key-map_comparison [data-testid="stMarkdownContainer"] p {font-size:12px;margin:0;}
+@container (max-width:650px) {
+ .st-key-map_current {height:auto !important;min-height:100% !important;}
+ .st-key-map_current > [data-testid="stHorizontalBlock"] {height:auto;}
+ .st-key-map_main {height:400px !important;flex:none !important;}
+ .st-key-map_ranking {height:700px !important;flex:none !important;}
+ .st-key-map_comparison {height:auto !important;min-height:100% !important;}
+ .st-key-map_history_grid {height:auto !important;}
+ .st-key-map_history_grid > [data-testid="stHorizontalBlock"] {height:auto;grid-auto-rows:300px;}
+}
+@media(max-width:600px) {
+ [data-testid="stMainBlockContainer"]:has([class*="st-key-map_viewport_"]) {padding-top:2.6rem;padding-bottom:.5rem;}
+}
+/* As versões atuais do Streamlit envolvem containers em stLayoutWrapper. */
+[data-testid="stMainBlockContainer"]:has([class*="st-key-map_viewport_"]) > [data-testid="stVerticalBlock"] > [data-testid="stLayoutWrapper"]:has([class*="st-key-map_viewport_"]) {flex:1 1 0 !important;min-height:0 !important;height:0 !important;}
+[class*="st-key-map_viewport_"] {height:100% !important;}
+[class*="st-key-map_viewport_"] [data-testid="stLayoutWrapper"] {flex:1 1 0;min-height:0;}
+.st-key-map_current,.st-key-map_comparison {height:100% !important;}
+[class*="st-key-map_viewport_"] [data-testid="stColumn"] > [data-testid="stVerticalBlock"] {height:100%;min-height:0;}
+.st-key-map_current > [data-testid="stLayoutWrapper"],.st-key-map_history_grid > [data-testid="stLayoutWrapper"] {height:100%;}
+@container(max-width:650px) {
+ .st-key-map_current,.st-key-map_comparison {height:auto !important;}
+ .st-key-map_current > [data-testid="stLayoutWrapper"],.st-key-map_history_grid > [data-testid="stLayoutWrapper"] {height:auto;}
+}
+[class*="st-key-map_viewport_"] [data-testid="stElementContainer"]:has([data-testid="stPlotlyChart"]) {flex:1 1 0 !important;min-height:0 !important;}
+[class*="st-key-map_viewport_"] [data-testid="stFullScreenFrame"],[class*="st-key-map_viewport_"] [data-testid="stPlotlyChart"] {height:100%;min-height:0;}
+.st-key-map_history_grid [data-testid="stColumn"] {height:100% !important;align-self:stretch;}
+[class*="st-key-map_year_"] {height:100% !important;}
+[class*="st-key-map_year_"] > [data-testid="stElementContainer"]:not(:has([data-testid="stPlotlyChart"])) {flex:0 0 auto;}
+@container(min-width:651px) {
+ .st-key-map_history_grid [data-testid="stHorizontalBlock"] {grid-template-columns:repeat(3,minmax(0,1fr));}
+ .st-key-map_history_grid [data-testid="stHorizontalBlock"]:has(> [data-testid="stColumn"]:only-child) {grid-template-columns:1fr;}
+ .st-key-map_history_grid [data-testid="stHorizontalBlock"]:has(> [data-testid="stColumn"]:nth-child(2):last-child) {grid-template-columns:repeat(2,minmax(0,1fr));}
+}
+@container(max-width:650px) {
+ .st-key-map_current [data-testid="stHorizontalBlock"] {flex-direction:column;flex-wrap:nowrap !important;height:auto !important;}
+ .st-key-map_current [data-testid="stColumn"] {height:auto !important;flex:0 0 auto !important;}
+}
+@container(max-width:650px) {
+ .st-key-map_current [data-testid="stColumn"]:first-child {height:400px !important;}
+ .st-key-map_current [data-testid="stColumn"]:nth-child(2) {height:700px !important;}
+}
+@container(max-width:650px) {
+ .st-key-map_comparison > [data-testid="stLayoutWrapper"] {flex:0 0 auto !important;height:auto !important;}
+ .st-key-map_history_grid {flex:0 0 auto !important;height:auto !important;}
+ .st-key-map_history_grid > [data-testid="stLayoutWrapper"] {flex:none !important;height:auto !important;}
+ .st-key-map_history_grid [data-testid="stHorizontalBlock"] {height:auto !important;grid-auto-rows:300px;}
+ .st-key-map_history_grid [data-testid="stColumn"],[class*="st-key-map_year_"] {height:300px !important;}
+}

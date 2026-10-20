@@ -30,7 +30,7 @@ except (OSError, ValueError, KeyError):
 header(metadata)
 page = navigation()
 fn, title, subtitle = PAGES[page]
-page_heading(title, subtitle)
+page_heading(title, '' if page == 'Mapas' else subtitle)
 is_history = page == 'Análise Histórica'
 if page == 'Sobre / Metodologia':
     filters, period = dict(year=None, uf=None, municipality=None, indicator=None, series=None), None
@@ -44,7 +44,7 @@ if period:
 locality = 'Brasil' if filters['uf'] in ['Todos', None] else filters['uf']
 if filters['municipality'] not in ['Todos', None] and not frame.empty:
     locality = f'{frame.NOME_MUN.iloc[0]} · {frame.UF.iloc[0]}'
-if page != 'Sobre / Metodologia':
+if page not in {'Sobre / Metodologia','Mapas'}:
     scope = f'{period[0]}–{period[1]}' if period else str(filters['year'])
     st.html(f'<div class="context">RECORTE ATUAL &nbsp; / &nbsp; <b>{escape(str(locality))}</b> &nbsp; / &nbsp; {scope}</div>')
 try:
@@ -52,4 +52,4 @@ try:
 except Exception:
     logging.exception('Falha na página %s', page)
     st.error('Não foi possível concluir esta análise. Tente outro recorte; se persistir, consulte os logs da aplicação.')
-st.html('<div class="footer">PQAVS · Painel de Indicadores e Metas &nbsp; | &nbsp; Consulta pública · Consulte os critérios em Sobre / Metodologia.</div>')
+if page != 'Mapas': st.html('<div class="footer">PQAVS · Painel de Indicadores e Metas &nbsp; | &nbsp; Consulta pública · Consulte os critérios em Sobre / Metodologia.</div>')

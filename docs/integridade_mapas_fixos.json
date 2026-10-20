@@ -1,0 +1,232 @@
+[
+  {
+    "arquivo": "data/base_pqavs.parquet",
+    "sha256": "e7cfc4312a589aca0911f9f705e4e133c42218cd9eb34272f23af0e827f8e8b4",
+    "identico_64fd7f9": true
+  },
+  {
+    "arquivo": "data/metadata.json",
+    "sha256": "fac4f2aaac4e2c81ec019f43324318c6ea83d6a281ab3dfd6cb7100c9738d817",
+    "identico_64fd7f9": true
+  },
+  {
+    "arquivo": "data/indicadores.parquet",
+    "sha256": "2d9154e6ae51488503298c81683e0d2d03a024e4ca4da88781e8da2680b3c909",
+    "identico_64fd7f9": true
+  },
+  {
+    "arquivo": "assets/maps/brasil_ufs.geojson",
+    "sha256": "762d8550afc394c01b5cd47374b78e17ed71616e720b7ea13c020eb9cf3fe749",
+    "identico_64fd7f9": true
+  },
+  {
+    "arquivo": "assets/maps/municipios/TO.geojson",
+    "sha256": "406509a5b1456eaf215b9095301fe575998eea55a61e44c811344dcfa43e5e37",
+    "identico_64fd7f9": true
+  },
+  {
+    "arquivo": "assets/maps/municipios/RR.geojson",
+    "sha256": "75cb1b65a80cbfa7d68b5b7715873fdc4b4d5cb2c67b4ddf2d14ca9b74bfcb1b",
+    "identico_64fd7f9": true
+  },
+  {
+    "arquivo": "assets/maps/municipios/AP.geojson",
+    "sha256": "0a3478526ec11ec95f0baf40382ea1de5f33f3da79901684c4f7116562dc73f8",
+    "identico_64fd7f9": true
+  },
+  {
+    "arquivo": "assets/maps/municipios/SP.geojson",
+    "sha256": "691ab8f03a640595423c0d4b10eb96d61b2ed95b118afc3b4bc50a245c3e837b",
+    "identico_64fd7f9": true
+  },
+  {
+    "arquivo": "assets/maps/municipios/CE.geojson",
+    "sha256": "64016b18f7b68cbafa073547257f002b51910ba344f2cba55fc3e26f4ee67326",
+    "identico_64fd7f9": true
+  },
+  {
+    "arquivo": "assets/maps/municipios/MT.geojson",
+    "sha256": "1ccad5f407c827e35f8f3f66de63329e5d70ae22d2f0e7cbc4a7f599979db239",
+    "identico_64fd7f9": true
+  },
+  {
+    "arquivo": "assets/maps/municipios/MG.geojson",
+    "sha256": "7813481bbd414aa0931834806a219186c9f7cb6823b3865181b9b9a2e3c2168c",
+    "identico_64fd7f9": true
+  },
+  {
+    "arquivo": "assets/maps/municipios/PI.geojson",
+    "sha256": "8dd7f8ee8819b874ec288037fa22040020066f3a101c5bc3893c9b46d5391cc4",
+    "identico_64fd7f9": true
+  },
+  {
+    "arquivo": "assets/maps/municipios/MA.geojson",
+    "sha256": "fdd49680573e342b519d26403076033069242b2ead89f69787b935bc5f9b9aac",
+    "identico_64fd7f9": true
+  },
+  {
+    "arquivo": "assets/maps/municipios/AM.geojson",
+    "sha256": "312f32d0571da47c6b17a87333186648a614126262515a2f8f17cc93e84d1aee",
+    "identico_64fd7f9": true
+  },
+  {
+    "arquivo": "assets/maps/municipios/SC.geojson",
+    "sha256": "70596257f2c621bcda0c3c4ae4a171c02e90278640ca1ba00a52282d7bea87eb",
+    "identico_64fd7f9": true
+  },
+  {
+    "arquivo": "assets/maps/municipios/DF.geojson",
+    "sha256": "7419890ade073b2fc91eb0d1f3080d472431fd1ee61281680f1ace7ba1e4197e",
+    "identico_64fd7f9": true
+  },
+  {
+    "arquivo": "assets/maps/municipios/PA.geojson",
+    "sha256": "acb65a3047a20d70c7ea465caf4b8b6d119407b9f2ffcc444e3bd0bb1ad94067",
+    "identico_64fd7f9": true
+  },
+  {
+    "arquivo": "assets/maps/municipios/AL.geojson",
+    "sha256": "9f90c96e79d1a619831d14ff700599cf8300e7250dc55e8f269f06240f313d62",
+    "identico_64fd7f9": true
+  },
+  {
+    "arquivo": "assets/maps/municipios/RO.geojson",
+    "sha256": "8ab1453c22e0e32599a8b8bbd20d66446f87ebdbc2b69a074d513d2368466e12",
+    "identico_64fd7f9": true
+  },
+  {
+    "arquivo": "assets/maps/municipios/PE.geojson",
+    "sha256": "1e1b1cc1a272fae5c5025a0087c8a6a66138bc2f40652a5bfbf6d55e718b260b",
+    "identico_64fd7f9": true
+  },
+  {
+    "arquivo": "assets/maps/municipios/PR.geojson",
+    "sha256": "688224771d6cf9d073a66806c0aae03a0cbeab053307344ea891fd900ab72118",
+    "identico_64fd7f9": true
+  },
+  {
+    "arquivo": "assets/maps/municipios/BA.geojson",
+    "sha256": "5ddd18aa3ccf578a9cc7c1b9949fb8319e6f1b32d4f5ff6e127220fd17ac2324",
+    "identico_64fd7f9": true
+  },
+  {
+    "arquivo": "assets/maps/municipios/PB.geojson",
+    "sha256": "cead125df6249adb7aa7bb43187bf4f852b7fcac9543c447f4823c096726c506",
+    "identico_64fd7f9": true
+  },
+  {
+    "arquivo": "assets/maps/municipios/AC.geojson",
+    "sha256": "358acf14081fee175e8d5b43c5407e22e4bb94e81b89e84be9f52b5c78cd8cda",
+    "identico_64fd7f9": true
+  },
+  {
+    "arquivo": "assets/maps/municipios/RN.geojson",
+    "sha256": "fab356399b3f64765ea3e5d4ff2e87ca2e09f928d1b6ebb0e92547395e014475",
+    "identico_64fd7f9": true
+  },
+  {
+    "arquivo": "assets/maps/municipios/RJ.geojson",
+    "sha256": "81457d6e8d67b94f09f5e9ebba8c0224386cabd72e8cffd0848b604e75347c04",
+    "identico_64fd7f9": true
+  },
+  {
+    "arquivo": "assets/maps/municipios/MS.geojson",
+    "sha256": "74f0822dea04c296f8f472ad4e68c194afe7bb847c2ed4832710345e5a5c9c3a",
+    "identico_64fd7f9": true
+  },
+  {
+    "arquivo": "assets/maps/municipios/RS.geojson",
+    "sha256": "231012dae247a3fd9122caac217ebe614e16c84941e049996790d679f830b710",
+    "identico_64fd7f9": true
+  },
+  {
+    "arquivo": "assets/maps/municipios/ES.geojson",
+    "sha256": "98d0bd80905cceacf2afc5392de858da5394c74865d4dd8b5501d6f871cf3af4",
+    "identico_64fd7f9": true
+  },
+  {
+    "arquivo": "assets/maps/municipios/SE.geojson",
+    "sha256": "0fae16fa3a0ff1df38237760362a1b822a96ce108fb2440199ca806c761f28a2",
+    "identico_64fd7f9": true
+  },
+  {
+    "arquivo": "assets/maps/municipios/GO.geojson",
+    "sha256": "48b965b2c4d87103910030e0b507cb42237a02346652c68b5e14477d38b2485b",
+    "identico_64fd7f9": true
+  },
+  {
+    "arquivo": "indicator_rules/2025.json",
+    "sha256": "8162d3e8aed865f610b177c22a7becf63114001ed8df86fd822eb2f8ba4c2c78",
+    "identico_64fd7f9": true
+  },
+  {
+    "arquivo": "indicator_rules/historical.json",
+    "sha256": "d801cdc3daec63aa94dffea9a65fbd514b27356249246adeeee0023327d05d48",
+    "identico_64fd7f9": true
+  },
+  {
+    "arquivo": "src/target_progress.py",
+    "sha256": "49f37f2c0bf07eb907dd373a0f4fbbaedc4ab7e8583a5c5f2015ae4a2cf6c1a3",
+    "identico_64fd7f9": true
+  },
+  {
+    "arquivo": "src/data.py",
+    "sha256": "f8b1f468e716ae5981481e5ae3ea327191c12e836e161ea3c9f9c22200fdbe15",
+    "identico_64fd7f9": true
+  },
+  {
+    "arquivo": "src/metrics.py",
+    "sha256": "7c5bfb3ba71ed65008f20f5346b44a178a0c33a391044c26404b29b485569690",
+    "identico_64fd7f9": true
+  },
+  {
+    "arquivo": "src/rules.py",
+    "sha256": "bf4a37b3ce367299a4e630d29398b0c3064f25c8ef37fd6af7fabd1ca55ab25e",
+    "identico_64fd7f9": true
+  },
+  {
+    "arquivo": "src/geography.py",
+    "sha256": "3cf99a2a38f595cb3c9c867f62537c986f15b5b73f5d3f0a3b27bb07c3136e5c",
+    "identico_64fd7f9": true
+  },
+  {
+    "arquivo": "src/territorial_history.py",
+    "sha256": "f272f303963ca8b1b61a99be395cc31a2ed2b3437500c3e06ea34f9c9d55739f",
+    "identico_64fd7f9": true
+  },
+  {
+    "arquivo": "src/state_analysis.py",
+    "sha256": "7550576e9955e1bdeee48da92f0412796a78427b8ff9fa811c381311c7492f81",
+    "identico_64fd7f9": true
+  },
+  {
+    "arquivo": "src/profile_history.py",
+    "sha256": "ead1f5b470c41bde2ae782e059440658ba5b2f406f9cb80b7314214b7962f5ab",
+    "identico_64fd7f9": true
+  },
+  {
+    "arquivo": "src/theme.py",
+    "sha256": "2df33c06e88790563d5e8e75adbfa0fc875a146e2d2652feb6f24189d7e2f392",
+    "identico_64fd7f9": true
+  },
+  {
+    "arquivo": "src/charts.py",
+    "sha256": "af4b508b56c693a98c604fb80b8b8147a2c79acc4d2e6cf35eaa152a374b837c",
+    "identico_64fd7f9": true
+  },
+  {
+    "arquivo": "src/filters.py",
+    "sha256": "a98b16018ec0dea6245299883b5adfec6f18a275845459e363062f20e691295b",
+    "identico_64fd7f9": true
+  },
+  {
+    "arquivo": "requirements.txt",
+    "sha256": "33a293695af862161d9127cf4afe6f09032eee57ccf353df0b4de94fe7342925",
+    "identico_64fd7f9": true
+  },
+  {
+    "arquivo": ".streamlit/config.toml",
+    "sha256": "2c842ec92fb610e47d9e7815781e97754a043e80f5dfb04ec97a393366b61968",
+    "identico_64fd7f9": true
+  }
+]

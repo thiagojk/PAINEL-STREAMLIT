@@ -112,9 +112,9 @@ def test_map_history_controls_lazy_render_and_reset():
     years=app.sidebar.multiselect[0]
     assert years.value==[2014,2016,2018,2019,2021]
     assert years.proto.max_selections==6
-    assert len(app.get('plotly_chart'))==7
+    assert len(app.get('plotly_chart'))==5
     years.set_value([]).run(timeout=60)
-    assert len(app.get('plotly_chart'))==2
+    assert len(app.get('plotly_chart'))==0
     assert any('Selecione até 6 anos' in x.value for x in app.info)
     app.sidebar.button(key='limpar_filtros').click().run(timeout=60)
     assert not app.toggle(key='mapa_historico').value
@@ -139,7 +139,7 @@ def test_map_years_reset_for_incompatible_definition(catalog):
     app.toggle(key='mapa_historico').set_value(True).run(timeout=60)
     app.selectbox(key='mapa_indicador').set_value('IND_08').run(timeout=60)
     assert app.sidebar.multiselect[0].value==[2021]
-    assert len(app.get('plotly_chart'))==3
+    assert len(app.get('plotly_chart'))==1
     assert any('Somente este ano' in x.value for x in app.caption)
     series=catalog.loc[catalog.ANO.eq(2021) & catalog.INDICADOR.eq('IND_08'),'SERIE'].iloc[0]
     with pytest.raises(ValueError,match='incompatíveis'):

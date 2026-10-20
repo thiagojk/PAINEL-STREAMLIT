@@ -121,14 +121,14 @@ def test_mode_preserves_filters_history_status_and_unavailable(data):
     assert app.selectbox(key='mapa_uf').value=='PA'
     assert app.selectbox(key='mapa_indicador').value=='IND_14'
     assert app.sidebar.multiselect[0].value==[2016,2021]
-    assert len(app.get('plotly_chart'))==4
+    assert len(app.get('plotly_chart'))==2
     assert not app.exception and not app.error
     app.sidebar.radio(key='map_mode').set_value('Situação da meta').run(timeout=60)
-    assert len(app.get('plotly_chart'))==4 and app.sidebar.multiselect[0].value==[2016,2021]
+    assert len(app.get('plotly_chart'))==2 and app.sidebar.multiselect[0].value==[2016,2021]
     app.sidebar.radio(key='map_mode').set_value('Grau de alcance (%)').run(timeout=60)
     app.selectbox(key='mapa_indicador').set_value('IND_08').run(timeout=60)
     assert any('Grau percentual de alcance não disponível' in i.value for i in app.info)
-    assert len(app.get('plotly_chart'))==1  # ranking de situação preservado
+    assert len(app.get('plotly_chart'))==0  # só o histórico, com ano indisponível explícito
     app.selectbox(key='mapa_uf').set_value('Todos').run(timeout=60)
     assert any('nem resultado estadual validado' in i.value for i in app.info)
     assert not app.exception and not app.error

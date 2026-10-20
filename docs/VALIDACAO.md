@@ -1,3 +1,36 @@
+# Validação da nona etapa: Mapas fixos e comparação por substituição
+
+Baseline `64fd7f9`, árvore limpa e **95 testes aprovados antes das alterações**. Escopo restrito ao layout de Mapas e aos testes da apresentação alterada.
+
+## Comportamento entregue
+
+- Conteúdo principal: título Mapas, cards e área de visualização. Não há explicações, subtítulo, recorte ou seletor antes dos cards. Cabeçalho institucional e navegação permanecem.
+- Comparação desligada: somente mapa atual e ranking. Ligada: somente a grade histórica com legenda compartilhada. Não há expander histórico abaixo do mapa nem duplicação de figuras. Voltar restaura o conteúdo anterior, preservando filtros e anos. A área usa chaves distintas por apresentação/modo para reiniciar a rolagem no topo; legenda e primeiro ano aparecem imediatamente. O ranking ganhou margem para seus rótulos externos e título curto no eixo, sem mudar valores ou ordenação.
+- O seletor único da sidebar continua governando os dois modos. Situação usa categorias; Grau mantém transformação, cap visual, ausência separada e escala 0–100% já validados. Brasil/UFs preserva o percentual de municípios que atingiram, explicitamente identificado, sem grau estadual ou média municipal.
+- Explicações, definição, alertas, conflitos, quantidades de territórios sem observação, dados e notas de limites estáticos permanecem na sidebar. Sobre mantém a documentação completa. Alertas históricos são apresentados por ano na ajuda.
+- Flex/grid delimitam a área ao viewport (`100dvh`), descontando o espaço realmente ocupado pelo cabeçalho, navegação, título e cards. Plotly usa altura nativa `stretch`, com autoenquadramento existente. CSS só é ativado quando a página contém `map_viewport`.
+- Em telas estreitas, mapa/ranking empilham-se e a grade passa a uma coluna, com rolagem interna na área dos mapas. Sidebar rola de forma independente. Não se bloqueia o acesso a mapas ou controles para simular ausência de scroll.
+
+## Verificação
+
+**95 testes aprovados**, sem testes removidos/desativados. As expectativas de quantidade de figuras foram atualizadas para a substituição solicitada: cinco históricos em vez de principal + cinco; seleção histórica vazia produz estado informativo sem renderizar o mapa atual; ano indisponível não mantém ranking. O teste de sincronização foi ampliado para ligar/desligar a comparação repetidamente nos dois modos, confirmar restauração e filtros, igualdade de cores/escala e ausência de novas leituras de Parquet/GeoJSON.
+
+`python -m compileall -q .` aprovado; `python -m pip check` sem dependências incompatíveis.
+
+Na revisão móvel foram corrigidas a quebra automática das colunas (que podia sobrepor mapa e ranking) e a altura percentual de células em grades sem altura definida. O teste de navegador verifica também a ausência de sobreposição e que cada canvas histórico fica dentro de seu card.
+
+Navegador Chromium em 1920×1080, 1440×900, 1366×768, 1024×768, 768×1024 e 390×844. Pará e Brasil nos dois modos; cinco anos 2013/2015/2017/2019/2021 da série de ocupação (renumeração respeitada). Verificados: exclusividade dos ramos, restauração dos filtros, escala/paleta dos cinco mapas, geometria renderizada, limites do viewport, rolagem interna em telas pequenas, ausência de rolagem geral/horizontal, sidebar e retorno ao fluxo rolável de Visão Geral. Acre com indicador sem Grau também foi exercitado, tanto no mapa atual quanto no histórico.
+
+Relatório: [validacao_mapas_fixos.json](validacao_mapas_fixos.json). Capturas: `screenshots/mapas-fixos-atual-*.png` e `mapas-fixos-comparacao-*.png`. Reprodução: `python scripts/validar_mapas_fixos.py`, com app local na porta 8501 e Chromium em `/usr/bin/chromium`. Scripts visuais de etapas anteriores permanecem como registro do antigo layout simultâneo; não foram usados para alegar validação da nova apresentação.
+
+Integridade: [integridade_mapas_fixos.json](integridade_mapas_fixos.json) comprova **46 arquivos idênticos** ao baseline: dados, geometrias, regras, Grau de alcance, métricas, preparação/cache histórico, paleta, funções de gráficos e filtros, dependências e configuração Streamlit. `app.py` continua como entrypoint; suas mudanças apenas omitem subtítulo/recorte/rodapé em Mapas. Nenhuma dependência nova.
+
+Limite de validação: aplicativo iniciado e exercitado neste ambiente. URL pública do Streamlit Community Cloud não acessada nesta rodada.
+
+---
+
+## Histórico das etapas anteriores
+
 # Validação da oitava etapa: controle global de Mapas na sidebar
 
 Baseline `d7be117`, árvore limpa e 94 testes aprovados antes das alterações. Escopo: localização e apresentação do seletor, sincronização e configuração das cores dos mapas. Entry point, dependências, cálculo de Grau, regras, dados, cache e geometrias preservados byte a byte.
