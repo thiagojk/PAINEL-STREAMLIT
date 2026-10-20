@@ -116,22 +116,21 @@ def test_mode_preserves_filters_history_status_and_unavailable(data):
     app.selectbox(key='mapa_indicador').set_value('IND_14').run(timeout=60)
     app.toggle(key='mapa_historico').set_value(True).run(timeout=60)
     app.sidebar.multiselect[0].set_value([2016,2021]).run(timeout=60)
-    # AppTest exposes segmented_control as button_group in Streamlit 1.66.
-    app.session_state['map_mode']='Grau de alcance (%)'
-    app.run(timeout=60)
+    # Opera o rádio único na sidebar, sem simular um estado paralelo.
+    app.sidebar.radio(key='map_mode').set_value('Grau de alcance (%)').run(timeout=60)
     assert app.selectbox(key='mapa_uf').value=='PA'
     assert app.selectbox(key='mapa_indicador').value=='IND_14'
     assert app.sidebar.multiselect[0].value==[2016,2021]
     assert len(app.get('plotly_chart'))==4
     assert not app.exception and not app.error
-    app.session_state['map_mode']='Situação da meta';app.run(timeout=60)
+    app.sidebar.radio(key='map_mode').set_value('Situação da meta').run(timeout=60)
     assert len(app.get('plotly_chart'))==4 and app.sidebar.multiselect[0].value==[2016,2021]
-    app.session_state['map_mode']='Grau de alcance (%)';app.run(timeout=60)
+    app.sidebar.radio(key='map_mode').set_value('Grau de alcance (%)').run(timeout=60)
     app.selectbox(key='mapa_indicador').set_value('IND_08').run(timeout=60)
     assert any('Grau percentual de alcance não disponível' in i.value for i in app.info)
     assert len(app.get('plotly_chart'))==1  # ranking de situação preservado
     app.selectbox(key='mapa_uf').set_value('Todos').run(timeout=60)
-    assert any('Não há resultado estadual validado' in i.value for i in app.info)
+    assert any('nem resultado estadual validado' in i.value for i in app.info)
     assert not app.exception and not app.error
 
 

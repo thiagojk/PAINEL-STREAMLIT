@@ -323,15 +323,16 @@ def maps(frame, whole, catalog, filters):
     if entry.empty:
         empty_state('Este indicador não está disponível no ano selecionado.'); return
     row = entry.iloc[0]
-    mode = st.segmented_control('Visualização', ['Situação da meta','Grau de alcance (%)'],
-                                default='Situação da meta',selection_mode='single',required=True,wrap=True,key='map_mode')
+    # Uma única fonte: widget da sidebar; o mesmo valor segue para o histórico.
+    mode = st.session_state.get('map_mode', 'Situação da meta')
     progress = mode == 'Grau de alcance (%)'
+    st.caption(f'Visualização: {mode}')
     st.caption('Situação informa se a meta foi atingida. Grau de alcance mede a proximidade numérica quando há transformação válida; a situação da fonte é preservada.')
     from src.target_progress import progress_rule, progress_layer, progress_signature
     rule = progress_rule(row)
     available = bool(rule and rule['supports_progress_map'])
-    if progress and filters['uf'] == 'Todos':
-        st.info('Brasil / UFs: % dos municípios da UF que atingiram a meta. Não há resultado estadual validado para calcular grau de alcance estadual, nem média dos graus municipais. Escolha uma UF para consultar o grau individual dos municípios.')
+    if filters['uf'] == 'Todos':
+        st.info('Brasil / UFs: % dos municípios da UF que atingiram a meta. Não há situação oficial única nem resultado estadual validado para calcular grau de alcance estadual, nem média dos graus municipais. Escolha uma UF para consultar o grau individual dos municípios.')
     elif progress and available:
         st.caption('Municípios: 100 × resultado percentual ÷ meta positiva do ano; cor limitada a 100%, valor real no tooltip. 100% indica o limite numérico atingido; a situação oficial continua sendo a informada pela fonte. Cinza: grau indisponível, distinto de zero.')
     label = description_label(row)
@@ -365,7 +366,7 @@ def maps(frame, whole, catalog, filters):
                 else:
                     plot(charts.municipality_map(layer, geometry, filters['year'], hover_label, str(row.LABEL_META)))
                 if not progress: st.html('<div class="map-legend">' + ''.join(
-                    f'<span><i style="background:{charts.COLORS[status]}"></i>{text}</span>' for status, text in
+                    f'<span><i style="background:{charts.MAP_STATUS_COLORS[status]}"></i>{text}</span>' for status, text in
                     zip(STATUS, ['✓ Meta atingida','✕ Meta não atingida','— Sem informação'])) + '</div>')
                 no_record = int((~layer.TEM_OBSERVACAO).sum())
                 st.caption(f'{number(no_record)} territórios da malha sem observação no recorte (cinza). Não entram no denominador nem são acrescentados à base.')
@@ -408,6 +409,7 @@ def territorial_history(catalog, filters, progress=False):
     entry = catalog.loc[catalog.ANO.eq(filters['year']) & catalog.INDICADOR.eq(filters['indicator'])].iloc[0]
     enabled = st.session_state.get('mapa_historico', False)
     with st.expander('Evolução territorial — comparar mapas ao longo dos anos', expanded=enabled):
+        st.caption('Visualização: ' + ('Grau de alcance (%)' if progress else 'Situação da meta'))
         if not enabled:
             st.caption('Ative Comparar mapas no tempo na sidebar para escolher até 6 anos compatíveis.')
             return
@@ -419,10 +421,12 @@ def territorial_history(catalog, filters, progress=False):
         geometry_signature = map_signature(None if nationwide else filters['uf'])
         geometry = load_geojson(geometry_signature)
         prepared = prepare_history(file_signature(), entry.SERIE, filters['uf'], tuple(years), geometry_signature)
+        if nationwide:
+            st.caption('Brasil / UFs: percentual de municípios que atingiram; não é uma classificação categórica da UF nem grau de alcance estadual.')
         if nationwide or progress:
             st.html('<div class="shared-scale"><b>' + ('% dos municípios que atingiram' if nationwide else 'Grau de alcance da meta') + '</b><div></div><span>0%</span><span>50%</span><span>100%</span></div>')
         else:
-            st.html('<div class="map-legend">' + ''.join(f'<span><i style="background:{charts.COLORS[status]}"></i>{escape(status)}</span>' for status in STATUS) + '</div>')
+            st.html('<div class="map-legend">' + ''.join(f'<span><i style="background:{charts.MAP_STATUS_COLORS[status]}"></i>{escape(status)}</span>' for status in STATUS) + '</div>')
         from src.target_progress import progress_rule, progress_layer, progress_signature, continuous_compatibility
         if progress and not nationwide:
             entries = catalog.loc[catalog.SERIE.eq(entry.SERIE) & catalog.ANO.isin(years)]

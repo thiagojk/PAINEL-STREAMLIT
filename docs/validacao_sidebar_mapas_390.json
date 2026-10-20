@@ -1,0 +1,45 @@
+{
+  "telas": [
+    {
+      "largura": 390,
+      "pagina": "Visão Geral",
+      "sem_overflow": true
+    },
+    {
+      "largura": 390,
+      "pagina": "Estados",
+      "sem_overflow": true
+    },
+    {
+      "largura": 390,
+      "pagina": "Mapas",
+      "sem_overflow": true
+    },
+    {
+      "largura": 390,
+      "pagina": "Histórico",
+      "sem_overflow": true
+    },
+    {
+      "largura": 390,
+      "pagina": "Dados",
+      "sem_overflow": true
+    },
+    {
+      "largura": 390,
+      "pagina": "Sobre",
+      "sem_overflow": true
+    }
+  ],
+  "mapas": [
+    {
+      "largura": 390,
+      "municipal_continuo": true,
+      "historico_escala_0_100": true,
+      "filtros_preservados": true
+    }
+  ],
+  "tooltips": [],
+  "erros": [],
+  "externos": []
+}

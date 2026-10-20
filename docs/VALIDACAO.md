@@ -1,3 +1,37 @@
+# Validação da oitava etapa: controle global de Mapas na sidebar
+
+Baseline `d7be117`, árvore limpa e 94 testes aprovados antes das alterações. Escopo: localização e apresentação do seletor, sincronização e configuração das cores dos mapas. Entry point, dependências, cálculo de Grau, regras, dados, cache e geometrias preservados byte a byte.
+
+## Controle e representação
+
+O seletor fica na sidebar de Mapas, depois de Ano, UF e Indicador e antes de Evolução territorial. Foi escolhido `st.radio` vertical nativo com largura estendida: mantém rótulos completos, área de clique de pelo menos 40 px, foco visível e duas opções permanentemente legíveis na sidebar estreita. Não há controle de modo na área principal; somente captions do modo ativo. Limpar filtros restaura Situação sem trocar a página.
+
+`map_mode` é a única fonte de verdade. `views.maps` lê esse estado e envia o mesmo booleano `progress` a `territorial_history`, que governa todos os mapas anuais. Não foram criados estados para mapa principal/histórico. Alternar preserva ano, UF, indicador e anos escolhidos.
+
+Cores categóricas existentes preservadas: Atingida **#147D73**, Não atingida **#B45B44**, Sem informação **#AFBAC4**. Teal versus terracota têm matizes distintos, com texto/símbolos na legenda e no tooltip. Os mapas municipais de Situação usam três cores discretas, sem colorbar. Grau usa a escala sequencial existente **#EDF6F3 → #BDDDD3 → #7DB9AB → #398E80 → #116357**, com `zmin=0`, `zmax=100` em todos os anos. Não há interpolação terracota→teal. Sem grau calculável fica cinza, fora da escala e diferente do zero válido claro. O cap visual e os tooltips permanecem conforme a metodologia validada.
+
+Tokens centrais: `MAP_STATUS_REACHED`, `MAP_STATUS_NOT_REACHED`, `MAP_STATUS_MISSING`, `MAP_STATUS_COLORS`, `MAP_PROGRESS_SCALE`. Mapas principais, mapas históricos e legendas usam os mesmos tokens. O histórico compartilha uma legenda e não repete colorbars em cada mapa.
+
+**Distinção nacional preservada:** o mapa Brasil/UFs continua mostrando % dos municípios que atingiram a meta nos dois modos, com aviso explícito também em Situação e no histórico. Não existe situação oficial única nem grau estadual validado na base. Por isso o mapa de UFs permanece quantitativo; não foi convertido em categorias mediante cortes arbitrários, nem foram calculadas médias municipais. A exigência de representação estritamente categórica no modo Situação aplica-se aos mapas municipais com situação registrada. Selecionar uma UF oferece a alternância categórica/contínua completa. Esta exceção é necessária para preservar os cálculos e a distinção territorial solicitados.
+
+## Evidências
+
+- **95 testes aprovados**: todos os 94 anteriores e um novo teste integrado de sincronização.
+- Novo teste opera o rádio real da sidebar quatro vezes. Com PA, indicador 13/14 (ocupação) e 2013/2015/2017/2019/2021, verifica um mapa principal + cinco históricos, cores discretas em Situação, gradiente/escala fixa em Grau e preservação de todos os filtros. Verifica também existência de um único controle na sidebar, ausência de estados separados e zero novas leituras de Parquet/GeoJSON após o preparo inicial.
+- Testes anteriores de Grau atualizados para operar o rádio nativo, preservando asserções de valores, ausências, regras indisponíveis e série conceitual. Nenhuma fórmula foi alterada.
+- `python -m compileall -q .`: aprovado. `python -m pip check`: sem dependências incompatíveis.
+- Navegador Chromium real: 1920×1080, 1440×900, 1366×768, 1024×768, 768×1024 e 390×844; sidebar, rádio, mapa principal e histórico nos dois modos. Sem controles duplicados, cortes dos rótulos ou overflow horizontal da página/área principal. Brasil, Pará e Acre, vários indicadores e anos, inclusive grau indisponível. Sem erros JavaScript nem requisições externas da página.
+- `scripts/validar_evolucao.py` também aprovado: renumeração, tooltips, cinco mapas temporais, legendas e responsividade anteriores preservados.
+- [integridade_sidebar_mapas.json](integridade_sidebar_mapas.json): **44 arquivos protegidos idênticos** ao baseline, incluindo os três arquivos de dados, 28 GeoJSONs, toda configuração de regras, `target_progress.py`, cálculo e preparação histórica, `app.py`, dependências e configuração Streamlit.
+
+Reprodução: `python scripts/validar_tema_mapas.py` com app local na porta 8501 e Chromium em `/usr/bin/chromium`; `--width 390` restringe o diagnóstico à largura móvel. Relatório: [validacao_sidebar_mapas.json](validacao_sidebar_mapas.json). Capturas: `screenshots/sidebar-situacao-mapa-*.png`, `sidebar-grau-mapa-*.png`, `sidebar-grau-historico-*.png`. Na primeira execução visual, a verificação de área clicável incluiu indevidamente o título do widget; foi restrita aos rótulos das duas opções, mantendo a verificação de 40 px.
+
+Compatibilidade Streamlit Community Cloud preservada: mesma versão, entrypoint e dependências. Aplicação validada no ambiente local; URL pública não acessada nesta rodada.
+
+---
+
+## Histórico das etapas anteriores
+
 # Validação da sétima etapa: tema e grau de alcance nos mapas
 
 Baseline: `fa80798`, árvore limpa e 72 testes aprovados antes de editar. Foram examinados entrada, módulos, testes, scripts, estilos, dependências, documentação, catálogo anual e configurações históricas/2025. A origem `main` estava no mesmo commit. Nenhuma página removida foi recriada.

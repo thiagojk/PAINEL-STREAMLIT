@@ -101,6 +101,9 @@ def map_filters(base, catalog):
         labels = {r.INDICADOR: description_label(r) for r in d.itertuples()}
         indicator = select('Indicador', list(labels), 'mapa_indicador', lambda x: labels[x])
         st.divider()
+        st.radio('Visualização do mapa', ['Situação da meta','Grau de alcance (%)'], key='map_mode', width='stretch')
+        st.divider()
+        st.caption('EVOLUÇÃO TERRITORIAL')
         enabled = st.toggle('Comparar mapas no tempo', key='mapa_historico')
         entry = d.loc[d.INDICADOR.eq(indicator)].iloc[0]
         years = compatible_years(catalog, entry.SERIE)

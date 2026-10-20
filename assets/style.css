@@ -125,4 +125,9 @@ h1 { font-size:1.4rem !important; } h2 { font-size:1.16rem !important; } h3 { fo
   .st-key-chartpanel_persistence [data-testid="stElementContainer"]:has([data-testid="stPlotlyChart"]) {min-width:900px;}
 }
 
-.st-key-map_mode button {white-space:normal;min-height:38px;}
+/* Rádio vertical: rótulos completos e área de toque na sidebar estreita. */
+.st-key-map_mode [role="radiogroup"] {gap:5px;width:100%;align-items:stretch;}
+.st-key-map_mode [role="radiogroup"] label {width:100%;padding:7px 9px;margin:0 !important;border:1px solid var(--border);border-radius:7px;min-height:40px;background:var(--surface);}
+.st-key-map_mode [role="radiogroup"] label:has(input:checked) {background:var(--primary-light);border-color:var(--primary);}
+.st-key-map_mode [role="radiogroup"] label:has(input:focus-visible) {outline:2px solid var(--primary);outline-offset:2px;}
+.st-key-map_mode [role="radiogroup"] label p {white-space:normal;}

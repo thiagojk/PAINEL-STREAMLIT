@@ -1,0 +1,230 @@
+{
+  "telas": [
+    {
+      "largura": 1920,
+      "pagina": "Visão Geral",
+      "sem_overflow": true
+    },
+    {
+      "largura": 1920,
+      "pagina": "Estados",
+      "sem_overflow": true
+    },
+    {
+      "largura": 1920,
+      "pagina": "Mapas",
+      "sem_overflow": true
+    },
+    {
+      "largura": 1920,
+      "pagina": "Histórico",
+      "sem_overflow": true
+    },
+    {
+      "largura": 1920,
+      "pagina": "Dados",
+      "sem_overflow": true
+    },
+    {
+      "largura": 1920,
+      "pagina": "Sobre",
+      "sem_overflow": true
+    },
+    {
+      "largura": 1440,
+      "pagina": "Visão Geral",
+      "sem_overflow": true
+    },
+    {
+      "largura": 1440,
+      "pagina": "Estados",
+      "sem_overflow": true
+    },
+    {
+      "largura": 1440,
+      "pagina": "Mapas",
+      "sem_overflow": true
+    },
+    {
+      "largura": 1440,
+      "pagina": "Histórico",
+      "sem_overflow": true
+    },
+    {
+      "largura": 1440,
+      "pagina": "Dados",
+      "sem_overflow": true
+    },
+    {
+      "largura": 1440,
+      "pagina": "Sobre",
+      "sem_overflow": true
+    },
+    {
+      "largura": 1366,
+      "pagina": "Visão Geral",
+      "sem_overflow": true
+    },
+    {
+      "largura": 1366,
+      "pagina": "Estados",
+      "sem_overflow": true
+    },
+    {
+      "largura": 1366,
+      "pagina": "Mapas",
+      "sem_overflow": true
+    },
+    {
+      "largura": 1366,
+      "pagina": "Histórico",
+      "sem_overflow": true
+    },
+    {
+      "largura": 1366,
+      "pagina": "Dados",
+      "sem_overflow": true
+    },
+    {
+      "largura": 1366,
+      "pagina": "Sobre",
+      "sem_overflow": true
+    },
+    {
+      "largura": 1024,
+      "pagina": "Visão Geral",
+      "sem_overflow": true
+    },
+    {
+      "largura": 1024,
+      "pagina": "Estados",
+      "sem_overflow": true
+    },
+    {
+      "largura": 1024,
+      "pagina": "Mapas",
+      "sem_overflow": true
+    },
+    {
+      "largura": 1024,
+      "pagina": "Histórico",
+      "sem_overflow": true
+    },
+    {
+      "largura": 1024,
+      "pagina": "Dados",
+      "sem_overflow": true
+    },
+    {
+      "largura": 1024,
+      "pagina": "Sobre",
+      "sem_overflow": true
+    },
+    {
+      "largura": 768,
+      "pagina": "Visão Geral",
+      "sem_overflow": true
+    },
+    {
+      "largura": 768,
+      "pagina": "Estados",
+      "sem_overflow": true
+    },
+    {
+      "largura": 768,
+      "pagina": "Mapas",
+      "sem_overflow": true
+    },
+    {
+      "largura": 768,
+      "pagina": "Histórico",
+      "sem_overflow": true
+    },
+    {
+      "largura": 768,
+      "pagina": "Dados",
+      "sem_overflow": true
+    },
+    {
+      "largura": 768,
+      "pagina": "Sobre",
+      "sem_overflow": true
+    },
+    {
+      "largura": 390,
+      "pagina": "Visão Geral",
+      "sem_overflow": true
+    },
+    {
+      "largura": 390,
+      "pagina": "Estados",
+      "sem_overflow": true
+    },
+    {
+      "largura": 390,
+      "pagina": "Mapas",
+      "sem_overflow": true
+    },
+    {
+      "largura": 390,
+      "pagina": "Histórico",
+      "sem_overflow": true
+    },
+    {
+      "largura": 390,
+      "pagina": "Dados",
+      "sem_overflow": true
+    },
+    {
+      "largura": 390,
+      "pagina": "Sobre",
+      "sem_overflow": true
+    }
+  ],
+  "mapas": [
+    {
+      "largura": 1920,
+      "municipal_continuo": true,
+      "historico_escala_0_100": true,
+      "filtros_preservados": true
+    },
+    {
+      "largura": 1440,
+      "municipal_continuo": true,
+      "historico_escala_0_100": true,
+      "filtros_preservados": true
+    },
+    {
+      "largura": 1366,
+      "municipal_continuo": true,
+      "historico_escala_0_100": true,
+      "filtros_preservados": true
+    },
+    {
+      "largura": 1024,
+      "municipal_continuo": true,
+      "historico_escala_0_100": true,
+      "filtros_preservados": true
+    },
+    {
+      "largura": 768,
+      "municipal_continuo": true,
+      "historico_escala_0_100": true,
+      "filtros_preservados": true
+    },
+    {
+      "largura": 390,
+      "municipal_continuo": true,
+      "historico_escala_0_100": true,
+      "filtros_preservados": true
+    }
+  ],
+  "tooltips": [
+    "Belém · PAAno: 2021Indicador: Indicador 01 — Proporção de registros de óbitosalimentados no SIM em relação ao estimado, recebidos nabase federal em até 60 dias após o final do mês deocorrência.Resultado: 125,73%Meta: Meta >= 90%Grau de alcance: ≥100% (real: 139,7%)Situação da fonte: AtingidaObservação presente",
+    "Belém · PAAno: 2021Indicador: Indicador 02 — Proporção de registros de nascidos vivosalimentados no Sinasc em relação ao estimado, recebidosna base federal até 60 dias após o final do mês deocorrência.Resultado: 79,53%Meta: Meta >= 90%Grau de alcance: 88,4%Situação da fonte: Não atingidaObservação presente",
+    "Belém · PAAno: 2021Indicador: Indicador 04 — Proporção de vacinas selecionadas quecompõem o Calendário Nacional de Vacinação paracrianças menores de 1 ano de idade (Pentavalente - 3ªdose, Poliomielite - 3ª dose, Pneumocócica 10 valente -2ª dose) e para crianças de 1 ano de idade (trípliceviral - 1ª dose) – com coberturas vacinaispreconizadas.Resultado: 0,00%Meta: Meta >= 100%Grau de alcance: 0,0%Situação da fonte: Não atingidaObservação presente",
+    "Belém · PAAno: 2021Indicador: Indicador 07 — Proporção de casos de malária queiniciaram tratamento em tempo oportuno.Resultado: 42,00%Meta: Meta >= 70%Grau de alcance: 60,0%Situação da fonte: Não atingidaObservação presente"
+  ],
+  "erros": [],
+  "externos": []
+}

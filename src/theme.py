@@ -21,6 +21,12 @@ PALETTE = [CHART_1, CHART_2, CHART_3, CHART_4, CHART_5]
 COLORS = {'Atingida': POSITIVE, 'Não atingida': NEGATIVE, 'Sem informação': NEUTRAL}
 # Luminância decrescente; sem centro artificial ou oposição vermelho × verde.
 MAP_SCALE = [[0, '#EDF6F3'], [.25, '#BDDDD3'], [.5, '#7DB9AB'], [.75, '#398E80'], [1, '#116357']]
+# Mapas reutilizam a semântica global; categorias nunca viram um gradiente.
+MAP_STATUS_REACHED = POSITIVE
+MAP_STATUS_NOT_REACHED = NEGATIVE
+MAP_STATUS_MISSING = NEUTRAL
+MAP_STATUS_COLORS = {'Atingida': MAP_STATUS_REACHED, 'Não atingida': MAP_STATUS_NOT_REACHED, 'Sem informação': MAP_STATUS_MISSING}
+MAP_PROGRESS_SCALE = MAP_SCALE
 TOKENS = {k: v for k, v in list(globals().items()) if k.isupper() and isinstance(v, str)}
 
 def css_variables():

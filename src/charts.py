@@ -7,7 +7,7 @@ import plotly.graph_objects as go
 from src.data import STATUS
 from src.utils import number, percent, result
 
-from src.theme import COLORS, PRIMARY as BLUE, PALETTE, MAP_SCALE, TEXT_PRIMARY, TEXT_SECONDARY, BORDER, SURFACE, NEGATIVE, NEUTRAL, SECONDARY
+from src.theme import COLORS, PRIMARY as BLUE, PALETTE, MAP_SCALE, TEXT_PRIMARY, TEXT_SECONDARY, BORDER, SURFACE, NEGATIVE, NEUTRAL, SECONDARY, MAP_STATUS_COLORS, MAP_PROGRESS_SCALE
 CHART_HEIGHT_STANDARD = 325
 CHART_HEIGHT_COMPACT = 300
 CHART_HEIGHT_LARGE = 420
@@ -155,7 +155,7 @@ def state_map(summary, geojson, year, indicator_label):
                number(r.NAO_ATINGIRAM), number(r.SEM_INFORMACAO), percent(r.CUMPRIMENTO)] for r in known.itertuples()]
     fig.add_trace(go.Choropleth(geojson=geojson, locations=known.UF, featureidkey='properties.UF',
         z=known.CUMPRIMENTO, zmin=0, zmax=100,
-        colorscale=MAP_SCALE,
+        colorscale=MAP_PROGRESS_SCALE,
         marker_line_color=SURFACE, marker_line_width=1, customdata=custom,
         colorbar=dict(title='% municípios que atingiram', orientation='h', x=.5, y=-.07, len=.78, thickness=10,
                       tickvals=[0,20,40,60,80,100], ticktext=['0%','20%','40%','60%','80%','100%']),
@@ -163,7 +163,7 @@ def state_map(summary, geojson, year, indicator_label):
     unknown = data[data.CUMPRIMENTO.isna()]
     if len(unknown):
         fig.add_trace(go.Choropleth(geojson=geojson, locations=unknown.UF, featureidkey='properties.UF',
-            z=[0]*len(unknown), colorscale=[[0,COLORS[STATUS[2]]],[1,COLORS[STATUS[2]]]], showscale=False,
+            z=[0]*len(unknown), colorscale=[[0,MAP_STATUS_COLORS[STATUS[2]]],[1,MAP_STATUS_COLORS[STATUS[2]]]], showscale=False,
             marker_line_color=SURFACE, customdata=[[r.NOME_UF, str(year), indicator_label, number(r.AVALIADOS), number(r.ATINGIRAM), number(r.NAO_ATINGIRAM), number(r.SEM_INFORMACAO)] for r in unknown.itertuples()],
             hovertemplate='<b>%{customdata[0]}</b><br>Ano: %{customdata[1]}<br>Indicador: %{customdata[2]}<br>Municípios avaliados: %{customdata[3]}<br>Atingiram: %{customdata[4]}<br>Não atingiram: %{customdata[5]}<br>Sem informação: %{customdata[6]}<br>Cumprimento: — (sem avaliação disponível)<extra></extra>'))
     return _map_layout(fig, geojson, f'UF-{year}-{indicator_label}')
@@ -180,7 +180,7 @@ def municipality_map(layer, geojson, year, indicator_label, rule):
                    ('✓ Meta atingida' if status == STATUS[0] else '✕ Meta não atingida' if status == STATUS[1] else '— Sem informação'),
                    'Observação presente' if r.TEM_OBSERVACAO else 'Sem observação neste recorte'] for r in rows.itertuples()]
         fig.add_trace(go.Choropleth(geojson=geojson, locations=rows.COD_MUN, featureidkey='properties.COD_MUN',
-            z=[0]*len(rows), colorscale=[[0,COLORS[status]],[1,COLORS[status]]],
+            z=[0]*len(rows), colorscale=[[0,MAP_STATUS_COLORS[status]],[1,MAP_STATUS_COLORS[status]]],
             marker_line_color=SURFACE, marker_line_width=.45, showscale=False, name=status,
             customdata=custom,
             hovertemplate='<b>%{customdata[0]} · %{customdata[1]}</b><br>Código da base: %{customdata[2]}<br>Ano: %{customdata[3]}<br>Indicador: %{customdata[4]}<br>Resultado: %{customdata[5]}<br>Meta: %{customdata[6]}<br>Situação: %{customdata[7]}<br>%{customdata[8]}<extra></extra>'))
@@ -341,7 +341,7 @@ def target_progress_map(layer, geojson, year, indicator_label, rule):
                    'Observação presente' if r.TEM_OBSERVACAO else 'Sem observação neste recorte'] for r in rows.itertuples()]
         fig.add_trace(go.Choropleth(geojson=geojson, locations=rows.COD_MUN,
             featureidkey='properties.COD_MUN', z=rows.GRAU_VISUAL if valid else [0]*len(rows),
-            zmin=0,zmax=100,colorscale=MAP_SCALE if valid else [[0,COLORS[STATUS[2]]],[1,COLORS[STATUS[2]]]],
+            zmin=0,zmax=100,colorscale=MAP_PROGRESS_SCALE if valid else [[0,MAP_STATUS_COLORS[STATUS[2]]],[1,MAP_STATUS_COLORS[STATUS[2]]]],
             showscale=valid,marker_line_color=SURFACE,marker_line_width=.45,customdata=custom,
             colorbar=dict(title='Grau de alcance da meta',orientation='h',x=.5,y=-.07,len=.85,thickness=10,
                           tickvals=[0,25,50,75,100],ticktext=['0%','25%','50%','75%','100%']),
