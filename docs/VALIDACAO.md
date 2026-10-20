@@ -1,3 +1,55 @@
+# Validação da sétima etapa: tema e grau de alcance nos mapas
+
+Baseline: `fa80798`, árvore limpa e 72 testes aprovados antes de editar. Foram examinados entrada, módulos, testes, scripts, estilos, dependências, documentação, catálogo anual e configurações históricas/2025. A origem `main` estava no mesmo commit. Nenhuma página removida foi recriada.
+
+## Resultado e metodologia
+
+Tema e semântica estão em `src/theme.py`; desenho e hierarquia anteriores preservados. Alterações de cor atingem cards, navbar, sidebar, header, tabelas, donut, séries, barras empilhadas, rankings, cobertura, comparações, mapas e heatmaps. Antes: primária #137C8B, atingida #14887D, não atingida #CA785C, neutra #ACB9C8, escalas divergentes. Agora: primária #176B78, profunda #123E52, atingida #147D73, não atingida #B45B44, neutra #AFBAC4, fundo #F1F5F8 e branco nas superfícies. A primária evolui a identidade teal/azul; terracota complementar é moderada. Os tokens de texto e as duas cores semânticas têm contraste mínimo 4,5:1 sobre branco; escala sequencial tem luminância monotônica. Não é certificação integral WCAG. Legendas/textos e traçados continuam necessários.
+
+O seletor nativo obrigatório, com quebra de linha em telas estreitas, alterna a mesma área atual e histórica. Situação oficial continua intocada. A razão complementar só existe para 92 combinações indicador/ano com meta percentual crescente explícita, escala validada e sem alerta; o registro individual também precisa de resultado e NUM/DEN consistentes. 36 combinações não suportadas. Cadastro completo com tipo, fórmula e justificativa: [GRAU_ALCANCE_INDICADORES.md](GRAU_ALCANCE_INDICADORES.md). Não foram cadastradas fórmulas inversas, de zero, baseline ou compostas sem suporte.
+
+Grau real = 100 × resultado (%) / meta positiva anual; grau visual = min(100, grau real). Resultado acima de 100% pode ocorrer em razões com estimativas no denominador (como óbitos esperados); não é apagado ou corrigido. A situação da fonte é independente, preservada no tooltip. Zero válido é claro; grau indisponível é cinza, nunca zero. Motivo é apresentado. Brasil / UFs continua sendo percentual de municípios que atingiram a meta, explicitamente rotulado, com aviso de ausência de grau estadual no modo Grau. Não foi feita média municipal.
+
+Histórico usa a mesma série conceitual, inclusive renumeração, com grupo de transformação compatível, escala 0–100 e legenda compartilhada. Regras anuais e mudanças de limite permanecem no tooltip; proximidade relativa não implica resultados absolutos idênticos. Anos sem transformação apresentam indisponibilidade; incompatibilidade de transformação impede comparação. Cache de camadas derivadas não contém novas geometrias, usa assinatura dos dados e regras; os caches existentes de geometria/séries são reutilizados.
+
+## Conferência numérica independente
+
+Parquet original, Belém/PA, código 150140, 2021. Esperados calculados por `100 × (100 × NUM/DEN) / limite literal do catálogo`, sem usar a função da métrica. Diferenças < 1e-8. Valores reais foram conferidos também no tooltip do navegador (arredondamento a uma casa no grau).
+
+| Indicador | NUM | DEN | Resultado (%) | Meta (%) | Grau real (%) | Cor (%) |
+|---|---:|---:|---:|---:|---:|---:|
+| IND_01 | 11865 | 9437 | 125.72851542 | 90 | 139.69835046 | 100.00000000 |
+| IND_02 | 16621 | 20898 | 79.53392669 | 90 | 88.37102966 | 88.37102966 |
+| IND_04 | 0 | 4 | 0.00000000 | 100 | 0.00000000 | 0.00000000 |
+| IND_07 | 21 | 50 | 42.00000000 | 70 | 60.00000000 | 60.00000000 |
+
+A exigência de três tipos matemáticos diferentes não pode ser satisfeita com segurança nesta base: apenas a família percentual crescente tem suporte. Foram conferidos quatro indicadores reais, incluindo metas de 90%, 100% e 70%, com ultrapassagem, proximidade parcial e zero. Aumento de HIV foi auditado como indisponível por baseline não identificado; ciclos/cobertura e meta em semanas permanecem indisponíveis. Não se inventaram casos reais decrescentes, de baseline ou compostos para preencher essa validação. Os testes sintéticos verificam que esses tipos retornam motivo de indisponibilidade.
+
+Auditoria reproduzível: `python scripts/auditar_grau_alcance.py`; [auditoria_grau_alcance.json](auditoria_grau_alcance.json) contém valores, cobertura PA/AC por indicador, tempo de preparo/cache e SHA-256 de 40 arquivos comparados byte a byte ao baseline. Inclui dados, 28 GeoJSONs, entrada, dependências e módulos de cálculos anteriores. Só o cadastro histórico ganhou metadados complementares; status `source_only`, regras oficiais e referência 2025 permanecem intactos.
+
+## Verificações
+
+- `python -m pytest -q`: **94 testes aprovados** (72 anteriores + 22 novos), sem testes removidos ou desativados.
+- `python -m compileall -q .`: aprovado.
+- `python -m pip check`: sem dependências incompatíveis.
+- Testes da métrica: crescente, abaixo/igual/acima da meta, cap, zero, ausências/não finitos, metas não positivas, negativos, baseline ausente, baseline sem regra, direção inversa, manutenção de zero, regra composta e sem suporte.
+- Testes de mapas: geometrias PA/AC, camada vazia, ausência diferente de zero, tooltip, cores, escala, renumeração 15→14, série incompatível, modo categórico/contínuo, histórico e preservação dos filtros. Nenhum dado ou situação é alterado.
+- Contraste, coerência de tokens e luminância sequencial são verificados numericamente.
+- Navegador Chromium real, seis páginas e 1920×1080, 1440×900, 1366×768, 1024×768, 768×1024, 390×844. Modos principal/histórico, Brasil, Pará, Acre, diferentes indicadores e anos, casos indisponíveis e tooltips reais. Sem overflow da página, erros JS ou requisições externas. Capturas e relatórios abaixo.
+- Regressões: `scripts/validar_interface.py`, `scripts/validar_estados.py`, `scripts/validar_evolucao.py` e `scripts/validar_refinamento.py`. Exportações CSV/XLSX, navegação, sidebar e explorações anteriores preservadas.
+
+Foi corrigida uma fuga horizontal no celular: os inputs invisíveis dos rádios nativos da navbar escapavam de seus rótulos e ampliavam a área rolável principal. `position:relative` nos rótulos estabelece o bloco correto para os inputs; navegação/teclado nativos e rolagem interna da navbar permanecem. O novo script verifica também `stMain.scrollLeft == 0` e largura rolável limitada ao viewport em todas as páginas e nos novos modos.
+
+O teste antigo de cores dos mapas temporais foi atualizado para consultar o registro central, mantendo as verificações de constância entre anos. A validação inicial do novo script detectou seletores de automação incorretos (indicador com zero à esquerda e `role=radio` do segmented control); e recolhimento da sidebar sobreposta no celular; foram corrigidos sem relaxar as asserções de dados, filtros ou escala.
+
+Relatórios: [tema e mapas](validacao_tema_mapas.json), [interface](validacao_navegador.json), [Estados](validacao_estados.json), [histórico territorial](validacao_evolucao.json), [refinamentos anteriores](validacao_refinamento.json). Capturas: `screenshots/tema-*.png`, `grau-mapa-*.png`, `grau-historico-*.png` e `situacao-mapa-*.png`.
+
+Compatibilidade: mesmas dependências, entrypoint e configuração de arquivos estáticos, sem Node, Docker, banco ou serviço externo. O aplicativo foi iniciado e validado localmente no ambiente de trabalho; **a URL publicada do Streamlit Community Cloud não foi acessada nem verificada**. Os tempos de preparo registrados são locais, não garantias de latência do hosting.
+
+---
+
+## Histórico de validações anteriores
+
 # Validação da sexta etapa: hierarquia dos cards e explorações históricas
 
 A `main` em `43ada3f` estava limpa e seus **64 testes passaram antes das alterações**. A navegação segue Visão Geral, Estados, Mapas, Histórico, Dados, Sobre; nenhuma página removida foi recriada.

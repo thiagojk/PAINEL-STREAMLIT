@@ -7,7 +7,7 @@ from src.historical import concept_options, compatible_years, representative_yea
 
 FILTER_KEYS = {'ano','uf','municipio','indicador','serie','conceito',
                'mapa_ano','mapa_uf','mapa_indicador','situacao','linhas_por_pagina','pagina_tabela',
-               'mapa_historico','ordem_estados','hist_explorar','hist_perfil_periodo'}
+               'mapa_historico','map_mode','ordem_estados','hist_explorar','hist_perfil_periodo'}
 
 
 def clear_filters():

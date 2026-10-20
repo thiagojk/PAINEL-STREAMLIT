@@ -7,9 +7,7 @@ import plotly.graph_objects as go
 from src.data import STATUS
 from src.utils import number, percent, result
 
-COLORS = {'Atingida': '#14887D', 'Não atingida': '#CA785C', 'Sem informação': '#ACB9C8'}
-BLUE = '#206A8A'
-PALETTE = ['#137C8B', '#5266A4', '#A66D38', '#835894', '#587A3C']
+from src.theme import COLORS, PRIMARY as BLUE, PALETTE, MAP_SCALE, TEXT_PRIMARY, TEXT_SECONDARY, BORDER, SURFACE, NEGATIVE, NEUTRAL, SECONDARY
 CHART_HEIGHT_STANDARD = 325
 CHART_HEIGHT_COMPACT = 300
 CHART_HEIGHT_LARGE = 420
@@ -30,16 +28,16 @@ def align_row_figures(*figures):
 
 def style(fig, title=None, height=CHART_HEIGHT_STANDARD, percent_axis=False):
     fig.update_layout(
-        title=dict(text='<br>'.join(textwrap.wrap(title, 36)) if title else '', font=dict(size=16, color='#18344A'), x=0),
-        font=dict(family='Arial, sans-serif', size=12, color='#526578'),
+        title=dict(text='<br>'.join(textwrap.wrap(title, 36)) if title else '', font=dict(size=16, color=TEXT_PRIMARY), x=0),
+        font=dict(family='Arial, sans-serif', size=12, color=TEXT_SECONDARY),
         paper_bgcolor='rgba(0,0,0,0)', plot_bgcolor='rgba(0,0,0,0)',
         margin=dict(l=12, r=16, t=(58 if title and len(title) > 36 else 38) if title else 12, b=16), height=height,
         legend=dict(title=None, orientation='h', y=-.16, x=0),
-        hoverlabel=dict(bgcolor='#18344A', font_color='white'),
+        hoverlabel=dict(bgcolor=TEXT_PRIMARY, font_color=SURFACE),
         separators=',.',
     )
     fig.update_xaxes(showgrid=False, zeroline=False)
-    fig.update_yaxes(gridcolor='#E6ECF1', zeroline=False)
+    fig.update_yaxes(gridcolor=BORDER, zeroline=False)
     if percent_axis:
         fig.update_yaxes(ticksuffix='%', rangemode='tozero')
     return fig
@@ -48,22 +46,22 @@ def style(fig, title=None, height=CHART_HEIGHT_STANDARD, percent_axis=False):
 def donut(frame):
     counts = frame.SITUACAO.value_counts().reindex(STATUS, fill_value=0)
     fig = go.Figure(go.Pie(labels=counts.index, values=counts.values, hole=.73,
-                          marker=dict(colors=[COLORS[k] for k in STATUS], line=dict(color='white', width=3)),
+                          marker=dict(colors=[COLORS[k] for k in STATUS], line=dict(color=SURFACE, width=3)),
                           text=[percent(100*v/counts.sum()) if counts.sum() and 100*v/counts.sum() >= 5 else '' for v in counts.values],
-                          textinfo='text', textposition='inside', textfont=dict(size=13, color='white'), sort=False,
+                          textinfo='text', textposition='inside', textfont=dict(size=13, color=[SURFACE,SURFACE,TEXT_PRIMARY]), sort=False,
                           hovertemplate='%{label}<br>Registros: %{value:,.0f}<br>Participação no total: %{percent}<extra></extra>'))
     style(fig, 'Situação das metas', height=CHART_HEIGHT_STANDARD)
     fig.update_layout(legend=dict(x=.5,xanchor='center',y=-.04,yanchor='top'))
     return fig
 
 
-def ranking(summary, group, title, limit=27):
+def ranking(summary, group, title, limit=27, color=BLUE):
     table = summary.dropna(subset=['CUMPRIMENTO']).sort_values('CUMPRIMENTO', ascending=False).head(limit).sort_values('CUMPRIMENTO')
     fig = px.bar(table, x='CUMPRIMENTO', y=group, orientation='h',
                  custom_data=['ATINGIRAM', 'NAO_ATINGIRAM', 'AVALIADOS', 'SEM_INFORMACAO'] + (['DESCRICAO'] if 'DESCRICAO' in table else []),
-                 color_discrete_sequence=[BLUE])
+                 color_discrete_sequence=[color])
     fig.update_traces(text=[percent(v) for v in table.CUMPRIMENTO], textposition='outside', cliponaxis=False,
-                      textfont=dict(size=11, color='#244e62'), marker_cornerradius=4, hovertemplate=(
+                      textfont=dict(size=11, color=TEXT_PRIMARY), marker_cornerradius=4, hovertemplate=(
         '%{y}<br>Cumprimento: %{x:.1f}%<br>Atingiram: %{customdata[0]:,.0f}'
         '<br>Não atingiram: %{customdata[1]:,.0f}<br>Avaliados: %{customdata[2]:,.0f}'
         '<br>Sem informação: %{customdata[3]:,.0f}' + ('<br>%{customdata[4]}' if 'DESCRICAO' in table else '') + '<extra></extra>'))
@@ -89,7 +87,7 @@ def counts_history(summary):
     data = summary.rename(columns={'ATINGIRAM': 'Atingida', 'NAO_ATINGIRAM': 'Não atingida', 'SEM_INFORMACAO': 'Sem informação'})
     fig = px.bar(data, x='ANO', y=STATUS, color_discrete_map=COLORS, labels={'value': 'Registros', 'variable': 'Situação'}, barmode='stack')
     for trace in fig.data:
-        trace.update(text=[number(v) if v and len(summary) <= 10 else '' for v in trace.y], textposition='inside', textfont=dict(size=11),
+        trace.update(text=[number(v) if v and len(summary) <= 10 else '' for v in trace.y], textposition='inside', textfont=dict(size=11,color=TEXT_PRIMARY if trace.name == STATUS[2] else SURFACE),
                      hovertemplate='Ano: %{x}<br>Registros: %{y:,.0f}<extra>%{fullData.name}</extra>')
     fig.update_xaxes(title=None, dtick=1)
     return style(fig, 'Situação das metas ao longo do tempo')
@@ -102,7 +100,7 @@ def trajectory(frame):
                              hovertemplate='Ano: %{x}<br>Resultado: %{y:.2f}<br>Situação: %{customdata[0]}<extra></extra>'))
     if frame.META_NUMERICA.notna().any():
         fig.add_trace(go.Scatter(x=frame.ANO, y=frame.META_NUMERICA, mode='lines', name='Meta do ano',
-                                 line=dict(color='#CA785C', dash='dash'), hovertemplate='Ano: %{x}<br>Meta: %{y:.1f}%<extra></extra>'))
+                                 line=dict(color=SECONDARY, dash='dash'), hovertemplate='Ano: %{x}<br>Meta: %{y:.1f}%<extra></extra>'))
     add_line_labels(fig, '%' if frame.UNIDADE.iloc[0] == '%' else 'Original', max_points=12, ignore_names={'Meta do ano'})
     fig.update_xaxes(title=None, dtick=1)
     fig.update_yaxes(title='Resultado (%)' if frame.UNIDADE.iloc[0] == '%' else 'Resultado na escala original')
@@ -131,7 +129,7 @@ def add_line_labels(fig, unit='%', max_points=12, ignore_names=None):
 
 
 def coverage(summary):
-    fig = px.bar(summary, x='ANO', y='AVALIADOS', color_discrete_sequence=[BLUE])
+    fig = px.bar(summary, x='ANO', y='AVALIADOS', color_discrete_sequence=[SECONDARY])
     fig.update_traces(text=[number(v) for v in summary.AVALIADOS], textposition='outside', cliponaxis=False,
                       hovertemplate='Ano: %{x}<br>Municípios avaliados: %{y:,.0f}<extra></extra>')
     fig.update_xaxes(title=None, dtick=1)
@@ -157,16 +155,16 @@ def state_map(summary, geojson, year, indicator_label):
                number(r.NAO_ATINGIRAM), number(r.SEM_INFORMACAO), percent(r.CUMPRIMENTO)] for r in known.itertuples()]
     fig.add_trace(go.Choropleth(geojson=geojson, locations=known.UF, featureidkey='properties.UF',
         z=known.CUMPRIMENTO, zmin=0, zmax=100,
-        colorscale=[[0,'#B96750'],[.25,'#D7A18A'],[.5,'#EEE9DC'],[.75,'#7AB5AC'],[1,'#15796F']],
-        marker_line_color='#ffffff', marker_line_width=1, customdata=custom,
-        colorbar=dict(title='Cumprimento', orientation='h', x=.5, y=-.07, len=.78, thickness=10,
+        colorscale=MAP_SCALE,
+        marker_line_color=SURFACE, marker_line_width=1, customdata=custom,
+        colorbar=dict(title='% municípios que atingiram', orientation='h', x=.5, y=-.07, len=.78, thickness=10,
                       tickvals=[0,20,40,60,80,100], ticktext=['0%','20%','40%','60%','80%','100%']),
         hovertemplate='<b>%{customdata[0]}</b><br>Ano: %{customdata[1]}<br>Indicador: %{customdata[2]}<br>Municípios avaliados: %{customdata[3]}<br>Atingiram: %{customdata[4]}<br>Não atingiram: %{customdata[5]}<br>Sem informação: %{customdata[6]}<br>Cumprimento: %{customdata[7]}<extra></extra>'))
     unknown = data[data.CUMPRIMENTO.isna()]
     if len(unknown):
         fig.add_trace(go.Choropleth(geojson=geojson, locations=unknown.UF, featureidkey='properties.UF',
             z=[0]*len(unknown), colorscale=[[0,COLORS[STATUS[2]]],[1,COLORS[STATUS[2]]]], showscale=False,
-            marker_line_color='white', customdata=[[r.NOME_UF, str(year), indicator_label, number(r.AVALIADOS), number(r.ATINGIRAM), number(r.NAO_ATINGIRAM), number(r.SEM_INFORMACAO)] for r in unknown.itertuples()],
+            marker_line_color=SURFACE, customdata=[[r.NOME_UF, str(year), indicator_label, number(r.AVALIADOS), number(r.ATINGIRAM), number(r.NAO_ATINGIRAM), number(r.SEM_INFORMACAO)] for r in unknown.itertuples()],
             hovertemplate='<b>%{customdata[0]}</b><br>Ano: %{customdata[1]}<br>Indicador: %{customdata[2]}<br>Municípios avaliados: %{customdata[3]}<br>Atingiram: %{customdata[4]}<br>Não atingiram: %{customdata[5]}<br>Sem informação: %{customdata[6]}<br>Cumprimento: — (sem avaliação disponível)<extra></extra>'))
     return _map_layout(fig, geojson, f'UF-{year}-{indicator_label}')
 
@@ -183,7 +181,7 @@ def municipality_map(layer, geojson, year, indicator_label, rule):
                    'Observação presente' if r.TEM_OBSERVACAO else 'Sem observação neste recorte'] for r in rows.itertuples()]
         fig.add_trace(go.Choropleth(geojson=geojson, locations=rows.COD_MUN, featureidkey='properties.COD_MUN',
             z=[0]*len(rows), colorscale=[[0,COLORS[status]],[1,COLORS[status]]],
-            marker_line_color='white', marker_line_width=.45, showscale=False, name=status,
+            marker_line_color=SURFACE, marker_line_width=.45, showscale=False, name=status,
             customdata=custom,
             hovertemplate='<b>%{customdata[0]} · %{customdata[1]}</b><br>Código da base: %{customdata[2]}<br>Ano: %{customdata[3]}<br>Indicador: %{customdata[4]}<br>Resultado: %{customdata[5]}<br>Meta: %{customdata[6]}<br>Situação: %{customdata[7]}<br>%{customdata[8]}<extra></extra>'))
     return _map_layout(fig, geojson, f'MUN-{layer.UF.iloc[0]}-{year}-{indicator_label}')
@@ -223,7 +221,7 @@ def indicator_stack(summary, order='Maior não atingimento'):
         fig.add_trace(go.Bar(x=data[column],y=data.INDICADOR.astype(str).map(labels),orientation='h',name=name,
                              marker_color=COLORS[key],customdata=custom,hovertemplate=hover,
                              text=[percent(v) if v>=6 else '' for v in data[column]],textposition='inside',
-                             textfont=dict(size=11,color='#fff' if key!=STATUS[2] else '#18344A')))
+                             textfont=dict(size=11,color=SURFACE if key!=STATUS[2] else TEXT_PRIMARY)))
     style(fig,'Cumprimento das metas por indicador',height=max(410,min(850,125+len(data)*30)))
     fig.update_layout(barmode='stack',bargap=.2,legend=dict(y=-.1))
     fig.update_xaxes(title='Distribuição municipal por situação da meta',range=[0,100],ticksuffix='%')
@@ -246,7 +244,7 @@ def profile_bands(distribution):
 
 def indicator_comparison(local, national, uf):
     fig=go.Figure()
-    for data,name,color in [(national,'Brasil','#8299ad'),(local,uf,BLUE)]:
+    for data,name,color in [(national,'Brasil',NEUTRAL),(local,uf,BLUE)]:
         data=data.sort_values('INDICADOR')
         custom=[[escape(str(r.DESCRICAO)),number(r.AVALIADOS),percent(r.CUMPRIMENTO)] for r in data.itertuples()]
         fig.add_trace(go.Scatter(x=data.CUMPRIMENTO,y=data.INDICADOR.astype(str).str.removeprefix('IND_'),
@@ -270,7 +268,7 @@ def state_heatmap(territorial, definitions):
             line.append([escape(str(r.DESCRICAO)),number(r.AVALIADOS),number(r.ATINGIRAM),number(r.NAO_ATINGIRAM),number(r.SEM_INFORMACAO),percent(r.CUMPRIMENTO)] if r else ['Sem registro','—','—','—','—','—'])
         custom.append(line)
     fig=go.Figure(go.Heatmap(x=[str(x).removeprefix('IND_') for x in pivot.columns],y=pivot.index,z=pivot.values,
-                            zmin=0,zmax=100,colorscale=[[0,'#B96750'],[.5,'#EEE9DC'],[1,'#15796F']],
+                            zmin=0,zmax=100,colorscale=MAP_SCALE,
                             customdata=custom,hoverongaps=True,xgap=1,ygap=1,
                             colorbar=dict(title='Cumprimento municipal',orientation='h',thickness=10,len=.7,x=.5,y=-.13,
                                           tickvals=[0,25,50,75,100],ticktext=['0%','25%','50%','75%','100%']),
@@ -317,7 +315,7 @@ def temporal_heatmap(data, years):
                           number(r.NAO_ATINGIRAM),number(r.SEM_INFORMACAO),percent(r.CUMPRIMENTO)] if r else [str(year),'Sem avaliação desta série neste ano','—','—','—','—','—','—'])
         custom.append(cells)
     fig = go.Figure(go.Heatmap(x=[str(y) for y in years],y=[labels.loc[s] for s in pivot.index],z=pivot.values,
-                              zmin=0,zmax=100,colorscale=[[0,'#B96750'],[.5,'#EEE9DC'],[1,'#15796F']],
+                              zmin=0,zmax=100,colorscale=MAP_SCALE,
                               xgap=1,ygap=1,hoverongaps=True,customdata=custom,
                               colorbar=dict(title='Cumprimento municipal',orientation='h',x=.5,y=-.16,len=.7,thickness=10,
                                             tickvals=[0,25,50,75,100],ticktext=['0%','25%','50%','75%','100%']),
@@ -327,3 +325,25 @@ def temporal_heatmap(data, years):
     fig.update_xaxes(title='Ano',type='category',side='top')
     fig.update_yaxes(title=None,autorange='reversed',type='category')
     return fig
+
+
+def target_progress_map(layer, geojson, year, indicator_label, rule):
+    """Escala visual 0–100 comum; zero válido e ausência são traços distintos."""
+    fig = go.Figure()
+    for valid in [True, False]:
+        rows = layer.loc[layer.GRAU_VALIDO.eq(valid)]
+        if rows.empty:
+            continue
+        custom = [[r.NOME_EXIBICAO, r.UF, str(year), indicator_label,
+                   result(r.RES_EXIBICAO,r.UNIDADE), rule,
+                   ('≥100% (real: '+percent(r.GRAU_REAL)+')' if r.GRAU_REAL >= 100 else percent(r.GRAU_REAL)) if valid else 'Não disponível',
+                   str(r.SITUACAO_MAPA), '' if valid else r.GRAU_MOTIVO,
+                   'Observação presente' if r.TEM_OBSERVACAO else 'Sem observação neste recorte'] for r in rows.itertuples()]
+        fig.add_trace(go.Choropleth(geojson=geojson, locations=rows.COD_MUN,
+            featureidkey='properties.COD_MUN', z=rows.GRAU_VISUAL if valid else [0]*len(rows),
+            zmin=0,zmax=100,colorscale=MAP_SCALE if valid else [[0,COLORS[STATUS[2]]],[1,COLORS[STATUS[2]]]],
+            showscale=valid,marker_line_color=SURFACE,marker_line_width=.45,customdata=custom,
+            colorbar=dict(title='Grau de alcance da meta',orientation='h',x=.5,y=-.07,len=.85,thickness=10,
+                          tickvals=[0,25,50,75,100],ticktext=['0%','25%','50%','75%','100%']),
+            hovertemplate='<b>%{customdata[0]} · %{customdata[1]}</b><br>Ano: %{customdata[2]}<br>Indicador: %{customdata[3]}<br>Resultado: %{customdata[4]}<br>Meta: %{customdata[5]}<br>Grau de alcance: %{customdata[6]}<br>Situação da fonte: %{customdata[7]}<br>%{customdata[8]}<br>%{customdata[9]}<extra></extra>'))
+    return _map_layout(fig,geojson,f'GRAU-{year}-{indicator_label}')

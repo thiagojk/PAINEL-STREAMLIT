@@ -2,6 +2,7 @@
 import argparse
 import json
 import time
+import sys
 from pathlib import Path
 from playwright.sync_api import sync_playwright, expect
 
@@ -10,6 +11,8 @@ parser.add_argument('--url',default='http://127.0.0.1:8501/')
 parser.add_argument('--chromium',default='/usr/bin/chromium')
 args=parser.parse_args()
 ROOT=Path(__file__).resolve().parents[1]
+sys.path.insert(0,str(ROOT))
+from src.theme import COLORS
 OUT=ROOT/'docs/screenshots'
 errors=[]
 external=[]
@@ -96,7 +99,7 @@ with sync_playwright() as p:
     assert '150140' in tooltip and '2014' in tooltip and 'Meta:' in tooltip
     for graph in grid.locator('.js-plotly-plot').all():
         data=graph.evaluate('gd=>gd.data.map(t=>({name:t.name,color:t.colorscale[0][1]}))')
-        colors={'Atingida':'#14887D','Não atingida':'#CA785C','Sem informação':'#ACB9C8'}
+        colors=COLORS
         assert all(t['color']==colors[t['name']] for t in data)
     report['mapas'].append('Pará: cinco mapas municipais, cores categóricas constantes e tooltip de Belém verificados')
     page.mouse.move(1,500)

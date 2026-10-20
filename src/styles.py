@@ -1,11 +1,12 @@
 from html import escape
 import streamlit as st
 from src.data import ROOT
+from src.theme import css_variables
 from src.utils import number, percent, description_label
 
 
 def apply_styles():
-    st.html(f'<style>{(ROOT / "assets/style.css").read_text(encoding="utf-8")}</style>')
+    st.html(f'<style>{css_variables()}{(ROOT / "assets/style.css").read_text(encoding="utf-8")}</style>')
 
 
 def header(metadata):

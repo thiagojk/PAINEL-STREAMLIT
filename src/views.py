@@ -41,7 +41,7 @@ def table(frame, height=None):
         formatters[column] = lambda value, decimals=decimals, suffix=suffix: number(value, decimals) + (suffix if pd.notna(value) else '')
     styled = frame.style.format(formatters, na_rep='—')
     if 'Situação' in frame:
-        styled = styled.map(lambda value: 'color:#116c65;font-weight:600' if ('atingida' in str(value).lower() and 'não' not in str(value).lower()) else 'color:#a45037;font-weight:600' if 'não atingida' in str(value).lower() else 'color:#596d7e', subset=['Situação'])
+        styled = styled.map(lambda value: f'color:{charts.COLORS[STATUS[0]]};font-weight:600' if ('atingida' in str(value).lower() and 'não' not in str(value).lower()) else f'color:{charts.COLORS[STATUS[1]]};font-weight:600' if 'não atingida' in str(value).lower() else f'background-color:{charts.COLORS[STATUS[2]]};color:{charts.TEXT_PRIMARY}', subset=['Situação'])
     st.dataframe(styled, hide_index=True, width='stretch', height=height or 'auto', column_config={
         'Descrição': st.column_config.TextColumn('Descrição', width='large'),
         'Situação': st.column_config.TextColumn('Situação', width='medium'),
@@ -78,7 +78,7 @@ def overview(frame, whole, catalog, filters):
     summary['Rotulo'] = summary.INDICADOR.astype('string').str.replace('IND_', '', regex=False) + ' · ' + summary.DESCRICAO.str.replace(r'^Indicador \d+ [-–] ', '', regex=True).str.slice(0, 28) + '…'
     uf_chart, indicator_chart = charts.align_row_figures(
         charts.ranking(summarize(frame, ['UF']), 'UF', 'Cumprimento por UF · 10 maiores', 10),
-        charts.ranking(summary, 'Rotulo', 'Cumprimento por indicador', 15))
+        charts.ranking(summary, 'Rotulo', 'Cumprimento por indicador', 15, color=charts.SECONDARY))
     with st.container(key='overview_row_2'):
         a, b = st.columns(2, gap='small')
         with a, st.container(border=True, key='chartpanel_03', height='stretch'): plot(uf_chart)
@@ -285,6 +285,17 @@ def about(frame, whole, catalog, filters):
     st.info('A partir de 2018, a numeração de vários indicadores muda. O indicador 6 tem descrição de proporção e rótulo de meta “50 semanas” (também há conflito em 2013); essa inconsistência permanece sinalizada, sem correção presumida. Há valores extremos e denominadores zero na fonte, preservados para auditoria.')
     st.warning('Em 2013, o indicador 8 concentra 4.784 divergências: ALCANCE_META=1 e META=Não. A fonte não explica a divergência. Os dois campos e o sinalizador de conflito estão disponíveis na exportação.')
     st.caption(f'Conflitos entre flag e Sim/Não: {number(metadata["conflitos_meta"])}. Resultados numéricos ausentes: {number(metadata["resultados_ausentes"])}. Ausência de casos não foi reinterpretada como sucesso.')
+    st.subheader('Situação e grau de alcance da meta')
+    st.write('Situação da meta indica se a meta foi atingida segundo o registro do indicador/período: prioridade de ALCANCE_META e fallback Sim/Não. Grau de alcance é uma medida contínua complementar de proximidade, disponível apenas com transformação metodologicamente válida. Não substitui a situação oficial.')
+    st.write('Nos municípios com regra percentual crescente explícita e escala validada: grau real = 100 × resultado percentual ÷ meta positiva anual. O mapa limita a cor a 100%, preservando resultado, meta e grau real no tooltip. Numerador e denominador precisam sustentar o resultado; ausências, denominadores não positivos e inconsistências ficam cinza, sem imputar zero. Atingir 100% na razão não altera a classificação da fonte.')
+    st.write('Metas inversas, manutenção de zero, regras compostas, escalas não comprovadas e variações sem baseline identificado não recebem fórmula presumida. O mapa de UFs continua mostrando % dos municípios que atingiram a meta; não é grau estadual nem média dos graus municipais.')
+    st.write('O histórico conserva série conceitual, regras anuais e escala 0–100% compartilhada. Metas diferentes são informadas em cada tooltip; proximidade relativa não equivale a resultado absoluto constante. Transformações incompatíveis bloqueiam a comparação e anos sem suporte exibem indisponibilidade.')
+    with st.expander('Disponibilidade do grau de alcance por indicador e ano'):
+        from src.rules import load_versions
+        records = [r for v in load_versions() for r in v.get('progress_rules',[])]
+        table(pd.DataFrame([{'Ano':r['year'],'Indicador':r['number'],'Descrição':r['description'],'Meta':r['target_label'],'Disponível':'Sim' if r['supports_progress_map'] else 'Não','Justificativa':r['justification']} for r in records]))
+    st.subheader('Semântica das cores')
+    st.write('Azul petróleo e azul profundo estruturam a interface. Teal = meta atingida; terracota = meta não atingida; cinza = sem informação ou grau indisponível, conforme a legenda. Escalas sequenciais claras → escuras representam valores crescentes, sem oposição vermelho–verde. Séries temporais também usam marcadores e traçados distintos.')
     st.subheader('Análise geográfica')
     from src.geography import map_metadata
     geo = map_metadata()
@@ -312,6 +323,17 @@ def maps(frame, whole, catalog, filters):
     if entry.empty:
         empty_state('Este indicador não está disponível no ano selecionado.'); return
     row = entry.iloc[0]
+    mode = st.segmented_control('Visualização', ['Situação da meta','Grau de alcance (%)'],
+                                default='Situação da meta',selection_mode='single',required=True,wrap=True,key='map_mode')
+    progress = mode == 'Grau de alcance (%)'
+    st.caption('Situação informa se a meta foi atingida. Grau de alcance mede a proximidade numérica quando há transformação válida; a situação da fonte é preservada.')
+    from src.target_progress import progress_rule, progress_layer, progress_signature
+    rule = progress_rule(row)
+    available = bool(rule and rule['supports_progress_map'])
+    if progress and filters['uf'] == 'Todos':
+        st.info('Brasil / UFs: % dos municípios da UF que atingiram a meta. Não há resultado estadual validado para calcular grau de alcance estadual, nem média dos graus municipais. Escolha uma UF para consultar o grau individual dos municípios.')
+    elif progress and available:
+        st.caption('Municípios: 100 × resultado percentual ÷ meta positiva do ano; cor limitada a 100%, valor real no tooltip. 100% indica o limite numérico atingido; a situação oficial continua sendo a informada pela fonte. Cinza: grau indisponível, distinto de zero.')
     label = description_label(row)
     # Tooltips podem quebrar linhas, sem repetir descrições extensas no eixo.
     hover_label = '<br>'.join(escape(line) for line in textwrap.wrap(label, 55))
@@ -333,8 +355,16 @@ def maps(frame, whole, catalog, filters):
                 st.caption('Escala fixa de 0 a 100%. Cinza: UF sem avaliação disponível.')
             else:
                 layer = municipality_layer(frame, geometry)
-                plot(charts.municipality_map(layer, geometry, filters['year'], hover_label, str(row.LABEL_META)))
-                st.html('<div class="map-legend">' + ''.join(
+                if progress:
+                    if available:
+                        prepared = progress_layer(layer,row,progress_signature())
+                        plot(charts.target_progress_map(prepared,geometry,filters['year'],hover_label,str(row.LABEL_META)))
+                        st.caption(f'{number(prepared.GRAU_VALIDO.sum())} municípios com grau calculável; {number((~prepared.GRAU_VALIDO).sum())} sem grau válido (cinza). Situação da fonte não é recalculada.')
+                    else:
+                        empty_state('Grau percentual de alcance não disponível para este indicador.', 'Consulte a visualização “Situação da meta”. '+(rule or {}).get('justification','Regra não cadastrada.'))
+                else:
+                    plot(charts.municipality_map(layer, geometry, filters['year'], hover_label, str(row.LABEL_META)))
+                if not progress: st.html('<div class="map-legend">' + ''.join(
                     f'<span><i style="background:{charts.COLORS[status]}"></i>{text}</span>' for status, text in
                     zip(STATUS, ['✓ Meta atingida','✕ Meta não atingida','— Sem informação'])) + '</div>')
                 no_record = int((~layer.TEM_OBSERVACAO).sum())
@@ -349,8 +379,8 @@ def maps(frame, whole, catalog, filters):
         else:
             ranks = summarize(frame, ['NOME_MUN'])
             plot(charts.ranking(ranks, 'NOME_MUN', 'Municípios com maior cumprimento', 15))
-        st.caption('Ranking por cumprimento; empates não indicam diferença de desempenho. Resultados municipais não são promediados.')
-    territorial_history(catalog, filters)
+        st.caption('Ranking de situação da meta, independente do modo do mapa. Empates não indicam diferença de desempenho. Resultados municipais não são promediados.')
+    territorial_history(catalog, filters, progress=progress)
     note('Cumprimento = atingiram ÷ (atingiram + não atingiram). Sem informação fica fora do denominador. O mapa usa um único indicador e ano, preservando a prioridade de ALCANCE_META e os conflitos documentados.')
     metadata = map_metadata()
     report = metadata['correspondencia']
@@ -364,10 +394,14 @@ def maps(frame, whole, catalog, filters):
         if nationwide:
             table(state_summary(frame)[['UF','MUNICIPIOS','AVALIADOS','ATINGIRAM','NAO_ATINGIRAM','SEM_INFORMACAO','CUMPRIMENTO']])
         else:
-            table(detail_table(frame, catalog)[['COD_MUN','NOME_MUN','RES_EXIBICAO','UNIDADE','LABEL_META','SITUACAO']])
+            if progress and available:
+                prepared = progress_layer(municipality_layer(frame,geometry),row,progress_signature())
+                table(prepared[['NOME_EXIBICAO','GRAU_REAL','GRAU_VISUAL','GRAU_MOTIVO']].rename(columns={'NOME_EXIBICAO':'Município','GRAU_REAL':'Grau real (%)','GRAU_VISUAL':'Grau no mapa (%)','GRAU_MOTIVO':'Motivo de indisponibilidade'}))
+            else:
+                table(detail_table(frame, catalog)[['COD_MUN','NOME_MUN','RES_EXIBICAO','UNIDADE','LABEL_META','SITUACAO']])
 
 
-def territorial_history(catalog, filters):
+def territorial_history(catalog, filters, progress=False):
     from src.data import file_signature
     from src.territorial_history import prepare_history
     from src.geography import map_signature, load_geojson
@@ -385,10 +419,22 @@ def territorial_history(catalog, filters):
         geometry_signature = map_signature(None if nationwide else filters['uf'])
         geometry = load_geojson(geometry_signature)
         prepared = prepare_history(file_signature(), entry.SERIE, filters['uf'], tuple(years), geometry_signature)
-        if nationwide:
-            st.html('<div class="shared-scale"><b>Cumprimento das metas</b><div></div><span>0%</span><span>50%</span><span>100%</span></div>')
+        if nationwide or progress:
+            st.html('<div class="shared-scale"><b>' + ('% dos municípios que atingiram' if nationwide else 'Grau de alcance da meta') + '</b><div></div><span>0%</span><span>50%</span><span>100%</span></div>')
         else:
             st.html('<div class="map-legend">' + ''.join(f'<span><i style="background:{charts.COLORS[status]}"></i>{escape(status)}</span>' for status in STATUS) + '</div>')
+        from src.target_progress import progress_rule, progress_layer, progress_signature, continuous_compatibility
+        if progress and not nationwide:
+            entries = catalog.loc[catalog.SERIE.eq(entry.SERIE) & catalog.ANO.isin(years)]
+            compatible, reason = continuous_compatibility(entries)
+            if not compatible:
+                # Falta de suporte em um ano não oculta os demais; transformação
+                # incompatível entre anos suportados impede comparação conjunta.
+                supported = entries.loc[entries.apply(lambda r: bool((progress_rule(r) or {}).get('supports_progress_map')),axis=1)]
+                if not supported.empty and not continuous_compatibility(supported)[0]:
+                    st.warning(reason); return
+                st.info(reason)
+            st.caption('Escala compartilhada 0–100%; valores reais acima de 100% preservados no tooltip. Metas anuais podem mudar: compara-se proximidade relativa, não igualdade de resultados. Cinza: grau não calculável.')
         with st.container(key='map_history_grid'):
             columns = st.columns(len(prepared), gap='small')
             for column, item in zip(columns, prepared):
@@ -401,6 +447,13 @@ def territorial_history(catalog, filters):
                     label = '<br>'.join(escape(line) for line in textwrap.wrap(description_label(row),55))
                     if nationwide:
                         fig = charts.state_map(item['data'], geometry, item['year'], label)
+                    elif progress:
+                        rule = progress_rule(row)
+                        if not rule or not rule['supports_progress_map']:
+                            st.info('Grau percentual de alcance não disponível para este indicador. Consulte a visualização Situação da meta.')
+                            st.caption((rule or {}).get('justification','Regra não cadastrada.')); continue
+                        prepared_layer = progress_layer(item['data'],row,progress_signature())
+                        fig = charts.target_progress_map(prepared_layer,geometry,item['year'],label,str(row.LABEL_META))
                     else:
                         fig = charts.municipality_map(item['data'], geometry, item['year'], label, str(row.LABEL_META))
                     fig.update_traces(showscale=False)

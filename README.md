@@ -4,6 +4,44 @@ Painel de Indicadores e Metas do Programa de Qualificação das Ações de Vigil
 
 ![Visão geral do painel](docs/screenshots/visao-geral.png)
 
+## Tema institucional e dois modos geográficos
+
+A rodada atual preserva arquitetura, `app.py`, seis páginas, dados, filtros e análises anteriores. `src/theme.py` centraliza os tokens; CSS recebe variáveis de `css_variables()` e Plotly importa os mesmos valores. O tema nativo em `.streamlit/config.toml` e o ícone SVG precisam manter os valores estáticos correspondentes; não há dependência nova.
+
+| Papel | Antes | Agora |
+|---|---|---|
+| Primária | `#137C8B` / `#137b80` | `#176B78` |
+| Cabeçalho profundo | `#143d52` | `#123E52` |
+| Atingida | `#14887D` e variantes nos cards/tabelas | `#147D73` em todo o sistema |
+| Não atingida | `#CA785C` e variantes nos cards/tabelas | `#B45B44` em todo o sistema |
+| Sem informação | `#ACB9C8` | `#AFBAC4` |
+| Fundo / superfície | `#F3F6FA` / branco | `#F1F5F8` / `#FFFFFF` |
+| Escalas contínuas | terracota–bege–teal | sequencial clara–teal escuro |
+
+A harmonia usa tons próximos de azul petróleo e teal, ancorados por azul profundo. Terracota moderada contrasta com a situação positiva sem vermelho forte. Azuis, ocre e violeta diferenciam séries analíticas; não indicam falha ou sucesso. Rankings de uma grandeza usam uma só cor por gráfico. Na Visão Geral, UFs usam primária e indicadores azul secundário. Linha de meta usa referência azul tracejada, sem sugerir situação negativa.
+
+Tokens: `PRIMARY`, `PRIMARY_DARK`, `PRIMARY_LIGHT`, `SECONDARY`, `POSITIVE`, `NEGATIVE`, `NEUTRAL`, `TEXT_PRIMARY`, `TEXT_SECONDARY`, `BACKGROUND`, `SURFACE`, `BORDER`, `SHADOW`, `CHART_1…5`, `PALETTE`, `COLORS` e `MAP_SCALE`. Donut, barras de situação, cards, tabelas e mapas compartilham a semântica. Séries, cobertura, rankings, comparações e heatmaps receberam a paleta. A escala sequencial tem luminância monotonicamente decrescente, sem centro artificial nem arco-íris. Textos principais, secundários, primária e cores semânticas passam contraste 4,5:1 sobre branco; rótulos sobre cinza usam texto escuro. Legendas, ✓/✕/—, traçados e marcadores complementam a cor. Não se reivindica certificação integral de acessibilidade ou simulação clínica de todas as deficiências visuais.
+
+Em **Mapas**, `st.segmented_control` nativo e obrigatório alterna **Situação da meta** e **Grau de alcance (%)**, reutilizando a área existente, sem mapas duplicados. A troca mantém UF, ano, indicador e anos históricos. O modo inicial continua Situação. O botão Limpar filtros também restaura o modo.
+
+### Definição e limites do grau
+
+Nos municípios elegíveis, **grau real = 100 × resultado percentual / meta percentual positiva do ano**. A regra crescente precisa estar cadastrada explicitamente por ano, número, descrição, série, unidade e rótulo de meta, com limite numérico exato. Foram habilitadas **92 das 128 combinações indicador/ano**: proporções com regra `Meta >= x%`, escala validada pelo pipeline em NUM/DEN e sem alerta de unidade. O registro também exige resultado não negativo e finito, numerador não negativo, denominador positivo e finito e compatibilidade do resultado com `100 × NUM/DEN` (rtol 1,5%, atol 0,51 ponto percentual, para arredondamento da fonte). Ausência e inconsistência não viram zero.
+
+`src/target_progress.py` contém a função reutilizável `calculate_target_progress` (valor real, valor visual, validade e motivo), resolução do cadastro, compatibilidade temporal e cache da camada derivada. `indicator_rules/historical.json` acrescenta `progress_rules` separado de `indicators`: a versão histórica continua `source_only`; situação, aplicabilidade e incentivo não são ativados/recalculados. A referência de 2025 continua inativa. A transformação é **descritiva**, sustentada pelo catálogo fornecido, não uma nova medida oficial do Ministério da Saúde.
+
+Em **2021**, há suporte para **01, 02, 03, 04, 05, 07, 09, 10, 13 e 14**. Não há suporte para **06** (descrição de proporção versus meta em semanas), **08** (escala de ciclos não comprovada), **11** (razão/testes com escala original não validada) e **12** (aumento sem baseline temporal identificado). Os anos anteriores respeitam suas próprias definições e renumeração. A tabela de todas as combinações, tipos, fórmulas e justificativas está em [GRAU_ALCANCE_INDICADORES.md](docs/GRAU_ALCANCE_INDICADORES.md).
+
+Não há fórmula habilitada para metas decrescentes, manutenção de zero, redução/variação de baseline ou regras compostas sem componentes. O código retorna indisponibilidade em vez de inverter razões ou presumir baseline. Na fonte, a regra de aumento de testes de HIV não identifica o ano-base necessário; NUM/DEN não é presumido como comparação temporal. Contagens e razões em escala original também não recebem conversão automática. Em 2013, a meta de cobertura em quatro ciclos não é reduzida a um único percentual.
+
+**Cor limitada a 100%**, com grau real e resultado original no tooltip; ultrapassagem não distorce o mapa. 100% indica o limite numérico atingido; a situação oficial continua vindo de `ALCANCE_META` ou fallback Sim/Não, inclusive divergências. `META` nas observações contém muitas vezes Sim/Não, não o limite numérico: o alvo vem do catálogo anual. `RES` é preservado, `RES_EXIBICAO` aplica a escala já validada, NUM/DEN dá suporte numérico; nenhum deles substitui a flag oficial.
+
+**Brasil / UFs:** não há resultado estadual válido cadastrado. Os dois modos exibem explicitamente **% dos municípios da UF que atingiram a meta**, com aviso no modo Grau. Não é grau estadual nem média de graus municipais. Escolher uma UF disponibiliza o grau individual, quando suportado. O ranking ao lado continua sendo de situação da meta, com legenda própria; não ordena os municípios por proximidade.
+
+O histórico obedece ao seletor e à mesma `SERIE` conceitual. Todos os mapas contínuos usam `zmin=0`, `zmax=100` e a mesma `MAP_SCALE`, com uma legenda compartilhada. Anos sem suporte mostram estado indisponível; grupos de transformação incompatíveis bloqueiam comparação. Metas anuais podem mudar: compara-se proximidade relativa, sem afirmar constância de resultados absolutos. A malha estática e os limites de seis anos são preservados. Zero válido usa o tom mais claro da escala; grau indisponível é cinza, com motivo no tooltip. A cor cinza no modo Grau não implica situação oficial desconhecida.
+
+Cache: dados e agregações existentes são reutilizados; `progress_layer` guarda somente a camada derivada, com limite de 48 entradas e assinatura dos dados/regras. As geometrias permanecem no cache existente, sem duplicar GeoJSON nem downloads. Cadastro de regras é invalidado pela assinatura do arquivo. O histórico continua opcional e desligado inicialmente.
+
 ## O que está disponível
 
 Seis áreas: **Visão Geral**, **Estados**, **Mapas**, **Histórico**, **Dados** e **Sobre**. As páginas próprias de Municípios, Indicadores e Comparações foram removidas; a granularidade municipal, as definições anuais e as análises temporais permanecem em Mapas, Histórico e Dados. Filtros de ano, UF, município e indicador continuam dependentes. CSV e XLSX exportam somente o recorte filtrado; a tabela tem paginação.
@@ -283,3 +321,5 @@ A validação adicional de conceitos e evolução territorial pode ser repetida 
 A validação numérica de Estados pode ser repetida com `python scripts/validar_estados.py --url http://127.0.0.1:8501/ --chromium /caminho/do/chromium`. O relatório `docs/validacao_estados.json` registra nove recortes, três barras conferidas contra o Parquet e três células do heatmap.
 
 Para repetir a conferência de alinhamento, cards e novas análises: `python scripts/validar_refinamento.py --url http://127.0.0.1:8501/ --chromium /caminho/do/chromium`. O relatório fica em `docs/validacao_refinamento.json`.
+
+Para conferir o novo tema e os dois modos geográficos no ambiente de desenvolvimento (Chromium em `/usr/bin/chromium`, app local na porta 8501): `python scripts/validar_tema_mapas.py`. O relatório `docs/validacao_tema_mapas.json` inclui as seis páginas, seis larguras, trocas de modo, filtros, escala temporal, tooltips e ausência de deslocamento horizontal da área principal. `--width 390` permite repetir o diagnóstico móvel e grava relatório separado. A auditoria de fórmulas/cobertura/integridade pode ser repetida com `python scripts/auditar_grau_alcance.py`. A rodada atual tem **94 testes aprovados**, além de compileall, pip check e validações de navegador; detalhes em [docs/VALIDACAO.md](docs/VALIDACAO.md).

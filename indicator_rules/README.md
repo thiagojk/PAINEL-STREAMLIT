@@ -25,3 +25,9 @@ Qualquer ausência impede a classificação. O maior patamar estadual satisfeito
 `category_summary` também exige versão validada, ano correto e correspondência de indicador **e série**. Não há classificação por mera coincidência do número.
 
 Referência informada: Ministério da Saúde, Programa de Qualificação das Ações de Vigilância em Saúde — PQA-VS, cartilha com indicadores/metas aplicáveis a partir de 2025, Portaria GM/MS nº 6.878/2025. A referência atual não comprova a regra de incentivo de 2013–2021 nem fornece, nesta tarefa, um cadastro completo de aplicabilidade.
+
+## Proximidade complementar 2013–2021
+
+`progress_rules` é separado de `indicators`: não modifica os gates oficiais. Cada entrada anual fixa número, série, descrição, unidade, meta, direção, fórmula, suporte, grupo de comparação e justificativa. O cadastro atual habilita somente `GREATER_EQUAL` + `ratio_to_positive_target` para proporções percentuais sustentadas no catálogo e no pipeline. Não deriva suporte do número do indicador. Não modificar o status `source_only` para habilitar esta visualização.
+
+`src/target_progress.py` confere o cadastro e os dados do registro. O resultado é proximidade descritiva, com cap visual, e não avaliação oficial. Direções inversas, baseline, zero e composição continuam sem transformação habilitada. Tabela completa em `docs/GRAU_ALCANCE_INDICADORES.md`; auditoria reproduzível: `python scripts/auditar_grau_alcance.py`.
